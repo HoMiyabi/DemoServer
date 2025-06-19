@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KiraraNetworkServer", "KiraraNetworkServer\KiraraNetworkServer.csproj", "{7F87D2E7-092C-4E0C-B7D4-521DCDA951ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KiraraNetworkCommon", "KiraraNetworkCommon\KiraraNetworkCommon.csproj", "{F1F15123-2154-491D-8A96-8ABF52C08D7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZZZServer", "ZZZServer\ZZZServer.csproj", "{937A5048-C5D2-4FFB-9754-532904C85071}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7F87D2E7-092C-4E0C-B7D4-521DCDA951ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F87D2E7-092C-4E0C-B7D4-521DCDA951ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F87D2E7-092C-4E0C-B7D4-521DCDA951ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F87D2E7-092C-4E0C-B7D4-521DCDA951ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1F15123-2154-491D-8A96-8ABF52C08D7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1F15123-2154-491D-8A96-8ABF52C08D7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1F15123-2154-491D-8A96-8ABF52C08D7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1F15123-2154-491D-8A96-8ABF52C08D7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{937A5048-C5D2-4FFB-9754-532904C85071}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{937A5048-C5D2-4FFB-9754-532904C85071}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{937A5048-C5D2-4FFB-9754-532904C85071}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{937A5048-C5D2-4FFB-9754-532904C85071}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

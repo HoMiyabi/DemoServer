@@ -1,0 +1,198 @@
+[
+  {
+    "hit_id": 10100,
+    "dmg_mult": 0.718,
+    "daze_mult": 0.268,
+    "element": 1,
+    "comment": "Attack_Normal_01"
+  },
+  {
+    "hit_id": 10200,
+    "dmg_mult": 0.771,
+    "daze_mult": 0.483,
+    "element": 1,
+    "comment": "Attack_Normal_02"
+  },
+  {
+    "hit_id": 10300,
+    "dmg_mult": 2.592,
+    "daze_mult": 1.47,
+    "element": 1,
+    "comment": "Attack_Normal_03"
+  },
+  {
+    "hit_id": 10400,
+    "dmg_mult": 5.443,
+    "daze_mult": 3.078,
+    "element": 1,
+    "comment": "Attack_Normal_04"
+  },
+  {
+    "hit_id": 10500,
+    "dmg_mult": 7.472,
+    "daze_mult": 2.334,
+    "element": 1,
+    "comment": "Attack_Normal_04_Perfect"
+  },
+  {
+    "hit_id": 10600,
+    "dmg_mult": 1.295,
+    "daze_mult": 0.466,
+    "element": 1,
+    "comment": "Attack_Rush"
+  },
+  {
+    "hit_id": 10700,
+    "dmg_mult": 2.124,
+    "daze_mult": 1.536,
+    "element": 1,
+    "comment": "Attack_Special"
+  },
+  {
+    "hit_id": 10800,
+    "dmg_mult": 13.25,
+    "daze_mult": 7.884,
+    "element": 1,
+    "comment": "Attack_Ex_Special"
+  },
+  {
+    "hit_id": 10900,
+    "dmg_mult": 12.34,
+    "daze_mult": 2.358,
+    "element": 1,
+    "comment": "Attack_Chain"
+  },
+  {
+    "hit_id": 11000,
+    "dmg_mult": 34.39,
+    "daze_mult": 16.23,
+    "element": 1,
+    "comment": "Attack_Ultimate"
+  },
+  {
+    "hit_id": 20100,
+    "dmg_mult": 1.061,
+    "daze_mult": 0.27,
+    "element": 2,
+    "comment": "Attack_Normal_01"
+  },
+  {
+    "hit_id": 20200,
+    "dmg_mult": 1.092,
+    "daze_mult": 0.496,
+    "element": 2,
+    "comment": "Attack_Normal_02"
+  },
+  {
+    "hit_id": 20300,
+    "dmg_mult": 2.52,
+    "daze_mult": 1.102,
+    "element": 2,
+    "comment": "Attack_Normal_03"
+  },
+  {
+    "hit_id": 20400,
+    "dmg_mult": 6.507,
+    "daze_mult": 2.8,
+    "element": 2,
+    "comment": "Attack_Normal_04"
+  },
+  {
+    "hit_id": 20500,
+    "dmg_mult": 1.508,
+    "daze_mult": 1.148,
+    "element": 2,
+    "comment": "Attack_Rush"
+  },
+  {
+    "hit_id": 20600,
+    "dmg_mult": 1.006,
+    "daze_mult": 0.766,
+    "element": 2,
+    "comment": "Attack_Special"
+  },
+  {
+    "hit_id": 20700,
+    "dmg_mult": 12.89,
+    "daze_mult": 7.915,
+    "element": 2,
+    "comment": "Attack_Ex_Special"
+  },
+  {
+    "hit_id": 20800,
+    "dmg_mult": 12.075,
+    "daze_mult": 3.116,
+    "element": 2,
+    "comment": "Attack_Chain"
+  },
+  {
+    "hit_id": 20900,
+    "dmg_mult": 40.15,
+    "daze_mult": 4.15,
+    "element": 2,
+    "comment": "Attack_Ultimate"
+  },
+  {
+    "hit_id": 30100,
+    "dmg_mult": 1.997,
+    "daze_mult": 0.741,
+    "element": 3,
+    "comment": "Attack_Normal_01"
+  },
+  {
+    "hit_id": 30200,
+    "dmg_mult": 3.688,
+    "daze_mult": 1.353,
+    "element": 3,
+    "comment": "Attack_Normal_02"
+  },
+  {
+    "hit_id": 30300,
+    "dmg_mult": 9.934,
+    "daze_mult": 3.687,
+    "element": 3,
+    "comment": "Attack_Normal_03"
+  },
+  {
+    "hit_id": 30400,
+    "dmg_mult": 2.92,
+    "daze_mult": 1.184,
+    "element": 3,
+    "comment": "Attack_Rush"
+  },
+  {
+    "hit_id": 30500,
+    "dmg_mult": 1.011,
+    "daze_mult": 0.758,
+    "element": 3,
+    "comment": "Attack_Special"
+  },
+  {
+    "hit_id": 30600,
+    "dmg_mult": 7.545,
+    "daze_mult": 6.086,
+    "element": 3,
+    "comment": "Attack_Ex_Special"
+  },
+  {
+    "hit_id": 30700,
+    "dmg_mult": 11.066,
+    "daze_mult": 5.576,
+    "element": 3,
+    "comment": "Attack_Ex_Special_2"
+  },
+  {
+    "hit_id": 30800,
+    "dmg_mult": 15.899,
+    "daze_mult": 5.339,
+    "element": 3,
+    "comment": "Attack_Chain"
+  },
+  {
+    "hit_id": 30900,
+    "dmg_mult": 37.817,
+    "daze_mult": 2.787,
+    "element": 3,
+    "comment": "Attack_Ultimate"
+  }
+]

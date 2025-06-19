@@ -1,0 +1,33 @@
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using ZZZServer.Utils;
+
+namespace ZZZServer.MongoDocEntity;
+
+public class Role
+{
+    [BsonId, BsonRepresentation(BsonType.ObjectId)]
+    public string Id { get; set; }
+    public int Cid { get; set; }
+    public int Level { get; set; }
+    public int Exp { get; set; }
+    public string WeaponId { get; set; }
+    public List<string> DiscIds { get; set; }
+    public Float3 Pos { get; set; }
+    public Float3 Rot { get; set; }
+
+    public NRole Net()
+    {
+        return new NRole
+        {
+            Id = Id,
+            Cid = Cid,
+            Level = Level,
+            Exp = Exp,
+            WeaponId = WeaponId,
+            DiscIds = {DiscIds},
+            Pos = Pos.Net(),
+            Rot = Rot.Net()
+        };
+    }
+}

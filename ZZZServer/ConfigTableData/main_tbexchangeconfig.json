@@ -1,0 +1,93 @@
+[
+  {
+    "exchange_id": 1,
+    "from_config_id": 1,
+    "from_count": 100,
+    "to_config_id": 1,
+    "to_count": 1
+  },
+  {
+    "exchange_id": 2,
+    "from_config_id": 2,
+    "from_count": 150,
+    "to_config_id": 2,
+    "to_count": 2
+  },
+  {
+    "exchange_id": 3,
+    "from_config_id": 1,
+    "from_count": 225,
+    "to_config_id": 3,
+    "to_count": 3
+  },
+  {
+    "exchange_id": 4,
+    "from_config_id": 1,
+    "from_count": 338,
+    "to_config_id": 4,
+    "to_count": 4
+  },
+  {
+    "exchange_id": 5,
+    "from_config_id": 1,
+    "from_count": 506,
+    "to_config_id": 4,
+    "to_count": 5
+  },
+  {
+    "exchange_id": 6,
+    "from_config_id": 2,
+    "from_count": 759,
+    "to_config_id": 3,
+    "to_count": 6
+  },
+  {
+    "exchange_id": 7,
+    "from_config_id": 1,
+    "from_count": 1139,
+    "to_config_id": 2,
+    "to_count": 7
+  },
+  {
+    "exchange_id": 8,
+    "from_config_id": 1,
+    "from_count": 1708,
+    "to_config_id": 1,
+    "to_count": 8
+  },
+  {
+    "exchange_id": 9,
+    "from_config_id": 1,
+    "from_count": 2562,
+    "to_config_id": 1,
+    "to_count": 9
+  },
+  {
+    "exchange_id": 10,
+    "from_config_id": 2,
+    "from_count": 3844,
+    "to_config_id": 2,
+    "to_count": 10
+  },
+  {
+    "exchange_id": 11,
+    "from_config_id": 1,
+    "from_count": 5766,
+    "to_config_id": 3,
+    "to_count": 11
+  },
+  {
+    "exchange_id": 12,
+    "from_config_id": 1,
+    "from_count": 8649,
+    "to_config_id": 4,
+    "to_count": 12
+  },
+  {
+    "exchange_id": 13,
+    "from_config_id": 1,
+    "from_count": 12975,
+    "to_config_id": 4,
+    "to_count": 13
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "金币",
+    "icon_loc": "Golden Coin",
+    "desc": "黄黄的硬币"
+  },
+  {
+    "id": 2,
+    "name": "银币",
+    "icon_loc": "Silver Coin",
+    "desc": "亮亮的银币"
+  }
+]

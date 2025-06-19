@@ -1,0 +1,182 @@
+[
+  {
+    "quest_chain_config_id": 1,
+    "name": "初来乍到",
+    "rewords": [
+      {
+        "currency_cid": 1,
+        "count": 114
+      },
+      {
+        "currency_cid": 2,
+        "count": 1919
+      }
+    ],
+    "quests": [
+      {
+        "$type": "DialogueQuestConfig",
+        "quest_cid": 1,
+        "next_quest_cid": 2,
+        "name": "与前面的人对话",
+        "desc": "醒来发现自己身处哈基米星球，探索一下附近吧。",
+        "npc_overrides": [
+          {
+            "npc_cid": 1,
+            "name": "???",
+            "dialogue_cid": 2
+          }
+        ],
+        "complete_get_quest_chain_cid": 0,
+        "trunk_npc_cids": [
+          1
+        ],
+        "dialogue_cid": 2
+      },
+      {
+        "$type": "DefeatQuestConfig",
+        "quest_cid": 2,
+        "next_quest_cid": 3,
+        "name": "击败「小小哥布林」",
+        "desc": "帮帮大大守村人，击败怪物。",
+        "npc_overrides": [
+          {
+            "npc_cid": 1,
+            "dialogue_cid": 3
+          }
+        ],
+        "complete_get_quest_chain_cid": 0,
+        "trunk_npc_cids": [],
+        "count": 1,
+        "monster_cid": 1
+      },
+      {
+        "$type": "DialogueQuestConfig",
+        "quest_cid": 3,
+        "next_quest_cid": 0,
+        "name": "与大大守村人对话",
+        "desc": "问问发生了什么了。",
+        "npc_overrides": [
+          {
+            "npc_cid": 1,
+            "dialogue_cid": 4
+          }
+        ],
+        "complete_get_quest_chain_cid": 2,
+        "trunk_npc_cids": [
+          1
+        ],
+        "dialogue_cid": 4
+      }
+    ]
+  },
+  {
+    "quest_chain_config_id": 2,
+    "name": "逐渐理解一切",
+    "rewords": [
+      {
+        "currency_cid": 1,
+        "count": 514
+      },
+      {
+        "currency_cid": 2,
+        "count": 8100
+      }
+    ],
+    "quests": [
+      {
+        "$type": "DialogueQuestConfig",
+        "quest_cid": 1,
+        "next_quest_cid": 2,
+        "name": "与普普通通村长对话",
+        "desc": "你到底知不知道。",
+        "npc_overrides": [
+          {
+            "npc_cid": 1,
+            "dialogue_cid": 5
+          },
+          {
+            "npc_cid": 2,
+            "dialogue_cid": 6
+          }
+        ],
+        "complete_get_quest_chain_cid": 0,
+        "trunk_npc_cids": [
+          2
+        ],
+        "dialogue_cid": 6
+      },
+      {
+        "$type": "GatherQuestConfig",
+        "quest_cid": 2,
+        "next_quest_cid": 3,
+        "name": "收集材料15个",
+        "desc": "出门捡点材料。",
+        "npc_overrides": [],
+        "complete_get_quest_chain_cid": 0,
+        "trunk_npc_cids": [
+          3
+        ],
+        "count": 15,
+        "item_cid": 1
+      },
+      {
+        "$type": "UpgradeQuestConfig",
+        "quest_cid": 3,
+        "next_quest_cid": 4,
+        "name": "提升任意3个驱动盘到15级",
+        "desc": "狠狠提升数值！",
+        "npc_overrides": [],
+        "complete_get_quest_chain_cid": 0,
+        "trunk_npc_cids": [],
+        "count": 1,
+        "target_level": 15
+      },
+      {
+        "$type": "GotoQuestConfig",
+        "quest_cid": 4,
+        "next_quest_cid": 5,
+        "name": "前往废弃实验室",
+        "desc": "感觉要发生什么。",
+        "npc_overrides": [],
+        "complete_get_quest_chain_cid": 0,
+        "trunk_npc_cids": [],
+        "center": {
+          "x": 50,
+          "y": 1,
+          "z": 0
+        },
+        "radius": 10
+      },
+      {
+        "$type": "DefeatQuestConfig",
+        "quest_cid": 5,
+        "next_quest_cid": 6,
+        "name": "击败「反正很厉害的哥布林」",
+        "desc": "狠狠击败。",
+        "npc_overrides": [],
+        "complete_get_quest_chain_cid": 0,
+        "trunk_npc_cids": [],
+        "count": 1,
+        "monster_cid": 2
+      },
+      {
+        "$type": "DialogueQuestConfig",
+        "quest_cid": 6,
+        "next_quest_cid": 0,
+        "name": "与普普通通村长对话",
+        "desc": "回复村长。",
+        "npc_overrides": [
+          {
+            "npc_cid": 2,
+            "dialogue_cid": 7
+          }
+        ],
+        "complete_get_quest_chain_cid": 0,
+        "trunk_npc_cids": [
+          2
+        ],
+        "dialogue_cid": 7
+      }
+    ]
+  }
+]

@@ -1,0 +1,212 @@
+[
+  {
+    "attr_type": 100,
+    "show_name": "攻击力",
+    "show_pct": false
+  },
+  {
+    "attr_type": 101,
+    "show_name": "基础攻击力",
+    "show_pct": false
+  },
+  {
+    "attr_type": 102,
+    "show_name": "攻击力",
+    "show_pct": true
+  },
+  {
+    "attr_type": 103,
+    "show_name": "攻击力",
+    "show_pct": false
+  },
+  {
+    "attr_type": 200,
+    "show_name": "防御力",
+    "show_pct": false
+  },
+  {
+    "attr_type": 201,
+    "show_name": "基础防御力",
+    "show_pct": false
+  },
+  {
+    "attr_type": 202,
+    "show_name": "防御力",
+    "show_pct": true
+  },
+  {
+    "attr_type": 203,
+    "show_name": "防御力",
+    "show_pct": false
+  },
+  {
+    "attr_type": 300,
+    "show_name": "生命值",
+    "show_pct": false
+  },
+  {
+    "attr_type": 301,
+    "show_name": "基础生命值",
+    "show_pct": false
+  },
+  {
+    "attr_type": 302,
+    "show_name": "生命值",
+    "show_pct": true
+  },
+  {
+    "attr_type": 303,
+    "show_name": "生命值",
+    "show_pct": false
+  },
+  {
+    "attr_type": 400,
+    "show_name": "冲击力",
+    "show_pct": false
+  },
+  {
+    "attr_type": 401,
+    "show_name": "基础冲击力",
+    "show_pct": false
+  },
+  {
+    "attr_type": 402,
+    "show_name": "冲击力",
+    "show_pct": true
+  },
+  {
+    "attr_type": 403,
+    "show_name": "冲击力",
+    "show_pct": false
+  },
+  {
+    "attr_type": 500,
+    "show_name": "异常掌控",
+    "show_pct": false
+  },
+  {
+    "attr_type": 501,
+    "show_name": "基础异常掌控",
+    "show_pct": false
+  },
+  {
+    "attr_type": 502,
+    "show_name": "异常掌控",
+    "show_pct": true
+  },
+  {
+    "attr_type": 503,
+    "show_name": "异常掌控",
+    "show_pct": false
+  },
+  {
+    "attr_type": 600,
+    "show_name": "异常精通",
+    "show_pct": false
+  },
+  {
+    "attr_type": 601,
+    "show_name": "基础异常精通",
+    "show_pct": false
+  },
+  {
+    "attr_type": 602,
+    "show_name": "异常精通",
+    "show_pct": true
+  },
+  {
+    "attr_type": 603,
+    "show_name": "异常精通",
+    "show_pct": false
+  },
+  {
+    "attr_type": 700,
+    "show_name": "能量自动回复",
+    "show_pct": false
+  },
+  {
+    "attr_type": 701,
+    "show_name": "基础能量自动回复",
+    "show_pct": false
+  },
+  {
+    "attr_type": 702,
+    "show_name": "能量自动回复",
+    "show_pct": true
+  },
+  {
+    "attr_type": 703,
+    "show_name": "能量自动回复",
+    "show_pct": false
+  },
+  {
+    "attr_type": 800,
+    "show_name": "暴击率",
+    "show_pct": true
+  },
+  {
+    "attr_type": 900,
+    "show_name": "暴击伤害",
+    "show_pct": true
+  },
+  {
+    "attr_type": 1000,
+    "show_name": "穿透率",
+    "show_pct": true
+  },
+  {
+    "attr_type": 1100,
+    "show_name": "穿透值",
+    "show_pct": false
+  },
+  {
+    "attr_type": 1200,
+    "show_name": "增伤",
+    "show_pct": true
+  },
+  {
+    "attr_type": 1300,
+    "show_name": "能量获得效率",
+    "show_pct": true
+  },
+  {
+    "attr_type": 1400,
+    "show_name": "造成失衡值提升",
+    "show_pct": true
+  },
+  {
+    "attr_type": 1500,
+    "show_name": "当前生命值",
+    "show_pct": false
+  },
+  {
+    "attr_type": 1600,
+    "show_name": "当前能量值",
+    "show_pct": false
+  },
+  {
+    "attr_type": 1700,
+    "show_name": "无敌",
+    "show_pct": false
+  },
+  {
+    "attr_type": 1800,
+    "show_name": "当前失衡值",
+    "show_pct": false
+  },
+  {
+    "attr_type": 1900,
+    "show_name": "最大失衡值",
+    "show_pct": false
+  },
+  {
+    "attr_type": 2000,
+    "show_name": "失衡时间",
+    "show_pct": false
+  },
+  {
+    "attr_type": 2100,
+    "show_name": "失衡易伤倍率",
+    "show_pct": true
+  }
+]

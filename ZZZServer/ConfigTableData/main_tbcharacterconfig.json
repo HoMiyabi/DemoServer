@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Anby",
+    "max_segment": 4,
+    "icon_loc": "IconSticker0003",
+    "prefab_loc": "Anby",
+    "sim_prefab_loc": "Sim_Anby"
+  },
+  {
+    "id": 2,
+    "name": "Soldier11",
+    "max_segment": 4,
+    "icon_loc": "IconSticker0001",
+    "prefab_loc": "Soldier11",
+    "sim_prefab_loc": "Sim_Soldier11"
+  },
+  {
+    "id": 3,
+    "name": "Ellen",
+    "max_segment": 3,
+    "icon_loc": "IconSticker0002",
+    "prefab_loc": "Ellen",
+    "sim_prefab_loc": "Sim_Ellen"
+  }
+]

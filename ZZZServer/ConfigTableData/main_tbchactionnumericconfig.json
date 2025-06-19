@@ -1,0 +1,22 @@
+[
+  {
+    "action_id": 100,
+    "energy_cost": 60
+  },
+  {
+    "action_id": 101,
+    "energy_cost": 60
+  },
+  {
+    "action_id": 200,
+    "energy_cost": 80
+  },
+  {
+    "action_id": 300,
+    "energy_cost": 40
+  },
+  {
+    "action_id": 301,
+    "energy_cost": 40
+  }
+]

@@ -1,0 +1,160 @@
+[
+  {
+    "id": 1,
+    "name": "硫磺石",
+    "rank": "S",
+    "icon_loc": "Iron Sword",
+    "max_level_base_attr_type": 101,
+    "max_level_base_attr_value": 684,
+    "max_level_advanced_attr_type": 102,
+    "max_level_advanced_attr_value": 0.3,
+    "passive_abilities": [
+      {
+        "name": "硫磺石被动 能力1",
+        "trigger_on_add": false,
+        "event_names": [
+          "普通攻击命中",
+          "冲刺攻击命中",
+          "闪避反击命中"
+        ],
+        "trigger_interval": 0.5,
+        "effect": {
+          "name": "硫磺石被动 效果1",
+          "duration_policy": 2,
+          "duration": 8,
+          "stack_limit": 8,
+          "modifiers": [
+            {
+              "attr_type": 102,
+              "delta_value": 0.035
+            }
+          ]
+        }
+      }
+    ],
+    "passive_desc": "[普通攻击]、[冲刺攻击]或[闪避反击]命中敌人时,装备者的攻击力提升3.5%，最多加8层，持续8秒，0.5秒内最多触发一次，每层效果单独结算持续时间。",
+    "desc": "黑曜石营特制的暴力音擎，装载淬火部件并填充经以太技术二次转化的禁用级燃料，可凭高温打扫一切战场。小道消息称，设计者在和「11号」交流音擎制作思路时与其共进晚餐，一小时后决心把品尝超辣拉面时感受到的痛觉报复在每一个敌人身上。"
+  },
+  {
+    "id": 2,
+    "name": "德玛拉电池II型",
+    "rank": "A",
+    "icon_loc": "Axe",
+    "max_level_base_attr_type": 101,
+    "max_level_base_attr_value": 624,
+    "max_level_advanced_attr_type": 402,
+    "max_level_advanced_attr_value": 0.15,
+    "passive_abilities": [
+      {
+        "name": "德玛拉电池II型被动 能力1",
+        "trigger_on_add": false,
+        "event_names": [
+          "闪避反击命中",
+          "支援攻击命中"
+        ],
+        "trigger_interval": 0,
+        "effect": {
+          "name": "德玛拉电池II型被动 效果1",
+          "duration_policy": 2,
+          "duration": 8,
+          "stack_limit": 1,
+          "modifiers": [
+            {
+              "attr_type": 1300,
+              "delta_value": 0.18
+            }
+          ]
+        }
+      }
+    ],
+    "passive_desc": "[闪避反击]或[支援攻击]命中敌人时，装备的能量获得效率提升18%，持续8秒。",
+    "desc": "重视储能效率，在蓄电功能上做了特化处理的定制款的音擎核心。安比在此基础上又进一步扩大了电能输出的功率。从她每次保养时都异常严肃小心的举动来看，估计不\n是什么安全的改造方法。"
+  },
+  {
+    "id": 3,
+    "name": "星微引擎",
+    "rank": "A",
+    "icon_loc": "Shovel",
+    "max_level_base_attr_type": 101,
+    "max_level_base_attr_value": 594,
+    "max_level_advanced_attr_type": 102,
+    "max_level_advanced_attr_value": 0.25,
+    "passive_abilities": [
+      {
+        "name": "星微引擎被动 能力1",
+        "trigger_on_add": false,
+        "event_names": [
+          "发动闪避反击",
+          "发动快速支援"
+        ],
+        "trigger_interval": 0,
+        "effect": {
+          "name": "星微引擎被动  效果1",
+          "duration_policy": 2,
+          "duration": 12,
+          "stack_limit": 1,
+          "modifiers": [
+            {
+              "attr_type": 102,
+              "delta_value": 0.12
+            }
+          ]
+        }
+      }
+    ],
+    "passive_desc": "发动[闪避反击]或[快速支援]时，装备者的攻击力提升12%，持续12秒。",
+    "desc": "采用了特殊以太材料的输出型音擎，在受到冲击时可以缓慢积蓄能量，迅速提高自身的输出功率。虽然带着它并不能变身星徽骑士，但装备者在面临绝境时，心底总会涌现莫名的勇气。"
+  },
+  {
+    "id": 4,
+    "name": "霰落星殿",
+    "rank": "S",
+    "icon_loc": "Hammer",
+    "max_level_base_attr_type": 101,
+    "max_level_base_attr_value": 743,
+    "max_level_advanced_attr_type": 800,
+    "max_level_advanced_attr_value": 0.24,
+    "passive_abilities": [
+      {
+        "name": "霰落星殿被动 能力1",
+        "trigger_on_add": true,
+        "event_names": [],
+        "trigger_interval": 0,
+        "effect": {
+          "name": "霰落星殿被动 效果1",
+          "duration_policy": 1,
+          "duration": 0,
+          "stack_limit": 1,
+          "modifiers": [
+            {
+              "attr_type": 900,
+              "delta_value": 0.5
+            }
+          ]
+        }
+      },
+      {
+        "name": "霰落星殿被动 能力2",
+        "trigger_on_add": false,
+        "event_names": [
+          "发动强化特殊技"
+        ],
+        "trigger_interval": 0,
+        "effect": {
+          "name": "霰落星殿被动 效果2",
+          "duration_policy": 2,
+          "duration": 15,
+          "stack_limit": 2,
+          "modifiers": [
+            {
+              "attr_type": 1200,
+              "delta_value": 0.2
+            }
+          ]
+        }
+      }
+    ],
+    "passive_desc": "暴击伤害提升50%；发动[强化特殊技]或队伍中任意角色对敌人施加属性异常效果时，装备者造成的冰属性伤害提升20%，最多叠加2层，持续15秒，每层效果单独结算持续时间。",
+    "desc": "杀伐是无止息的。斩切，征讨，诅咒的宿命，躁动的妖力。唯有奔赴下一处战线的间隙，狐火得享在殿中短暂的休憩。\n还要跨过多少具尸首，付出多少次牺牲，直面多少回灾厄，才能抵达虚无的彼岸？\n她不需要答案。触及武的极致，血腥味便能在涌入鼻腔前冰封凝固；除尽恶的残滓，众生相自会在封存利刃后安睡入眠。\n霰粒落于殿前，将力量的主人唤醒。暴风雪就要来临。\n「我认为它会很适合用于修行..前提是我能变成和它同等的\n大小。」一一星见雅，端详着殿内的空间喃喃自语"
+  }
+]

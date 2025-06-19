@@ -1,0 +1,109 @@
+[
+  {
+    "cid": 1,
+    "optionsList": [
+      {
+        "sub_cid": 10001,
+        "options": [
+          {
+            "next_sub_cid": 4,
+            "content": "我是奶龙。",
+            "click_cmd": "",
+            "arg1": "",
+            "arg2": "",
+            "arg3": ""
+          },
+          {
+            "next_sub_cid": 5,
+            "content": "我是理塘丁真。",
+            "click_cmd": "",
+            "arg1": "",
+            "arg2": "",
+            "arg3": ""
+          },
+          {
+            "next_sub_cid": 1,
+            "content": "能再说一遍吗？",
+            "click_cmd": "",
+            "arg1": "",
+            "arg2": "",
+            "arg3": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "cid": 2,
+    "optionsList": [
+      {
+        "sub_cid": 10001,
+        "options": [
+          {
+            "next_sub_cid": 2,
+            "content": "你是谁?",
+            "click_cmd": "",
+            "arg1": "",
+            "arg2": "",
+            "arg3": ""
+          },
+          {
+            "next_sub_cid": 2,
+            "content": "你是？",
+            "click_cmd": "",
+            "arg1": "",
+            "arg2": "",
+            "arg3": ""
+          }
+        ]
+      },
+      {
+        "sub_cid": 10002,
+        "options": [
+          {
+            "next_sub_cid": -1,
+            "content": "好的。",
+            "click_cmd": "",
+            "arg1": "",
+            "arg2": "",
+            "arg3": ""
+          },
+          {
+            "next_sub_cid": -1,
+            "content": "不好。",
+            "click_cmd": "set",
+            "arg1": "failed",
+            "arg2": "1",
+            "arg3": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "cid": 4,
+    "optionsList": [
+      {
+        "sub_cid": 10001,
+        "options": [
+          {
+            "next_sub_cid": 2,
+            "content": "对的对的。",
+            "click_cmd": "",
+            "arg1": "",
+            "arg2": "",
+            "arg3": ""
+          },
+          {
+            "next_sub_cid": 2,
+            "content": "厉不厉害你鸡哥。",
+            "click_cmd": "",
+            "arg1": "",
+            "arg2": "",
+            "arg3": ""
+          }
+        ]
+      }
+    ]
+  }
+]

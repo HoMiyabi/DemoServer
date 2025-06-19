@@ -1,0 +1,237 @@
+[
+  {
+    "cid": 1,
+    "sentences": [
+      {
+        "sub_cid": 1,
+        "next_sub_cid": 0,
+        "name": "祥子",
+        "content": "你好！",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      },
+      {
+        "sub_cid": 2,
+        "next_sub_cid": 0,
+        "name": "祥子",
+        "content": "我叫祥子。",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      },
+      {
+        "sub_cid": 3,
+        "next_sub_cid": 10001,
+        "name": "祥子",
+        "content": "请问你是？",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      },
+      {
+        "sub_cid": 4,
+        "next_sub_cid": -1,
+        "name": "祥子",
+        "content": "我才是奶龙！",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      },
+      {
+        "sub_cid": 5,
+        "next_sub_cid": -1,
+        "name": "祥子",
+        "content": "大盐杆嘴里塞，我只抽第五代！抽再快也不坏，不用打火真畅快！",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      }
+    ]
+  },
+  {
+    "cid": 2,
+    "sentences": [
+      {
+        "sub_cid": 1,
+        "next_sub_cid": 10001,
+        "name": "???",
+        "content": "你好！",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      },
+      {
+        "sub_cid": 2,
+        "next_sub_cid": 10002,
+        "name": "大大守村人",
+        "content": "我是大大守村人。最近有怪物「小小哥布林」袭击。帮帮我们，我会告诉你更多。",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      }
+    ]
+  },
+  {
+    "cid": 3,
+    "sentences": [
+      {
+        "sub_cid": 1,
+        "next_sub_cid": -1,
+        "name": "大大守村人",
+        "content": "快去吧！",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      }
+    ]
+  },
+  {
+    "cid": 4,
+    "sentences": [
+      {
+        "sub_cid": 1,
+        "next_sub_cid": 10001,
+        "name": "大大守村人",
+        "content": "这么快就解决了？",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      },
+      {
+        "sub_cid": 2,
+        "next_sub_cid": 0,
+        "name": "大大守村人",
+        "content": "太厉害啦！",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      },
+      {
+        "sub_cid": 3,
+        "next_sub_cid": -1,
+        "name": "大大守村人",
+        "content": "这样，你找普普通通村长吧，他知道更多哦。",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      }
+    ]
+  },
+  {
+    "cid": 5,
+    "sentences": [
+      {
+        "sub_cid": 1,
+        "next_sub_cid": -1,
+        "name": "大大守村人",
+        "content": "我知道的就这么多，去找普普通通村长吧。",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      }
+    ]
+  },
+  {
+    "cid": 6,
+    "sentences": [
+      {
+        "sub_cid": 1,
+        "next_sub_cid": 0,
+        "name": "普普通通村长",
+        "content": "你好呀，圆鲨鲨。",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      },
+      {
+        "sub_cid": 2,
+        "next_sub_cid": 0,
+        "name": "普普通通村长",
+        "content": "对的对的，总之，去捡点材料吧。",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      },
+      {
+        "sub_cid": 3,
+        "next_sub_cid": -1,
+        "name": "普普通通村长",
+        "content": "拜拜。",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      }
+    ]
+  },
+  {
+    "cid": 7,
+    "sentences": [
+      {
+        "sub_cid": 1,
+        "next_sub_cid": 0,
+        "name": "普普通通村长",
+        "content": "我果然没看错！",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      },
+      {
+        "sub_cid": 2,
+        "next_sub_cid": -1,
+        "name": "普普通通村长",
+        "content": "你就是我们要找的勇者！",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      }
+    ]
+  },
+  {
+    "cid": 8,
+    "sentences": [
+      {
+        "sub_cid": 1,
+        "next_sub_cid": -1,
+        "name": "大大守村人",
+        "content": "晴天，只想舒舒服服晒晒太阳...",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      }
+    ]
+  },
+  {
+    "cid": 9,
+    "sentences": [
+      {
+        "sub_cid": 1,
+        "next_sub_cid": -1,
+        "name": "普普通通村长",
+        "content": "今天做点什么呢...",
+        "exit_cmd": "",
+        "arg1": "",
+        "arg2": "",
+        "arg3": ""
+      }
+    ]
+  }
+]
