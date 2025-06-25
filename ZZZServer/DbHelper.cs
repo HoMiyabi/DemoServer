@@ -1,18 +1,22 @@
 ﻿using MongoDB.Driver;
+using Tomlyn.Model;
+using ZZZServer.Model;
 
 namespace ZZZServer;
 
 public static class DbHelper
 {
-    private static string MongoConnectionString = "mongodb://localhost:27017";
-    private static string DatabaseName = "game";
-
     public static MongoClient Client { get; private set; }
     public static IMongoDatabase Database { get; private set; }
+    public static IMongoCollection<Player> Players => Database.GetCollection<Player>("player");
+    public static IMongoCollection<ChatMsgRecord> ChatMsgRecords => Database.GetCollection<ChatMsgRecord>("chat_msg_record");
 
     public static void Init()
     {
-        Client = new MongoClient(MongoConnectionString);
-        Database = Client.GetDatabase(DatabaseName);
+        string connectionString = ((TomlTable)Configuration.Config["Database"])["ConnectionString"] as string;
+        string databaseName = ((TomlTable)Configuration.Config["Database"])["DatabaseName"] as string;
+
+        Client = new MongoClient(connectionString);
+        Database = Client.GetDatabase(databaseName);
     }
 }

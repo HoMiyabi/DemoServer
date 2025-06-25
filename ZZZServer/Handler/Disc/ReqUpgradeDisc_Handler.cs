@@ -1,6 +1,5 @@
-﻿using ZZZServer.DbEntity;
-using Kirara.Network;
-using ZZZServer.MongoDocEntity;
+﻿using Kirara.Network;
+using ZZZServer.Model;
 using ZZZServer.Service;
 
 namespace ZZZServer.Handler;
@@ -23,7 +22,6 @@ public class ReqUpgradeDisc_Handler : RpcHandler<ReqUpgradeDisc, RspUpgradeDisc>
         int count = req.Count;
         int total = exp * count;
         DiscService.UpgradeDisc(disc, total);
-        db.Updateable(disc).ExecuteCommand();
-        rsp.SubAttrs.Add(disc.SubAttrs.Select(it => it.Net()));
+        rsp.SubAttrs.Add(disc.SubAttrs.Select(it => it.Net));
     }
 }

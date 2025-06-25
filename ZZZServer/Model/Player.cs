@@ -3,10 +3,18 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using ZZZServer.Service;
 
-namespace ZZZServer.MongoDocEntity;
+namespace ZZZServer.Model;
 
 public class Player
 {
+    [BsonIgnore]
+    public bool IsOnline { get; set; }
+
+    [BsonIgnore]
+    public Session Session { get; set; }
+    [BsonIgnore]
+    public Room Room { get; set; }
+
     [BsonId, BsonRepresentation(BsonType.ObjectId)]
     public string Uid { get; set; }
     public string Username { get; set; }
@@ -24,12 +32,7 @@ public class Player
     public List<string> TeamRoleIds { get; set; } // 队伍内角色
     public string FrontRoleId { get; set; } // 前台角色
 
-    [BsonIgnore]
-    public Session Session { get; set; }
-    [BsonIgnore]
-    public Room Room { get; set; }
-
-    public NPlayer Net()
+    public NPlayer N()
     {
         return new NPlayer
         {
@@ -42,10 +45,31 @@ public class Player
             Materials = {Materials.Select(it => it.Net())},
             Currencies = {Currencies.Select(it => it.Net())},
             Weapons = {Weapons.Select(it => it.Net())},
-            Discs = {Discs.Select(it => it.Net())},
-            Roles = {Roles.Select(it => it.Net())},
+            Discs = {Discs.Select(it => it.Net)},
+            Roles = {Roles.Select(it => it.NRole)},
             TeamRoleIds = {TeamRoleIds},
             FrontRoleId = FrontRoleId,
+        };
+    }
+
+    public NOtherPlayer NetOther()
+    {
+        return new NOtherPlayer
+        {
+            Uid = Uid,
+            Username = Username,
+            Signature = Signature,
+            AvatarCid = AvatarCid,
+            IsOnline = IsOnline
+        };
+    }
+
+    public NSyncPlayer NSync()
+    {
+        return new NSyncPlayer
+        {
+            Uid = Uid,
+            Roles = {Roles.Select(x => x.NSyncRole)},
         };
     }
 }

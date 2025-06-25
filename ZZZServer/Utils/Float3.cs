@@ -6,13 +6,18 @@ public class Float3
     public float Y { get; set; }
     public float Z { get; set; }
 
-    public NFloat3 Net()
+    public NFloat3 Net => new()
     {
-        return new NFloat3
-        {
-            X = X,
-            Y = Y,
-            Z = Z
-        };
+        X = X,
+        Y = Y,
+        Z = Z
+    };
+
+    public Float3 Set(NFloat3 v)
+    {
+        X = v.X;
+        Y = v.Y;
+        Z = v.Z;
+        return this;
     }
 }

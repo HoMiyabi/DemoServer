@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace ZZZServer.MongoDocEntity;
+namespace ZZZServer.Model;
 
 public class DiscItem
 {
@@ -19,19 +19,16 @@ public class DiscItem
     public DiscAttr MainAttr { get; set; }
     public List<DiscAttr> SubAttrs { get; set; }
 
-    public NDiscItem Net()
+    public NDiscItem Net => new()
     {
-        return new NDiscItem
-        {
-            Id = Id,
-            Cid = ConfigId,
-            Level = Level,
-            Exp = Exp,
-            WearerId = WearerId,
-            Locked = Locked,
-            Pos = Pos,
-            MainAttr = MainAttr.Net(),
-            SubAttrs = SubAttrs.Select(it => it.Net()).ToList()
-        };
-    }
+        Id = Id,
+        Cid = Cid,
+        Level = Level,
+        Exp = Exp,
+        RoleId = RoleId,
+        Locked = Locked,
+        Pos = Pos,
+        MainAttr = MainAttr.Net,
+        SubAttrs = {SubAttrs.Select(it => it.Net)}
+    };
 }

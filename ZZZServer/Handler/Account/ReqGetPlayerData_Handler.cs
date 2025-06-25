@@ -1,5 +1,5 @@
 ﻿using Kirara.Network;
-using ZZZServer.MongoDocEntity;
+using ZZZServer.Model;
 
 namespace ZZZServer.Handler.Account;
 
@@ -8,6 +8,6 @@ public class ReqGetPlayerData_Handler : RpcHandler<ReqGetPlayerData, RspGetPlaye
     protected override void Run(Session session, ReqGetPlayerData req, RspGetPlayerData rsp, Action reply)
     {
         var player = (Player)session.Data;
-        rsp.PlayerData = player.Net();
+        rsp.PlayerData = player.N();
     }
 }

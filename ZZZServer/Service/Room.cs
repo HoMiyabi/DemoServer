@@ -1,7 +1,6 @@
-﻿using Google.Protobuf;
-using Kirara.Network;
+﻿using Kirara.Network;
 using Serilog;
-using ZZZServer.MongoDocEntity;
+using ZZZServer.Model;
 using ZZZServer.SVEntity;
 
 namespace ZZZServer.Service;
@@ -20,38 +19,34 @@ public class Room
         this.id = id;
     }
 
+    public void Tick()
+    {
+
+    }
+
     public void AddPlayer(Player player)
     {
-        var session = player.Session;
-
-        // 更新自己的位置
-        var ntfSelf = new NotifyUpdateSelf()
+        // 新加入的玩家添加其他玩家
+        var notifyAdd = new NotifyAddSimulatedPlayers
         {
-            PosRot = new NPosRot()
-            {
-                Pos = new NFloat3().CopyPosFrom(player),
-                Rot = new NFloat3().CopyRotFrom(player)
-            }
+            Players = {players.Select(it => it.NSync())}
         };
-        session.Send(ntfSelf);
+        player.Session.Send(notifyAdd);
 
-        // 更新别人的位置
-        var ntfOthersEnter = new NotifyOthersEnterRoom();
-        ntfOthersEnter.PlayerInfos.Add(players.Select(it => it.dbPlayer.NRoomSimPlayerInfo()));
-        session.Send(ntfOthersEnter);
+        // 其他玩家添加新加入的玩家
+        notifyAdd = new NotifyAddSimulatedPlayers
+        {
+            Players = { }
+        };
 
-        // 将自己的位置发给别人
-        ntfOthersEnter = new NotifyOthersEnterRoom();
-        ntfOthersEnter.PlayerInfos.Add(player.NRoomSimPlayerInfo());
-
-        SendAllPlayers(ntfOthersEnter);
+        SendAllPlayersExcept(notifyAdd, player);
 
         players.Add(player);
         player.Room = this;
 
         Log.Debug($"房间{id}数量：{players.Count}");
 
-        session.OnDisconnected += () =>
+        player.Session.OnDisconnected += () =>
         {
             RemovePlayer(player);
         };
@@ -66,37 +61,41 @@ public class Room
         }
         Log.Debug($"房间{id}数量：{players.Count}");
 
-        var msg = new NotifyOtherLeaveRoom()
+        var msg = new NotifyRemoveSimulatedPlayers
         {
-            Uid = player.Uid
+            Uids = {player.Uid}
         };
 
-        SendAllPlayers(msg, player);
+        SendAllPlayersExcept(msg, player);
     }
 
-    public void PlayerChPlayAction(Player player, string actionName)
+    public void PlayerRolePlayAction(Player player, string roleId, string actionName)
     {
-        var msg = new NotifyOtherPlayAction()
+        var msg = new NotifyOtherRolePlayAction()
         {
             Uid = player.Uid,
+            RoleId = roleId,
             ActionName = actionName
         };
 
-        SendAllPlayers(msg, player);
+        SendAllPlayersExcept(msg, player);
     }
 
-    public void SyncEntityFromAutonomous(Player player, NPosRot posRot)
+    public void UpdateFromAutonomous(Player player, NSyncPlayer syncPlayer)
     {
-        player.CopyPosFrom(posRot.Pos);
-        player.CopyRotFrom(posRot.Rot);
-
-        var msg = new NotifyUpdateOther()
+        foreach (var syncRole in syncPlayer.Roles)
         {
-            Uid = player.Uid,
-            PosRot = posRot
+            var role = player.Roles.Find(x => x.Id == syncRole.Id);
+            role.Pos.Set(syncRole.PosRot.Pos);
+            role.Rot.Set(syncRole.PosRot.Rot);
+        }
+
+        var msg = new NotifyUpdateFromAuthority
+        {
+            Player = syncPlayer
         };
 
-        SendAllPlayers(msg, player);
+        SendAllPlayersExcept(msg, player);
     }
 
     public void SpawnMonster(int monsterCid, NPosRot posRot)
@@ -128,7 +127,7 @@ public class Room
             MonsterId = monsterId,
             Damage = damage,
         };
-        SendAllPlayers(msg, player);
+        SendAllPlayersExcept(msg, player);
 
         if (monster.hp <= 0f)
         {
@@ -141,17 +140,9 @@ public class Room
         }
     }
 
-    public void PlayerSwitchRole(Player player, string frontRoleId, bool next)
+    public void PlayerSwitchRole(Player player, string frontRoleId)
     {
         player.FrontRoleId = frontRoleId;
-
-        var msg = new NotifySwitchRole
-        {
-            Uid = player.Uid,
-            FrontRoleId = frontRoleId,
-            Next = next,
-        };
-        SendAllPlayers(msg, player);
     }
 
     public void SendAllPlayers(IMsg msg)
@@ -162,7 +153,7 @@ public class Room
         }
     }
 
-    public void SendAllPlayers(IMsg msg, Player except)
+    public void SendAllPlayersExcept(IMsg msg, Player except)
     {
         foreach (var player in players)
         {

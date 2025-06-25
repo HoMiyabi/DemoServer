@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using ZZZServer.Utils;
 
-namespace ZZZServer.MongoDocEntity;
+namespace ZZZServer.Model;
 
 public class Role
 {
@@ -16,18 +16,27 @@ public class Role
     public Float3 Pos { get; set; }
     public Float3 Rot { get; set; }
 
-    public NRole Net()
+    public NRole NRole => new()
     {
-        return new NRole
-        {
-            Id = Id,
-            Cid = Cid,
-            Level = Level,
-            Exp = Exp,
-            WeaponId = WeaponId,
-            DiscIds = {DiscIds},
-            Pos = Pos.Net(),
-            Rot = Rot.Net()
-        };
-    }
+        Id = Id,
+        Cid = Cid,
+        Level = Level,
+        Exp = Exp,
+        WeaponId = WeaponId,
+        DiscIds = {DiscIds},
+        Pos = Pos.Net,
+        Rot = Rot.Net
+    };
+
+    public NSyncRole NSyncRole => new()
+    {
+        Id = Id,
+        PosRot = NPosRot,
+    };
+
+    public NPosRot NPosRot => new()
+    {
+        Pos = Pos.Net,
+        Rot = Rot.Net
+    };
 }

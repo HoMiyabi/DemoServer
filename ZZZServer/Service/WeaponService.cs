@@ -1,13 +1,14 @@
-﻿using ZZZServer.MongoDocEntity;
+﻿using ZZZServer.Model;
 
 namespace ZZZServer.Service;
 
 public static class WeaponService
 {
-    public static WeaponItem GachaWeapon()
+    public static WeaponItem GachaWeapon(string id = null)
     {
         var weapon = new WeaponItem
         {
+            Id = id,
             Cid = Random.Shared.Next(1, 5),
             Level = Random.Shared.Next(1, 61),
             Exp = Random.Shared.Next(0, 100),

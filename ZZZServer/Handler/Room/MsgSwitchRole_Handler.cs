@@ -1,13 +1,13 @@
 ﻿using Kirara.Network;
-using ZZZServer.MongoDocEntity;
+using ZZZServer.Model;
 
 namespace ZZZServer.Handler;
 
 public class MsgSwitchRole_Handler : MsgHandler<MsgSwitchRole>
 {
-    protected override void Run(Session session, MsgSwitchRole message)
+    protected override void Run(Session session, MsgSwitchRole msg)
     {
         var player = (Player)session.Data;
-        player.Room?.PlayerSwitchRole(player, message.FrontRoleId, message.Next);
+        player.Room?.PlayerSwitchRole(player, msg.FrontRoleId);
     }
 }

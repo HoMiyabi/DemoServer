@@ -1,7 +1,6 @@
-﻿using ZZZServer.DbEntity;
-using Kirara.Network;
+﻿using Kirara.Network;
 using Microsoft.IdentityModel.Tokens;
-using ZZZServer.MongoDocEntity;
+using ZZZServer.Model;
 using ZZZServer.Service;
 
 namespace ZZZServer.Handler.Chat;
@@ -12,13 +11,19 @@ public class ReqSendChatMsg_Handler : RpcHandler<ReqSendChatMsg, RspSendChatMsg>
     {
         var player = (Player)session.Data;
 
-        var msg = req.ChatMsgItem;
-        if (!msg.Text.IsNullOrEmpty())
+        var msg = req.ChatMsg;
+        if (msg.MsgType == 0)
         {
             // 为文本消息
+            if (string.IsNullOrEmpty(msg.Text))
+            {
+                rsp.Result.Code = 1;
+                rsp.Result.Msg = "错误的发送内容";
+                return;
+            }
             msg.StickerCid = 0;
         }
-        else if (msg.StickerCid >= 1)
+        else if (msg.MsgType == 1)
         {
             // 为贴纸消息
             msg.Text = null;
@@ -26,7 +31,7 @@ public class ReqSendChatMsg_Handler : RpcHandler<ReqSendChatMsg, RspSendChatMsg>
         else
         {
             rsp.Result.Code = 1;
-            rsp.Result.Msg = "错误的发送内容";
+            rsp.Result.Msg = "错误的消息类型";
             return;
         }
 
@@ -45,33 +50,29 @@ public class ReqSendChatMsg_Handler : RpcHandler<ReqSendChatMsg, RspSendChatMsg>
 
         if (PlayerService.UidToPlayer.TryGetValue(receiverUid, out var receiver))
         {
-            receiver.Session.Send(new NotifyReceiveChatMsg
+            if (receiver.IsOnline)
             {
-                ChatMsgRecord = new NChatMsgRecord
+                receiver.Session.Send(new NotifyReceiveChatMsg
                 {
-                    SenderUid = senderUid,
-                    UnixTimeMs = unixTimeMs,
-                    ChatMsgItem = msg,
-                }
-            });
+                    ChatMsgRecord = new NChatMsgRecord
+                    {
+                        SenderUid = senderUid,
+                        UnixTimeMs = unixTimeMs,
+                        ChatMsg = msg,
+                    }
+                });
+            }
         }
 
-        int smallUId = senderUid;
-        int bigUId = receiverUId;
-        if (senderUid > receiverUId)
+        DbHelper.ChatMsgRecords.InsertOne(new ChatMsgRecord
         {
-            (smallUId, bigUId) = (bigUId, smallUId);
-        }
-
-        DbHelper.Db.CopyNew().Insertable(new ChatMsgRecord
-        {
-            SmallUId = smallUId,
-            BigUId = bigUId,
-            SenderUId = senderUid,
-            EpochMs = unixTimeMs,
+            SenderUid = senderUid,
+            ReceiverUid = receiverUid,
+            UnixTimeMs = unixTimeMs,
+            MsgType = msg.MsgType,
             Text = msg.Text,
-            StickerConfigId = msg.StickerConfigId
-        }).ExecuteCommand();
+            StickerCid = msg.StickerCid
+        });
 
         rsp.UnixTimeMs = unixTimeMs;
     }

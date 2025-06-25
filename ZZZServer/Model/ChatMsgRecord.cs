@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace ZZZServer.MongoDocEntity;
+namespace ZZZServer.Model;
 
 public class ChatMsgRecord
 {
@@ -13,4 +13,19 @@ public class ChatMsgRecord
     public int MsgType { get; set; }
     public string Text { get; set; }
     public int StickerCid { get; set; }
+
+    public NChatMsgRecord Net()
+    {
+        return new NChatMsgRecord
+        {
+            SenderUid = SenderUid,
+            UnixTimeMs = UnixTimeMs,
+            ChatMsg = new NChatMsg
+            {
+                MsgType = MsgType,
+                Text = Text,
+                StickerCid = StickerCid
+            }
+        };
+    }
 }

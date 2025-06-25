@@ -1,6 +1,7 @@
 ﻿using ZZZServer.Service;
 using Kirara.Network;
-using ZZZServer.MongoDocEntity;
+using MongoDB.Bson;
+using ZZZServer.Model;
 
 namespace ZZZServer.Handler;
 
@@ -23,15 +24,11 @@ public class ReqExchangeHandler : RpcHandler<ReqExchange, RspExchange>
 
         InventoryService.AddCurrencyCount(player, exConfig.FromConfigId, -cost);
 
-        var list = new List<DbWeapon>(req.ExchangeCount * exConfig.ToCount);
         for (int i = 0; i < req.ExchangeCount * exConfig.ToCount; i++)
         {
-            list.Add(WeaponService.GachaWeapon(player.UId));
+            player.Weapons.Add(WeaponService.GachaWeapon(ObjectId.GenerateNewId().ToString()));
         }
 
-        DbHelper.Db.CopyNew().Insertable(list).ExecuteCommand();
-
-        rsp.Result.Code = 0;
-        rsp.Result.Msg = "兑换成功";
+        // todo)) 获得提示
     }
 }

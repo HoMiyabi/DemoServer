@@ -1,5 +1,5 @@
 ﻿using Kirara.Network;
-using ZZZServer.MongoDocEntity;
+using ZZZServer.Model;
 using ZZZServer.Service;
 
 namespace ZZZServer.Handler;

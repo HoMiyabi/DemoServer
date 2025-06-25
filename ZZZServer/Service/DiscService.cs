@@ -1,4 +1,4 @@
-﻿using ZZZServer.MongoDocEntity;
+﻿using ZZZServer.Model;
 using ZZZServer.Utils;
 
 namespace ZZZServer.Service;
@@ -12,7 +12,7 @@ public static class DiscService
             Cid = Random.Shared.Next(1, ConfigMgr.tb.TbDiscConfig.DataList.Count + 1),
             Level = 0,
             Exp = 0,
-            RoleId = 0,
+            RoleId = null,
             Locked = Random.Shared.Next(0, 2) == 0,
             Pos = Random.Shared.Next(1, 7),
             MainAttr = null,
@@ -96,7 +96,7 @@ public static class DiscService
                 disc.Level++;
                 if (upgradeLevel.Contains(disc.Level))
                 {
-                    DiscService.UpgradeDiscSubEntry(disc);
+                    UpgradeDiscSubEntry(disc);
                 }
             }
             else

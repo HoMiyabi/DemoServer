@@ -1,5 +1,5 @@
 ﻿using Kirara.Network;
-using ZZZServer.MongoDocEntity;
+using ZZZServer.Model;
 
 namespace ZZZServer.Handler.Monster;
 

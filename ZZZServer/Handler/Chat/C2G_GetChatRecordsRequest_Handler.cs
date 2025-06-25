@@ -1,7 +1,6 @@
-﻿using ZZZServer.DbEntity;
-using Kirara.Network;
-using ZZZServer.MongoDocEntity;
-using ZZZServer.Service;
+﻿using Kirara.Network;
+using MongoDB.Driver;
+using ZZZServer.Model;
 
 namespace ZZZServer.Handler.Chat;
 
@@ -20,24 +19,19 @@ public class ReqGetChatRecords_Handler : RpcHandler<ReqGetChatRecords, RspGetCha
             return;
         }
 
-        var rawItems = DbHelper.Db.CopyNew()
-            .Queryable<ChatMsgRecord>()
-            .Where(x => x.SmallUId == smallUId && x.BigUId == bigUId)
-            .OrderBy(x => x.EpochMs)
+        var f1 = Builders<ChatMsgRecord>.Filter.Eq(x => x.SenderUid, player.Uid) &
+                     Builders<ChatMsgRecord>.Filter.Eq(x => x.ReceiverUid, friendUid);
+
+        var f2 = Builders<ChatMsgRecord>.Filter.Eq(x => x.SenderUid, friendUid) &
+                     Builders<ChatMsgRecord>.Filter.Eq(x => x.ReceiverUid, player.Uid);
+
+        var filter = f1 | f2;
+
+        var records = DbHelper.ChatMsgRecords
+            .Find(filter)
+            .SortBy(x => x.UnixTimeMs)
             .ToList();
 
-        var items = rawItems
-            .Select(it => new NChatMsgRecord
-        {
-            SenderUId = it.SenderUId,
-            EpochMs = it.EpochMs,
-            ChatMsgItem = new NChatMsgItem
-            {
-                Text = it.Text,
-                StickerConfigId = it.StickerConfigId
-            }
-        });
-
-        rsp.Result.ChatMsgRecordItems.Add(items);
+        rsp.ChatMsgRecords.AddRange(records.Select(it => it.Net()));
     }
 }

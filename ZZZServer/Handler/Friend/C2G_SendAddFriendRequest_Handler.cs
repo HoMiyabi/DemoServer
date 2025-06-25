@@ -1,5 +1,5 @@
 ﻿using Kirara.Network;
-using ZZZServer.MongoDocEntity;
+using ZZZServer.Model;
 using ZZZServer.Service;
 
 namespace ZZZServer.Handler.Friend;
@@ -35,7 +35,7 @@ public class ReqSendAddFriend_Handler : RpcHandler<ReqSendAddFriend, RspSendAddF
             return;
         }
 
-        var target = PlayerService.GetPlayer(targetUid, out bool isOnline);
+        var target = PlayerService.GetPlayerByUid(targetUid);
 
         // 对方不存在
         if (target == null)
@@ -49,14 +49,5 @@ public class ReqSendAddFriend_Handler : RpcHandler<ReqSendAddFriend, RspSendAddF
         {
             target.FriendUids.Add(player.Uid);
         }
-
-        //todo)) 保存数据库
-        if (fromDb)
-        {
-            PlayerService.Save(target);
-        }
-
-        rsp.Result.Code = 0;
-        rsp.Result.Msg = "发送好友请求成功";
     }
 }

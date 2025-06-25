@@ -2,7 +2,7 @@
 using Kirara.Network;
 using MongoDB.Driver;
 using Serilog;
-using ZZZServer.MongoDocEntity;
+using ZZZServer.Model;
 
 namespace ZZZServer;
 
@@ -10,30 +10,20 @@ internal static class Program
 {
     private static void Main()
     {
+        // 配置
+        Configuration.Init();
+
+        // 日志
         Log.Logger = new LoggerConfiguration()
             .WriteTo.Console()
             .WriteTo.File("Log/log.txt", rollingInterval: RollingInterval.Day)
             .MinimumLevel.Debug()
             .CreateLogger();
 
-        string connectionString = "mongodb://localhost:27017";
-        var client = new MongoClient(connectionString);
-        var db = client.GetDatabase("game");
-        var collection = db.GetCollection<Player>("player");
-        // var player = new Player()
-        // {
-        //     Username = "kirara",
-        //     Password = "123456"
-        // };
-        // collection.InsertOne(player);
-        var player = collection.Find(Builders<Player>.Filter.Eq(x => x.Username, "kirara")).First();
-        Log.Debug($"{player.Uid} {player.Username} {player.Password}");
-        player.Signature = "hello";
-        player.Weapons = [];
-        collection.ReplaceOne(Builders<Player>.Filter.Eq(x => x.Uid, player.Uid), player);
-
-
+        // 配置表
         ConfigMgr.Init();
+
+        // 数据库
         DbHelper.Init();
 
         KiraraNetwork.Init(new MsgMeta(), typeof(Program).Assembly);

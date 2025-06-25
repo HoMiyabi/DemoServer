@@ -1,5 +1,6 @@
 ﻿using Kirara.Network;
-using ZZZServer.MongoDocEntity;
+using ZZZServer.Model;
+using ZZZServer.Service;
 
 namespace ZZZServer.Handler.Account;
 
@@ -15,8 +16,7 @@ public class ReqSearchPlayer_Handler : RpcHandler<ReqSearchPlayer, RspSearchPlay
             return;
         }
 
-        var target = DbHelper.Db.CopyNew().Queryable<DbEntity.DbPlayer>()
-            .First(x => x.Username == req.Username);
+        var target = PlayerService.GetPlayerByUsername(req.Username);
         if (target == null)
         {
             rsp.Result.Code = 1;
@@ -26,11 +26,11 @@ public class ReqSearchPlayer_Handler : RpcHandler<ReqSearchPlayer, RspSearchPlay
 
         rsp.OtherPlayerInfos = new NOtherPlayer
         {
-            UId = target.UId,
+            Uid = target.Uid,
             Username = target.Username,
             Signature = target.Signature,
-            AvatarConfigId = target.AvatarConfigId,
-            IsOnline = false,
+            AvatarCid = target.AvatarCid,
+            IsOnline = target.IsOnline,
         };
         rsp.Result.Msg = "查询成功";
     }

@@ -1,5 +1,5 @@
 ﻿using Kirara.Network;
-using ZZZServer.MongoDocEntity;
+using ZZZServer.Model;
 using ZZZServer.Service;
 
 namespace ZZZServer.Handler.Friend;
@@ -16,18 +16,8 @@ public class ReqDeleteFriend_Handler : RpcHandler<ReqDeleteFriend, RspDeleteFrie
             rsp.Result.Msg = "不是你的好友";
             return;
         }
-        if (PlayerService.UidToPlayer.TryGetValue(friendUId, out var data))
-        {
-            data.dbPlayer.FriendUIds.Remove(player.UId);
-        }
-        else
-        {
-            var otherPlayer = DbHelper.Db.CopyNew().Queryable<DbPlayer>().InSingle(friendUId);
-            otherPlayer.FriendUIds.Remove(player.UId);
-            DbHelper.Db.CopyNew().Updateable(otherPlayer).ExecuteCommand();
-        }
 
-        rsp.Result.Code = 0;
-        rsp.Result.Msg = "删除好友成功";
+        var other = PlayerService.GetPlayerByUid(req.FriendUid);
+        other.FriendUids.Remove(player.Uid);
     }
 }

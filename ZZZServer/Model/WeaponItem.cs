@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace ZZZServer.MongoDocEntity;
+namespace ZZZServer.Model;
 
 public class WeaponItem
 {

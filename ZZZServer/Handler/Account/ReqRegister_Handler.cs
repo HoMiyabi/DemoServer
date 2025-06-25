@@ -1,6 +1,6 @@
 ﻿using Kirara.Network;
 using MongoDB.Driver;
-using ZZZServer.MongoDocEntity;
+using ZZZServer.Model;
 using ZZZServer.Service;
 
 namespace ZZZServer.Handler;

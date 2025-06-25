@@ -1,6 +1,6 @@
 ﻿using Kirara.Network;
 using MongoDB.Bson;
-using ZZZServer.MongoDocEntity;
+using ZZZServer.Model;
 using ZZZServer.Service;
 
 namespace ZZZServer.Handler;
@@ -16,7 +16,7 @@ public class MsgGachaDisc_Handler : MsgHandler<MsgGachaDisc>
         disc.Id = ObjectId.GenerateNewId().ToString();
 
         var notifyObtain = new NotifyObtainItems();
-        notifyObtain.DiscItems.Add(disc.Net());
+        notifyObtain.DiscItems.Add(disc.Net);
 
         session.Send(notifyObtain);
     }

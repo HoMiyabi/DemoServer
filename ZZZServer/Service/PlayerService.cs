@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using MongoDB.Driver;
-using ZZZServer.MongoDocEntity;
+using ZZZServer.Model;
 
 namespace ZZZServer.Service;
 
@@ -39,15 +39,25 @@ public static class PlayerService
             player, new ReplaceOptions() { IsUpsert = true});
     }
 
-    public static Player GetPlayer(string uid, out bool isOnline)
+    public static Player GetPlayerByUsername(string username)
     {
-        isOnline = UidToPlayer.TryGetValue(uid, out var player);
-        if (isOnline)
-        {
-            return player;
-        }
-        var db = DbHelper.Database;
-        var players = db.GetCollection<Player>("player");
-        return players.Find(Builders<Player>.Filter.Eq(x => x.Uid, uid)).FirstOrDefault();
+        var players = DbHelper.Players;
+        var player = players.Find(Builders<Player>.Filter.Eq(x => x.Username, username)).FirstOrDefault();
+
+        if (player == null) return null;
+
+        return UidToPlayer.GetOrAdd(player.Uid, player);
+    }
+
+    public static Player GetPlayerByUid(string uid)
+    {
+        if (UidToPlayer.TryGetValue(uid, out var player)) return player;
+
+        var players = DbHelper.Players;
+        player = players.Find(Builders<Player>.Filter.Eq(x => x.Uid, uid)).FirstOrDefault();
+
+        if (player == null) return null;
+
+        return UidToPlayer.GetOrAdd(uid, player);
     }
 }

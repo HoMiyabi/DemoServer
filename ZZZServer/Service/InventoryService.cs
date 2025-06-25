@@ -1,4 +1,4 @@
-﻿using ZZZServer.MongoDocEntity;
+﻿using ZZZServer.Model;
 
 namespace ZZZServer.Service;
 

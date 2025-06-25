@@ -1,7 +1,7 @@
 ﻿using Kirara.Network;
 using MongoDB.Driver;
 using Serilog;
-using ZZZServer.MongoDocEntity;
+using ZZZServer.Model;
 using ZZZServer.Service;
 
 namespace ZZZServer.Handler;

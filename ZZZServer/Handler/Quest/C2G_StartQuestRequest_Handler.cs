@@ -2,7 +2,7 @@
 
 using Kirara.Network;
 using Serilog;
-using ZZZServer.MongoDocEntity;
+using ZZZServer.Model;
 using ZZZServer.Service;
 
 namespace ZZZServer.Handler.Quest;

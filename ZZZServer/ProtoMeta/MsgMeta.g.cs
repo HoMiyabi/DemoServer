@@ -27,17 +27,16 @@ public class MsgMeta : IMsgMeta
             MsgCmdId.RspLogin => RspLogin.Parser,
             MsgCmdId.ReqGetPlayerData => ReqGetPlayerData.Parser,
             MsgCmdId.RspGetPlayerData => RspGetPlayerData.Parser,
-            MsgCmdId.NRoomSimPlayerInfo => NRoomSimPlayerInfo.Parser,
+            MsgCmdId.NSyncRole => NSyncRole.Parser,
+            MsgCmdId.NSyncPlayer => NSyncPlayer.Parser,
             MsgCmdId.MsgEnterRoom => MsgEnterRoom.Parser,
-            MsgCmdId.MsgUpdateSelf => MsgUpdateSelf.Parser,
-            MsgCmdId.NotifyUpdateSelf => NotifyUpdateSelf.Parser,
-            MsgCmdId.NotifyOthersEnterRoom => NotifyOthersEnterRoom.Parser,
-            MsgCmdId.NotifyOtherLeaveRoom => NotifyOtherLeaveRoom.Parser,
-            MsgCmdId.NotifyUpdateOther => NotifyUpdateOther.Parser,
-            MsgCmdId.MsgPlayAction => MsgPlayAction.Parser,
-            MsgCmdId.NotifyOtherPlayAction => NotifyOtherPlayAction.Parser,
+            MsgCmdId.MsgUpdateFromAutonomous => MsgUpdateFromAutonomous.Parser,
+            MsgCmdId.NotifyUpdateFromAuthority => NotifyUpdateFromAuthority.Parser,
+            MsgCmdId.NotifyAddSimulatedPlayers => NotifyAddSimulatedPlayers.Parser,
+            MsgCmdId.NotifyRemoveSimulatedPlayers => NotifyRemoveSimulatedPlayers.Parser,
+            MsgCmdId.MsgRolePlayAction => MsgRolePlayAction.Parser,
+            MsgCmdId.NotifyOtherRolePlayAction => NotifyOtherRolePlayAction.Parser,
             MsgCmdId.MsgSwitchRole => MsgSwitchRole.Parser,
-            MsgCmdId.NotifySwitchRole => NotifySwitchRole.Parser,
             MsgCmdId.ReqGetExchangeItems => ReqGetExchangeItems.Parser,
             MsgCmdId.RspGetExchangeItems => RspGetExchangeItems.Parser,
             MsgCmdId.NExchangeItem => NExchangeItem.Parser,
@@ -177,49 +176,45 @@ public partial class RspGetPlayerData : IRsp
 {
     public uint CmdId => MsgCmdId.RspGetPlayerData;
 }
-public partial class NRoomSimPlayerInfo : IMsg
+public partial class NSyncRole : IMsg
 {
-    public uint CmdId => MsgCmdId.NRoomSimPlayerInfo;
+    public uint CmdId => MsgCmdId.NSyncRole;
+}
+public partial class NSyncPlayer : IMsg
+{
+    public uint CmdId => MsgCmdId.NSyncPlayer;
 }
 public partial class MsgEnterRoom : IMsg
 {
     public uint CmdId => MsgCmdId.MsgEnterRoom;
 }
-public partial class MsgUpdateSelf : IMsg
+public partial class MsgUpdateFromAutonomous : IMsg
 {
-    public uint CmdId => MsgCmdId.MsgUpdateSelf;
+    public uint CmdId => MsgCmdId.MsgUpdateFromAutonomous;
 }
-public partial class NotifyUpdateSelf : IMsg
+public partial class NotifyUpdateFromAuthority : IMsg
 {
-    public uint CmdId => MsgCmdId.NotifyUpdateSelf;
+    public uint CmdId => MsgCmdId.NotifyUpdateFromAuthority;
 }
-public partial class NotifyOthersEnterRoom : IMsg
+public partial class NotifyAddSimulatedPlayers : IMsg
 {
-    public uint CmdId => MsgCmdId.NotifyOthersEnterRoom;
+    public uint CmdId => MsgCmdId.NotifyAddSimulatedPlayers;
 }
-public partial class NotifyOtherLeaveRoom : IMsg
+public partial class NotifyRemoveSimulatedPlayers : IMsg
 {
-    public uint CmdId => MsgCmdId.NotifyOtherLeaveRoom;
+    public uint CmdId => MsgCmdId.NotifyRemoveSimulatedPlayers;
 }
-public partial class NotifyUpdateOther : IMsg
+public partial class MsgRolePlayAction : IMsg
 {
-    public uint CmdId => MsgCmdId.NotifyUpdateOther;
+    public uint CmdId => MsgCmdId.MsgRolePlayAction;
 }
-public partial class MsgPlayAction : IMsg
+public partial class NotifyOtherRolePlayAction : IMsg
 {
-    public uint CmdId => MsgCmdId.MsgPlayAction;
-}
-public partial class NotifyOtherPlayAction : IMsg
-{
-    public uint CmdId => MsgCmdId.NotifyOtherPlayAction;
+    public uint CmdId => MsgCmdId.NotifyOtherRolePlayAction;
 }
 public partial class MsgSwitchRole : IMsg
 {
     public uint CmdId => MsgCmdId.MsgSwitchRole;
-}
-public partial class NotifySwitchRole : IMsg
-{
-    public uint CmdId => MsgCmdId.NotifySwitchRole;
 }
 public partial class ReqGetExchangeItems : IMsg
 {

@@ -26,6 +26,7 @@
       <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
       <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
       <PackageReference Include="SqlSugarCore" Version="5.1.4.195" />
+      <PackageReference Include="Tomlyn" Version="0.19.0" />
     </ItemGroup>
 
     <ItemGroup>
