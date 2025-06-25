@@ -91,7 +91,7 @@ namespace Kirara.Network
                         }
                         else
                         {
-                            MyLog.Debug($"没有处理方法，msgId:{cmdId}");
+                            MyLog.Debug($"没有处理方法，CmdId: {cmdId}");
                         }
                     }
                 }
