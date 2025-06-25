@@ -2,7 +2,7 @@
 
 public static class RandomExtensions
 {
-    public static T? RandomItem<T>(this List<T> array)
+    public static T RandomItem<T>(this List<T> array)
     {
         if (array.Count == 0)
         {

@@ -1,7 +1,8 @@
-﻿public interface IMsgMeta
-{
-    Google.Protobuf.MessageParser GetParser(uint cmdId);
-}
+﻿using System;
 
-// type => id
-// id => parser
+public interface IMsgMeta
+{
+    bool TryGetCmdId(Type type, out uint cmdId);
+    Google.Protobuf.MessageParser GetParser(uint cmdId);
+    bool IsRsp(uint cmdId);
+}

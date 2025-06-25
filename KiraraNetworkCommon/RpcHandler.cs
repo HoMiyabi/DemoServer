@@ -4,11 +4,11 @@ using Google.Protobuf;
 namespace Kirara.Network
 {
     public abstract class RpcHandler<TReq, TRsp> : IMsgHandler
-        where TReq : IMessage where TRsp : IRsp, new()
+        where TReq : IMessage where TRsp : IMessage, new()
     {
         public Type MsgType => typeof(TReq);
 
-        public void Handle(Session session, IMsg msg, uint rpcSeq)
+        public void Handle(Session session, IMessage msg, uint rpcSeq)
         {
             var rsp = new TRsp();
             bool isReply = false;

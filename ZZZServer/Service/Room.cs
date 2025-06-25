@@ -1,4 +1,5 @@
-﻿using Kirara.Network;
+﻿using Google.Protobuf;
+using Kirara.Network;
 using Serilog;
 using ZZZServer.Model;
 using ZZZServer.SVEntity;
@@ -145,7 +146,7 @@ public class Room
         player.FrontRoleId = frontRoleId;
     }
 
-    public void SendAllPlayers(IMsg msg)
+    public void SendAllPlayers(IMessage msg)
     {
         foreach (var player in players)
         {
@@ -153,7 +154,7 @@ public class Room
         }
     }
 
-    public void SendAllPlayersExcept(IMsg msg, Player except)
+    public void SendAllPlayersExcept(IMessage msg, Player except)
     {
         foreach (var player in players)
         {

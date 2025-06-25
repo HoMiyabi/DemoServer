@@ -3,11 +3,11 @@ using Google.Protobuf;
 
 namespace Kirara.Network
 {
-    public abstract class MsgHandler<TMsg> : IMsgHandler where TMsg : IMsg
+    public abstract class MsgHandler<TMsg> : IMsgHandler where TMsg : IMessage
     {
         public Type MsgType => typeof(TMsg);
 
-        public void Handle(Session session, IMsg msg, uint rpcSeq)
+        public void Handle(Session session, IMessage msg, uint rpcSeq)
         {
             try
             {

@@ -5,7 +5,6 @@ namespace Kirara.Network
 {
     public interface IMsgHandler
     {
-        Type MsgType { get; }
-        void Handle(Session session, IMsg msg, uint rpcSeq);
+        void Handle(Session session, IMessage msg, uint rpcSeq);
     }
 }

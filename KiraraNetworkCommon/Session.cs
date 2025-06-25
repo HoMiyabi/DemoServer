@@ -36,33 +36,42 @@ namespace Kirara.Network
             OnDisconnected?.Invoke();
         }
 
-        public void Call(IMsg msg, Action<IMessage> callback)
+        public void Call(IMessage msg, Action<IMessage> callback)
         {
-            Call(msg.CmdId, msg, callback);
+            Call(GetCmdId(msg), msg, callback);
         }
 
-        public void Call(uint cmdId, IMessage message, Action<IMessage> callback)
+        public void Call(uint cmdId, IMessage msg, Action<IMessage> callback)
         {
             uint seq = ++_rpcSeq;
             messageWorker.rspCallbacks[seq] = callback;
-            Send(cmdId, seq, message);
+            Send(cmdId, seq, msg);
         }
 
-        public void Send(IMsg msg)
+        public void Send(IMessage msg)
         {
-            Send(msg.CmdId, msg);
+            Send(GetCmdId(msg), msg);
         }
 
-        public void Send(uint msgId, uint rpcSeq, IMessage message)
+        public void Send(uint msgId, IMessage msg)
         {
-            byte[] sendBytes = MyProtocol.GetSendBytes(msgId, rpcSeq, message);
+            Send(msgId, 0, msg);
+        }
+
+        public void Send(uint msgId, uint rpcSeq, IMessage msg)
+        {
+            byte[] sendBytes = MyProtocol.GetSendBytes(msgId, rpcSeq, msg);
             // Log.Debug($"发送消息: msgId={msgId}");
             _socket.SendAsync(new ArraySegment<byte>(sendBytes), SocketFlags.None);
         }
 
-        private void Send(uint msgId, IMessage message)
+        private static uint GetCmdId(IMessage msg)
         {
-            Send(msgId, 0, message);
+            if (KiraraNetwork.MsgMeta.TryGetCmdId(msg.GetType(), out uint cmdId))
+            {
+                return cmdId;
+            }
+            throw new Exception($"{msg.GetType().FullName}找不到CmdId");
         }
 
         private async Task ReceiveEnsureAsync(int size)
@@ -102,7 +111,7 @@ namespace Kirara.Network
                         Close();
                         return;
                     }
-                    var msg = parser.ParseFrom(buffer.Dequeue(len)) as IMsg;
+                    var msg = parser.ParseFrom(buffer.Dequeue(len));
                     if (msg == null)
                     {
                         MyLog.Debug($"消息解析失败, cmdId: {cmdId}");

@@ -12,7 +12,7 @@ namespace Kirara.Network
         private static Dictionary<uint, IMsgHandler> handlers;
         public readonly Dictionary<uint, Action<IMessage>> rspCallbacks = new();
 
-        private readonly ConcurrentQueue<(Session session, uint msgId, uint rpcSeq, IMsg msg)> queue = new();
+        private readonly ConcurrentQueue<(Session session, uint cmdId, uint rpcSeq, IMessage msg)> queue = new();
         private bool isWorking;
 
         public static void Scan(Assembly assembly)
@@ -25,19 +25,20 @@ namespace Kirara.Network
             {
                 if (iMsgHandlerType.IsAssignableFrom(type) && !type.IsInterface && !type.IsAbstract)
                 {
-                    var obj = (IMsgHandler)Activator.CreateInstance(type);
-                    if (obj == null)
+                    var handler = (IMsgHandler)Activator.CreateInstance(type);
+                    if (handler == null)
                     {
                         throw new Exception($"{type.FullName}不能实例化");
                     }
-                    var msgType = obj.MsgType;
-                    var msgObj = (IMsg)Activator.CreateInstance(msgType);
-                    if (msgObj == null)
+                    var msgType = type.BaseType.GenericTypeArguments[0];
+                    if (KiraraNetwork.MsgMeta.TryGetCmdId(msgType, out uint cmdId))
                     {
-                        throw new Exception($"{msgType.FullName}不能实例化");
+                        handlers.Add(cmdId, handler);
                     }
-
-                    handlers.Add(msgObj.CmdId, obj);
+                    else
+                    {
+                        throw new Exception($"{type.FullName}找不到CmdId");
+                    }
                 }
             }
         }
@@ -59,7 +60,7 @@ namespace Kirara.Network
             isWorking = false;
         }
 
-        public void Enqueue(Session session, uint cmdId, uint rpcSeq, IMsg msg)
+        public void Enqueue(Session session, uint cmdId, uint rpcSeq, IMessage msg)
         {
             queue.Enqueue((session, cmdId, rpcSeq, msg));
         }
@@ -70,8 +71,8 @@ namespace Kirara.Network
             {
                 if (queue.TryDequeue(out var item))
                 {
-                    (var session, uint msgId, uint rpcSeq, var msg) = item;
-                    if (msg is IRsp rsp)
+                    (var session, uint cmdId, uint rpcSeq, var msg) = item;
+                    if (KiraraNetwork.MsgMeta.IsRsp(cmdId))
                     {
                         if (rspCallbacks.Remove(rpcSeq, out var callback))
                         {
@@ -79,18 +80,18 @@ namespace Kirara.Network
                         }
                         else
                         {
-                            MyLog.Debug($"RPC Callback not found. msgId:{msgId}, rpcSeq:{rpcSeq}");
+                            MyLog.Debug($"RPC回调未找到. CmdId: {cmdId}, RpcSeq: {rpcSeq}");
                         }
                     }
                     else
                     {
-                        if (handlers.TryGetValue(msgId, out var handler))
+                        if (handlers.TryGetValue(cmdId, out var handler))
                         {
                             handler.Handle(session, msg, rpcSeq);
                         }
                         else
                         {
-                            MyLog.Debug($"没有处理方法，msgId:{msgId}");
+                            MyLog.Debug($"没有处理方法，msgId:{cmdId}");
                         }
                     }
                 }
