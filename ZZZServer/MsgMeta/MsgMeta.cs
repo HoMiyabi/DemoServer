@@ -1,5 +1,6 @@
 ﻿public partial class MsgMeta : IMsgMeta
 {
+    public readonly MsgMetaData[] data;
     public readonly Dictionary<uint, MsgMetaData> cmdIdToData;
     public readonly Dictionary<Type, MsgMetaData> typeToData;
 
