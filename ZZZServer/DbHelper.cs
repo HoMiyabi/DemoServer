@@ -9,7 +9,7 @@ public static class DbHelper
     public static MongoClient Client { get; private set; }
     public static IMongoDatabase Database { get; private set; }
     public static IMongoCollection<Player> Players => Database.GetCollection<Player>("player");
-    public static IMongoCollection<ChatMsgRecord> ChatMsgRecords => Database.GetCollection<ChatMsgRecord>("chat_msg_record");
+    public static IMongoCollection<ChatMsg> ChatMsgs => Database.GetCollection<ChatMsg>("chat_msg");
 
     public static void Init()
     {

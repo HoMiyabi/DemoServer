@@ -1,5 +1,4 @@
 ﻿using Kirara.Network;
-using Microsoft.IdentityModel.Tokens;
 using ZZZServer.Model;
 using ZZZServer.Service;
 
@@ -35,7 +34,7 @@ public class ReqSendChatMsg_Handler : RpcHandler<ReqSendChatMsg, RspSendChatMsg>
             return;
         }
 
-        var receiverUid = req.ReceiverUid;
+        var receiverUid = msg.ReceiverUid;
         bool isFriend = player.FriendUids.Contains(receiverUid);
         if (!isFriend)
         {
@@ -47,6 +46,7 @@ public class ReqSendChatMsg_Handler : RpcHandler<ReqSendChatMsg, RspSendChatMsg>
         var senderUid = player.Uid;
 
         long unixTimeMs = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        msg.UnixTimeMs = unixTimeMs;
 
         if (PlayerService.UidToPlayer.TryGetValue(receiverUid, out var receiver))
         {
@@ -54,17 +54,12 @@ public class ReqSendChatMsg_Handler : RpcHandler<ReqSendChatMsg, RspSendChatMsg>
             {
                 receiver.Session.Send(new NotifyReceiveChatMsg
                 {
-                    ChatMsgRecord = new NChatMsgRecord
-                    {
-                        SenderUid = senderUid,
-                        UnixTimeMs = unixTimeMs,
-                        ChatMsg = msg,
-                    }
+                    ChatMsg = msg
                 });
             }
         }
 
-        DbHelper.ChatMsgRecords.InsertOne(new ChatMsgRecord
+        DbHelper.ChatMsgs.InsertOne(new ChatMsg
         {
             SenderUid = senderUid,
             ReceiverUid = receiverUid,

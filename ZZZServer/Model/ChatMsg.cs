@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace ZZZServer.Model;
 
-public class ChatMsgRecord
+public class ChatMsg
 {
     [BsonId, BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; }
@@ -14,18 +14,13 @@ public class ChatMsgRecord
     public string Text { get; set; }
     public int StickerCid { get; set; }
 
-    public NChatMsgRecord Net()
+    public NChatMsg Net => new()
     {
-        return new NChatMsgRecord
-        {
-            SenderUid = SenderUid,
-            UnixTimeMs = UnixTimeMs,
-            ChatMsg = new NChatMsg
-            {
-                MsgType = MsgType,
-                Text = Text,
-                StickerCid = StickerCid
-            }
-        };
-    }
+        SenderUid = SenderUid,
+        ReceiverUid = ReceiverUid,
+        UnixTimeMs = UnixTimeMs,
+        MsgType = MsgType,
+        Text = Text,
+        StickerCid = StickerCid
+    };
 }

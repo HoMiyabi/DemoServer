@@ -24,13 +24,13 @@ public class ReqSearchPlayer_Handler : RpcHandler<ReqSearchPlayer, RspSearchPlay
             return;
         }
 
-        rsp.OtherPlayerInfos = new NOtherPlayer
+        rsp.SocialPlayers = new NSocialPlayer
         {
             Uid = target.Uid,
             Username = target.Username,
             Signature = target.Signature,
             AvatarCid = target.AvatarCid,
-            IsOnline = target.IsOnline,
+            IsOnline = target.IsOnline
         };
         rsp.Result.Msg = "查询成功";
     }

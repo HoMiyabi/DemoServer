@@ -1,4 +1,4 @@
-﻿using Kirara.Network;
+﻿/*using Kirara.Network;
 using ZZZServer.Model;
 using ZZZServer.Service;
 
@@ -16,4 +16,4 @@ public class ReqGetFriendInfos_Handler : RpcHandler<ReqGetFriendInfos, RspGetFri
                 )
         );
     }
-}
+}*/

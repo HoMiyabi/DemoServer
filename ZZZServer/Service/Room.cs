@@ -30,14 +30,14 @@ public class Room
         // 新加入的玩家添加其他玩家
         var notifyAdd = new NotifyAddSimulatedPlayers
         {
-            Players = {players.Select(it => it.NSync())}
+            Players = {players.Select(it => it.NSim)}
         };
         player.Session.Send(notifyAdd);
 
         // 其他玩家添加新加入的玩家
         notifyAdd = new NotifyAddSimulatedPlayers
         {
-            Players = { }
+            Players = {player.NSim}
         };
 
         SendAllPlayersExcept(notifyAdd, player);

@@ -32,44 +32,59 @@ public class Player
     public List<string> TeamRoleIds { get; set; } // 队伍内角色
     public string FrontRoleId { get; set; } // 前台角色
 
-    public NPlayer N()
+    public NPlayer Net
     {
-        return new NPlayer
+        get
         {
-            Uid = Uid,
-            Username = Username,
-            AvatarCid = AvatarCid,
-            Signature = Signature,
-            FriendUids = {FriendUids},
-            FriendRequestUids = {FriendRequestUids},
-            Materials = {Materials.Select(it => it.Net())},
-            Currencies = {Currencies.Select(it => it.Net())},
-            Weapons = {Weapons.Select(it => it.Net())},
-            Discs = {Discs.Select(it => it.Net)},
-            Roles = {Roles.Select(it => it.NRole)},
-            TeamRoleIds = {TeamRoleIds},
-            FrontRoleId = FrontRoleId,
-        };
+            var player = new NPlayer
+            {
+                Uid = Uid,
+                Username = Username,
+                AvatarCid = AvatarCid,
+                Signature = Signature,
+                Materials = {Materials.Select(it => it.Net())},
+                Currencies = {Currencies.Select(it => it.Net())},
+                Weapons = {Weapons.Select(it => it.Net())},
+                Discs = {Discs.Select(it => it.Net)},
+                Roles = {Roles.Select(it => it.NRole)},
+                TeamRoleIds = {TeamRoleIds},
+                FrontRoleId = FrontRoleId,
+            };
+            foreach (var friendUid in FriendUids)
+            {
+                var p = PlayerService.GetPlayerByUid(friendUid);
+                var socialPlayer = p.NSocial;
+                socialPlayer.ChatMsgs.AddRange(ChatService.GetChatMsgs(Uid, p.Uid).Select(x => x.Net));
+                player.Friends.Add(socialPlayer);
+            }
+            foreach (var friendRequestUid in FriendRequestUids)
+            {
+                var p = PlayerService.GetPlayerByUid(friendRequestUid);
+                var socialPlayer = p.NSocial;
+                player.FriendRequests.Add(socialPlayer);
+            }
+            return player;
+        }
     }
 
-    public NOtherPlayer NetOther()
+    public NSocialPlayer NSocial => new()
     {
-        return new NOtherPlayer
-        {
-            Uid = Uid,
-            Username = Username,
-            Signature = Signature,
-            AvatarCid = AvatarCid,
-            IsOnline = IsOnline
-        };
-    }
+        Uid = Uid,
+        Username = Username,
+        Signature = Signature,
+        AvatarCid = AvatarCid,
+        IsOnline = IsOnline
+    };
 
-    public NSyncPlayer NSync()
+    public NSimPlayer NSim => new()
     {
-        return new NSyncPlayer
-        {
-            Uid = Uid,
-            Roles = {Roles.Select(x => x.NSyncRole)},
-        };
-    }
+        Uid = Uid,
+        Roles = {Roles.Select(x => x.NSim)}
+    };
+
+    public NSyncPlayer NSync => new()
+    {
+        Uid = Uid,
+        Roles = {Roles.Select(x => x.NSyncRole)},
+    };
 }

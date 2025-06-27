@@ -28,6 +28,13 @@ public class Role
         Rot = Rot.Net
     };
 
+    public NSimRole NSim => new()
+    {
+        Id = Id,
+        PosRot = NPosRot,
+        Cid = Cid
+    };
+
     public NSyncRole NSyncRole => new()
     {
         Id = Id,
