@@ -13,7 +13,7 @@ namespace Kirara.Network
         public DateTime _lastReceiveTime;
 
         public readonly Socket _socket;
-        private readonly NetMessageWorker messageWorker;
+        private readonly NetMsgProcessor msgProcessor;
 
         private readonly MyBuffer buffer = new(1024 * 1024);
 
@@ -21,10 +21,10 @@ namespace Kirara.Network
 
         public bool isClosed;
 
-        public Session(Socket socket, NetMessageWorker messageWorker)
+        public Session(Socket socket, NetMsgProcessor msgProcessor)
         {
             _socket = socket;
-            this.messageWorker = messageWorker;
+            this.msgProcessor = msgProcessor;
             _lastReceiveTime = DateTime.UtcNow;
         }
 
@@ -44,7 +44,7 @@ namespace Kirara.Network
         public void Call(uint cmdId, IMessage msg, Action<IMessage> callback)
         {
             uint seq = ++_rpcSeq;
-            messageWorker.rspCallbacks[seq] = callback;
+            KiraraNetwork.RpcCallbacks[seq] = callback;
             Send(cmdId, seq, msg);
         }
 
@@ -121,7 +121,7 @@ namespace Kirara.Network
                     // Log.Debug($"收到消息 CmdId: {cmdId}, RpcSeq: {rpcSeq}");
                     _lastReceiveTime = DateTime.UtcNow;
 
-                    messageWorker.Enqueue(this, cmdId, rpcSeq, msg);
+                    msgProcessor.Enqueue(this, cmdId, rpcSeq, msg);
 
                     buffer.ClearRead();
                 }

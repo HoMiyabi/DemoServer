@@ -10,7 +10,7 @@ namespace Kirara.Network
     public class Server
     {
         private readonly Socket socket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        private readonly NetMessageWorker messageWorker = new();
+        private readonly NetMsgProcessor msgProcessor = new();
         private bool _isRunning;
 
         public List<Session> sessions = new();
@@ -24,7 +24,7 @@ namespace Kirara.Network
             }
             _isRunning = true;
 
-            messageWorker.Start();
+            msgProcessor.Start();
 
             socket.Bind(endPoint);
             socket.Listen();
@@ -50,7 +50,7 @@ namespace Kirara.Network
 
         private void Stop()
         {
-            messageWorker.Stop();
+            msgProcessor.Stop();
             socket.Close();
         }
 
@@ -60,7 +60,7 @@ namespace Kirara.Network
             {
                 var client = await socket.AcceptAsync();
                 MyLog.Debug($"客户端{client.RemoteEndPoint}连接");
-                var session = new Session(client, messageWorker);
+                var session = new Session(client, msgProcessor);
                 _ = session.ReceiveAsync();
                 sessions.Add(session);
             }
