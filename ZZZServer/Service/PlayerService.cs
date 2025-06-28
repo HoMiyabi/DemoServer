@@ -6,11 +6,11 @@ namespace ZZZServer.Service;
 
 public static class PlayerService
 {
-    public static readonly ConcurrentDictionary<string, Player> UidToPlayer = new();
+    public static ConcurrentDictionary<string, Player> UidToPlayer { get; private set; } = new();
 
     public static Player CreatePlayer(string username, string password)
     {
-        return new Player
+        var p = new Player
         {
             Username = username,
             Password = password,
@@ -22,12 +22,19 @@ public static class PlayerService
             Currencies = [],
             Weapons = [],
             Discs = [],
-            Roles = [
+            Roles =
+            [
                 RoleService.CreateRole(1),
                 RoleService.CreateRole(2),
                 RoleService.CreateRole(3)
-            ]
+            ],
+            TeamRoleIds = [],
         };
+        p.TeamRoleIds.Add(p.Roles[0].Id);
+        p.TeamRoleIds.Add(p.Roles[1].Id);
+        p.TeamRoleIds.Add(p.Roles[2].Id);
+        p.FrontRoleId = p.Roles[0].Id;
+        return p;
     }
 
     public static void SavePlayer(Player player)

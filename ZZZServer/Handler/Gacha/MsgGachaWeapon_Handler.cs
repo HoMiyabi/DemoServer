@@ -12,7 +12,6 @@ public class MsgGachaWeapon_Handler : MsgHandler<MsgGachaWeapon>
         var player = (Player)session.Data;
 
         var weapon = WeaponService.GachaWeapon();
-        weapon.Id = ObjectId.GenerateNewId().ToString();
 
         var notifyObtain = new NotifyObtainItems();
         notifyObtain.WeaponItems.Add(weapon.Net());

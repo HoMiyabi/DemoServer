@@ -12,11 +12,10 @@ public class ReqModifyAvatar_Handler : RpcHandler<ReqModifyAvatar, RspModifyAvat
 
         if (req.AvatarCid < 1 || req.AvatarCid >= 10)
         {
-            rsp.Result.Code = 1;
-            rsp.Result.Msg = "头像ID不合法";
+            rsp.Result = new Result { Code = 1, Msg = "头像ID不合法" };
             return;
         }
         player.AvatarCid = req.AvatarCid;
-        rsp.Result.Msg = "修改成功";
+        rsp.Result = new Result { Code = 0, Msg = "修改成功" };
     }
 }

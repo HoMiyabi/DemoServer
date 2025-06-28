@@ -11,16 +11,14 @@ public class ReqSearchPlayer_Handler : RpcHandler<ReqSearchPlayer, RspSearchPlay
         var player = (Player)session.Data;
         if (req.Username == player.Username)
         {
-            rsp.Result.Code = 2;
-            rsp.Result.Msg = "不能添加自己";
+            rsp.Result = new Result { Code = 2, Msg = "不能添加自己" };
             return;
         }
 
         var target = PlayerService.GetPlayerByUsername(req.Username);
         if (target == null)
         {
-            rsp.Result.Code = 1;
-            rsp.Result.Msg = "找不到";
+            rsp.Result = new Result { Code = 1, Msg = "找不到" };
             return;
         }
 
@@ -32,6 +30,6 @@ public class ReqSearchPlayer_Handler : RpcHandler<ReqSearchPlayer, RspSearchPlay
             AvatarCid = target.AvatarCid,
             IsOnline = target.IsOnline
         };
-        rsp.Result.Msg = "查询成功";
+        rsp.Result = new Result { Code = 0, Msg = "查询成功" };
     }
 }

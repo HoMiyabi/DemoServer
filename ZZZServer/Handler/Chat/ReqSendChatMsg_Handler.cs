@@ -16,8 +16,7 @@ public class ReqSendChatMsg_Handler : RpcHandler<ReqSendChatMsg, RspSendChatMsg>
             // 为文本消息
             if (string.IsNullOrEmpty(msg.Text))
             {
-                rsp.Result.Code = 1;
-                rsp.Result.Msg = "错误的发送内容";
+                rsp.Result = new Result { Code = 1, Msg = "错误的发送内容" };
                 return;
             }
             msg.StickerCid = 0;
@@ -29,8 +28,7 @@ public class ReqSendChatMsg_Handler : RpcHandler<ReqSendChatMsg, RspSendChatMsg>
         }
         else
         {
-            rsp.Result.Code = 1;
-            rsp.Result.Msg = "错误的消息类型";
+            rsp.Result = new Result { Code = 1, Msg = "错误的消息类型" };
             return;
         }
 
@@ -38,8 +36,7 @@ public class ReqSendChatMsg_Handler : RpcHandler<ReqSendChatMsg, RspSendChatMsg>
         bool isFriend = player.FriendUids.Contains(receiverUid);
         if (!isFriend)
         {
-            rsp.Result.Code = 2;
-            rsp.Result.Msg = "对方不是你的好友";
+            rsp.Result = new Result { Code = 2, Msg = "对方不是你的好友" };
             return;
         }
 

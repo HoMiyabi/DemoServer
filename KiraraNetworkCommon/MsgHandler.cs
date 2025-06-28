@@ -5,8 +5,6 @@ namespace Kirara.Network
 {
     public abstract class MsgHandler<TMsg> : IMsgHandler where TMsg : IMessage
     {
-        public Type MsgType => typeof(TMsg);
-
         public void Handle(Session session, IMessage msg, uint rpcSeq)
         {
             try

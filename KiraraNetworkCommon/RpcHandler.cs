@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Google.Protobuf;
 
 namespace Kirara.Network
@@ -6,8 +7,6 @@ namespace Kirara.Network
     public abstract class RpcHandler<TReq, TRsp> : IMsgHandler
         where TReq : IMessage where TRsp : IMessage, new()
     {
-        public Type MsgType => typeof(TReq);
-
         public void Handle(Session session, IMessage msg, uint rpcSeq)
         {
             var rsp = new TRsp();
@@ -18,7 +17,12 @@ namespace Kirara.Network
                 if (isReply) return;
                 isReply = true;
 
-                session.Send(rsp);
+                if (!KiraraNetwork.MsgMeta.TryGetCmdId(typeof(TRsp), out uint cmdId))
+                {
+                    MyLog.Error($"消息类型{typeof(TRsp)}没有找到CmdId");
+                    return;
+                }
+                session.Send(cmdId, rpcSeq, rsp);
             }
 
             try

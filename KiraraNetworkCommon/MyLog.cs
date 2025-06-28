@@ -11,6 +11,15 @@
 #endif
         }
 
+        public static void Warning(string text)
+        {
+#if UNITY_5_3_OR_NEWER
+            UnityEngine.Debug.LogWarning(text);
+#else
+            Serilog.Log.Warning(text);
+#endif
+        }
+
         public static void Error(string text)
         {
 #if UNITY_5_3_OR_NEWER

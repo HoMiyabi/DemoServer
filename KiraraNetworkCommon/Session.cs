@@ -61,7 +61,7 @@ namespace Kirara.Network
         public void Send(uint cmdId, uint rpcSeq, IMessage msg)
         {
             byte[] sendBytes = MyProtocol.GetSendBytes(cmdId, rpcSeq, msg);
-            // Log.Debug($"发送消息: CmdId: {cmdId}");
+            // MyLog.Debug($"发送消息: CmdId: {cmdId}, RpcSeq: {rpcSeq}");
             _socket.SendAsync(new ArraySegment<byte>(sendBytes), SocketFlags.None);
         }
 
@@ -118,7 +118,8 @@ namespace Kirara.Network
                         Close();
                         return;
                     }
-                    // Log.Debug($"收到消息 CmdId: {cmdId}, RpcSeq: {rpcSeq}");
+
+                    // MyLog.Debug($"收到消息 CmdId: {cmdId}, RpcSeq: {rpcSeq}");
                     _lastReceiveTime = DateTime.UtcNow;
 
                     msgProcessor.Enqueue(this, cmdId, rpcSeq, msg);

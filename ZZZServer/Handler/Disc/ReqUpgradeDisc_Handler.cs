@@ -12,8 +12,7 @@ public class ReqUpgradeDisc_Handler : RpcHandler<ReqUpgradeDisc, RspUpgradeDisc>
         var disc = player.Discs.Find(it => it.Id == req.DiscId);
         if (disc == null)
         {
-            rsp.Result.Code = 1;
-            rsp.Result.Msg = "驱动盘不存在";
+            rsp.Result = new Result { Code = 1, Msg = "驱动盘不存在" };
             return;
         }
 

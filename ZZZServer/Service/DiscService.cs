@@ -1,4 +1,5 @@
-﻿using ZZZServer.Model;
+﻿using MongoDB.Bson;
+using ZZZServer.Model;
 using ZZZServer.Utils;
 
 namespace ZZZServer.Service;
@@ -9,10 +10,11 @@ public static class DiscService
     {
         var disc = new DiscItem
         {
+            Id = ObjectId.GenerateNewId().ToString(),
             Cid = Random.Shared.Next(1, ConfigMgr.tb.TbDiscConfig.DataList.Count + 1),
             Level = 0,
             Exp = 0,
-            RoleId = null,
+            RoleId = "",
             Locked = Random.Shared.Next(0, 2) == 0,
             Pos = Random.Shared.Next(1, 7),
             MainAttr = null,

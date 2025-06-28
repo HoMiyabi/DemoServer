@@ -12,36 +12,31 @@ public class ReqRoleEquipDisc_Handler : RpcHandler<ReqRoleEquipDisc, RspRoleEqui
 
         if (req.DiscPos < 1 || req.DiscPos > 6)
         {
-            rsp.Result.Code = 1;
-            rsp.Result.Msg = "驱动盘位置参数错误";
+            rsp.Result = new Result { Code = 1, Msg = "驱动盘位置参数错误" };
             return;
         }
         var role = player.Roles.Find(x => x.Id == req.RoleId);
         if (role == null)
         {
-            rsp.Result.Code = 2;
-            rsp.Result.Msg = "角色不存在";
+            rsp.Result = new Result { Code = 2, Msg = "角色不存在" };
             return;
         }
 
-        if (role.DiscIds[req.DiscPos - 1] != null)
+        if (!string.IsNullOrEmpty(role.DiscIds[req.DiscPos - 1]))
         {
-            rsp.Result.Code = 3;
-            rsp.Result.Msg = "角色该位置已装备驱动盘";
+            rsp.Result = new Result { Code = 3, Msg = "角色该位置已装备驱动盘" };
             return;
         }
 
         var disc = player.Discs.Find(x => x.Id == req.NewDiscId);
         if (disc == null)
         {
-            rsp.Result.Code = 4;
-            rsp.Result.Msg = "驱动盘不存在";
+            rsp.Result = new Result { Code = 4, Msg = "驱动盘不存在" };
             return;
         }
-        if (disc.RoleId != null)
+        if (!string.IsNullOrEmpty(disc.RoleId))
         {
-            rsp.Result.Code = 5;
-            rsp.Result.Msg = "驱动盘已被装备";
+            rsp.Result = new Result { Code = 5, Msg = "驱动盘已被装备" };
             return;
         }
 

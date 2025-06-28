@@ -17,8 +17,7 @@ public class ReqExchangeHandler : RpcHandler<ReqExchange, RspExchange>
         int cost = exConfig.FromCount * req.ExchangeCount;
         if (coin < cost)
         {
-            rsp.Result.Code = 1;
-            rsp.Result.Msg = "货币不足";
+            rsp.Result = new Result { Code = 1, Msg = "货币不足" };
             return;
         }
 
@@ -26,7 +25,7 @@ public class ReqExchangeHandler : RpcHandler<ReqExchange, RspExchange>
 
         for (int i = 0; i < req.ExchangeCount * exConfig.ToCount; i++)
         {
-            player.Weapons.Add(WeaponService.GachaWeapon(ObjectId.GenerateNewId().ToString()));
+            player.Weapons.Add(WeaponService.GachaWeapon());
         }
 
         // todo)) 获得提示

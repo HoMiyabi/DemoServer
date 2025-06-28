@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Threading;
 using Google.Protobuf;
 
@@ -43,28 +44,39 @@ namespace Kirara.Network
         {
             if (queue.TryDequeue(out var item))
             {
-                (var session, uint cmdId, uint rpcSeq, var msg) = item;
-                if (KiraraNetwork.MsgMeta.IsRsp(cmdId))
+                try
                 {
-                    if (KiraraNetwork.RpcCallbacks.TryRemove(rpcSeq, out var callback))
-                    {
-                        callback?.Invoke(msg);
-                    }
-                    else
-                    {
-                        MyLog.Debug($"RPC回调未找到. CmdId: {cmdId}, RpcSeq: {rpcSeq}");
-                    }
+                    ProcessMsg(item.session, item.cmdId, item.rpcSeq, item.msg);
+                }
+                catch (Exception e)
+                {
+                    MyLog.Error("处理消息异常 " + e);
+                }
+            }
+        }
+
+        private void ProcessMsg(Session session, uint cmdId, uint rpcSeq, IMessage msg)
+        {
+            if (KiraraNetwork.MsgMeta.IsRsp(cmdId))
+            {
+                if (KiraraNetwork.RpcCallbacks.TryRemove(rpcSeq, out var callback))
+                {
+                    callback?.Invoke(msg);
                 }
                 else
                 {
-                    if (KiraraNetwork.Handlers.TryGetValue(cmdId, out var handler))
-                    {
-                        handler.Handle(session, msg, rpcSeq);
-                    }
-                    else
-                    {
-                        MyLog.Debug($"没有处理方法，CmdId: {cmdId}");
-                    }
+                    MyLog.Debug($"RPC回调未找到. CmdId: {cmdId}, RpcSeq: {rpcSeq}");
+                }
+            }
+            else
+            {
+                if (KiraraNetwork.Handlers.TryGetValue(cmdId, out var handler))
+                {
+                    handler.Handle(session, msg, rpcSeq);
+                }
+                else
+                {
+                    MyLog.Debug($"没有处理方法，CmdId: {cmdId}");
                 }
             }
         }

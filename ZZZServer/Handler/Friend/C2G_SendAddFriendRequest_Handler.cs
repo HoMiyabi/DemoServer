@@ -14,24 +14,21 @@ public class ReqSendAddFriend_Handler : RpcHandler<ReqSendAddFriend, RspSendAddF
         // 不能添加自己为好友
         if (targetUid == player.Uid)
         {
-            rsp.Result.Code = 1;
-            rsp.Result.Msg = "不能添加自己为好友";
+            rsp.Result = new Result { Code = 1, Msg = "不能添加自己为好友" };
             return;
         }
 
         // 已经是好友，不能重复添加
         if (player.FriendUids.Contains(targetUid))
         {
-            rsp.Result.Code = 2;
-            rsp.Result.Msg = "已经是好友";
+            rsp.Result = new Result { Code = 2, Msg = "已经是好友" };
             return;
         }
 
         // 如果对方已发送好友请求给自己，只能接受，不能给对方发
         if (player.FriendRequestUids.Contains(targetUid))
         {
-            rsp.Result.Code = 3;
-            rsp.Result.Msg = "对方已发送好友请求给自己，不能再给对方发";
+            rsp.Result = new Result { Code = 3, Msg = "对方已发送好友请求给自己，不能再给对方发" };
             return;
         }
 
@@ -40,8 +37,7 @@ public class ReqSendAddFriend_Handler : RpcHandler<ReqSendAddFriend, RspSendAddF
         // 对方不存在
         if (target == null)
         {
-            rsp.Result.Code = 4;
-            rsp.Result.Msg = "对方不存在";
+            rsp.Result = new Result { Code = 4, Msg = "对方不存在" };
             return;
         }
 

@@ -13,8 +13,6 @@ public class MsgGachaDisc_Handler : MsgHandler<MsgGachaDisc>
 
         var disc = DiscService.GachaDisc();
 
-        disc.Id = ObjectId.GenerateNewId().ToString();
-
         var notifyObtain = new NotifyObtainItems();
         notifyObtain.DiscItems.Add(disc.Net);
 

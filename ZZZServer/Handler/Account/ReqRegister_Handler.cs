@@ -1,4 +1,4 @@
-﻿using Kirara.Network;
+using Kirara.Network;
 using MongoDB.Driver;
 using ZZZServer.Model;
 using ZZZServer.Service;
@@ -14,15 +14,13 @@ public class ReqRegister_Handler : RpcHandler<ReqRegister, RspRegister>
 
         if (username.Length < 6)
         {
-            rsp.Result.Code = 1;
-            rsp.Result.Msg = "用户名长度不能小于6位";
+            rsp.Result = new Result { Code = 1, Msg = "用户名长度不能小于6位" };
             return;
         }
 
         if (password.Length < 6)
         {
-            rsp.Result.Code = 2;
-            rsp.Result.Msg = "密码长度不能小于6位";
+            rsp.Result = new Result { Code = 2, Msg = "密码长度不能小于6位" };
             return;
         }
 
@@ -31,14 +29,13 @@ public class ReqRegister_Handler : RpcHandler<ReqRegister, RspRegister>
         bool exist = players.Find(x => x.Username == username).Any();
         if (exist)
         {
-            rsp.Result.Code = 3;
-            rsp.Result.Msg = "用户名已存在";
+            rsp.Result = new Result { Code = 3, Msg = "用户名已存在" };
             return;
         }
 
         var player = PlayerService.CreatePlayer(username, password);
         players.InsertOne(player);
 
-        rsp.Result.Msg = "注册成功";
+        rsp.Result = new Result { Code = 0, Msg = "注册成功" };
     }
 }

@@ -12,30 +12,26 @@ public class ReqRoleEquipWeapon_Handler : RpcHandler<ReqRoleEquipWeapon, RspRole
         var role = player.Roles.Find(x => x.Id == req.RoleId);
         if (role == null)
         {
-            rsp.Result.Code = 1;
-            rsp.Result.Msg = "角色不存在";
+            rsp.Result = new Result { Code = 1, Msg = "角色不存在" };
             return;
         }
 
-        if (role.WeaponId != null)
+        if (!string.IsNullOrEmpty(role.WeaponId))
         {
-            rsp.Result.Code = 2;
-            rsp.Result.Msg = "该角色已经装备武器";
+            rsp.Result = new Result { Code = 2, Msg = "该角色已经装备武器" };
             return;
         }
 
         var weapon = player.Weapons.Find(x => x.Id == req.NewWeaponId);
         if (weapon == null)
         {
-            rsp.Result.Code = 3;
-            rsp.Result.Msg = "武器不存在";
+            rsp.Result = new Result { Code = 3, Msg = "武器不存在" };
             return;
         }
 
-        if (weapon.RoleId != null)
+        if (!string.IsNullOrEmpty(weapon.RoleId))
         {
-            rsp.Result.Code = 4;
-            rsp.Result.Msg = "武器已被装备";
+            rsp.Result = new Result { Code = 4, Msg = "武器已被装备" };
             return;
         }
 

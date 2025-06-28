@@ -12,8 +12,7 @@ public class ReqDeleteFriend_Handler : RpcHandler<ReqDeleteFriend, RspDeleteFrie
 
         if (!player.FriendUids.Remove(req.FriendUid))
         {
-            rsp.Result.Code = 1;
-            rsp.Result.Msg = "不是你的好友";
+            rsp.Result = new Result { Code = 1, Msg = "不是你的好友" };
             return;
         }
 

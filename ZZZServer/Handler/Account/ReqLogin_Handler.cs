@@ -10,35 +10,33 @@ public class ReqLogin_Handler : RpcHandler<ReqLogin, RspLogin>
 {
     protected override void Run(Session session, ReqLogin req, RspLogin rsp, Action reply)
     {
-        var db = DbHelper.Database;
-        var players = db.GetCollection<Player>("player");
-        var player = players.Find(x => x.Username == req.Username).FirstOrDefault();
+        var player = PlayerService.GetPlayerByUsername(req.Username);
 
         if (player == null || player.Password != req.Password)
         {
-            rsp.Result.Code = 1;
-            rsp.Result.Msg = "用户名或密码错误";
+            rsp.Result = new Result {Code = 1, Msg = "用户名或密码错误"};
             return;
         }
 
-        if (PlayerService.UidToPlayer.ContainsKey(player.Uid))
+        if (player.IsOnline)
         {
-            rsp.Result.Code = 2;
-            rsp.Result.Msg = "用户已登录";
+            rsp.Result = new Result { Code = 2, Msg = "用户已登录" };
             return;
         }
 
-        string uid = player.Uid;
         session.Data = player;
-        PlayerService.UidToPlayer.TryAdd(uid, player);
+        player.Session = session;
+        player.IsOnline = true;
+
         session.OnDisconnected += () =>
         {
             session.Data = null;
-            if (PlayerService.UidToPlayer.Remove(uid, out var p))
-            {
-                Log.Debug($"玩家离开 UId={uid}");
-                PlayerService.SavePlayer(p);
-            }
+            player.Session = null;
+            player.IsOnline = false;
+
+            PlayerService.UidToPlayer.TryRemove(player.Uid, out _);
+            Log.Debug($"玩家离开保存 UId: {player.Uid}");
+            PlayerService.SavePlayer(player);
         };
     }
 }

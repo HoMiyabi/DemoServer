@@ -17,15 +17,13 @@ public class ReqStartQuest_Handler : RpcHandler<ReqStartQuest, RspStartQuest>
             .Find(questConfig => questConfig.QuestCid == req.QuestCid);
         if (questConfig == null)
         {
-            rsp.Result.Code = 1;
-            rsp.Result.Msg = "任务不存在";
+            rsp.Result = new Result { Code = 1, Msg = "任务不存在" };
             return;
         }
 
         if (player.Room == null)
         {
-            rsp.Result.Code = 2;
-            rsp.Result.Msg = "不在房间中";
+            rsp.Result = new Result { Code = 2, Msg = "不在房间中" };
             return;
         }
 

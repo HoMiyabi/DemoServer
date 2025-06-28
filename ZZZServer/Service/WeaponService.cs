@@ -1,18 +1,19 @@
-﻿using ZZZServer.Model;
+﻿using MongoDB.Bson;
+using ZZZServer.Model;
 
 namespace ZZZServer.Service;
 
 public static class WeaponService
 {
-    public static WeaponItem GachaWeapon(string id = null)
+    public static WeaponItem GachaWeapon()
     {
         var weapon = new WeaponItem
         {
-            Id = id,
+            Id = ObjectId.GenerateNewId().ToString(),
             Cid = Random.Shared.Next(1, 5),
             Level = Random.Shared.Next(1, 61),
             Exp = Random.Shared.Next(0, 100),
-            RoleId = null,
+            RoleId = "",
             Locked = Random.Shared.Next(0, 2) == 0,
             RefineLevel = Random.Shared.Next(1, 6),
             BaseAttr = null,

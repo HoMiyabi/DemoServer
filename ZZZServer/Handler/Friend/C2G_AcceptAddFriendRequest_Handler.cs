@@ -15,8 +15,7 @@ public class ReqAcceptAddFriend_Handler : RpcHandler<ReqAcceptAddFriend, RspAcce
 
         if (!player.FriendRequestUids.Remove(senderUid))
         {
-            rsp.Result.Code = 1;
-            rsp.Result.Msg = "好友请求不存在";
+            rsp.Result = new Result { Code = 1, Msg = "好友请求不存在" };
             return;
         }
 

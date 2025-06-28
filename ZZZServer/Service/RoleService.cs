@@ -1,4 +1,6 @@
-﻿using ZZZServer.Model;
+﻿using MongoDB.Bson;
+using ZZZServer.Model;
+using ZZZServer.Utils;
 
 namespace ZZZServer.Service;
 
@@ -8,11 +10,22 @@ public static class RoleService
     {
         return new Role
         {
+            Id = ObjectId.GenerateNewId().ToString(),
             Cid = cid,
             Level = 60,
             Exp = 0,
-            WeaponId = null,
-            DiscIds = [null, null, null, null, null, null]
+            WeaponId = "",
+            DiscIds =
+            [
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            Pos = new Float3(),
+            Rot = new Float3()
         };
     }
 }

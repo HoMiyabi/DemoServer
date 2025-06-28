@@ -12,6 +12,7 @@ public class Player
 
     [BsonIgnore]
     public Session Session { get; set; }
+
     [BsonIgnore]
     public Room Room { get; set; }
 
