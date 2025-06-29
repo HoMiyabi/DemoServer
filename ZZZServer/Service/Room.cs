@@ -1,5 +1,4 @@
 ﻿using Google.Protobuf;
-using Kirara.Network;
 using Serilog;
 using ZZZServer.Model;
 using ZZZServer.SVEntity;
@@ -92,8 +91,8 @@ public class Room
                 Log.Warning("Role不存在 syncRole.Id: {0}", syncRole.Id);
                 return;
             }
-            role.Pos.Set(syncRole.PosRot.Pos);
-            role.Rot.Set(syncRole.PosRot.Rot);
+            role.Pos.Set(syncRole.Movement.Pos);
+            role.Rot.Set(syncRole.Movement.Rot);
         }
 
         var msg = new NotifyUpdateFromAuthority
@@ -104,7 +103,7 @@ public class Room
         SendAllPlayersExcept(msg, player);
     }
 
-    public void SpawnMonster(int monsterCid, NPosRot posRot)
+    public void SpawnMonster(int monsterCid, NMovement movement)
     {
         var config = ConfigMgr.tb.TbMonsterConfig[monsterCid];
         var monster = new Monster(this, NextMonsterId, config.Hp);
@@ -113,7 +112,7 @@ public class Room
         {
             MonsterCid = monsterCid,
             MonsterId = monster.monsterId,
-            PosRot = posRot
+            Movement = movement
         };
         SendAllPlayers(msg);
     }
@@ -123,12 +122,12 @@ public class Room
         var monster = monsters.Find(it => it.monsterId == monsterId);
         if (monster == null)
         {
-            Log.Debug("找不到monster");
+            Log.Debug("找不到Monster, MonsterId: {0}", monsterId);
             return;
         }
 
         monster.hp -= damage;
-        var msg = new NotifySyncMonsterTakeDamage
+        var msg = new NotifyMonsterTakeDamage
         {
             MonsterId = monsterId,
             Damage = damage,

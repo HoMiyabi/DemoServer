@@ -31,17 +31,17 @@ public class Role
     public NSimRole NSim => new()
     {
         Id = Id,
-        PosRot = NPosRot,
+        Movement = NMovement,
         Cid = Cid
     };
 
     public NSyncRole NSyncRole => new()
     {
         Id = Id,
-        PosRot = NPosRot,
+        Movement = NMovement,
     };
 
-    public NPosRot NPosRot => new()
+    public NMovement NMovement => new()
     {
         Pos = Pos.Net,
         Rot = Rot.Net

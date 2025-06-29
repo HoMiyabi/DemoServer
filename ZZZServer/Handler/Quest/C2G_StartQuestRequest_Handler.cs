@@ -64,7 +64,7 @@ public class ReqStartQuest_Handler : RpcHandler<ReqStartQuest, RspStartQuest>
 
             for (int i = 0; i < defeatQuestConfig.Count; i++)
             {
-                player.Room.SpawnMonster(monsterConfig.Id, new NPosRot()
+                player.Room.SpawnMonster(monsterConfig.Id, new  NMovement
                 {
                     Pos = pos,
                     Rot = new NFloat3()
