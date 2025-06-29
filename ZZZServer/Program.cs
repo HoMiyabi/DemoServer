@@ -15,16 +15,6 @@ internal static class Program
         // 配置
         Configuration.Init();
 
-        // var msg = new RspLogin();
-        // var fieldDesc = msg.
-        // if (fieldDesc != null)
-        // {
-        //     if (fieldDesc.FieldType == FieldType.Message)
-        //     {
-        //         fieldDesc.Accessor
-        //     }
-        // }
-
         // 日志
         Log.Logger = new LoggerConfiguration()
             .WriteTo.Console()

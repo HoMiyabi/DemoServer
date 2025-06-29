@@ -13,8 +13,8 @@ public class Role
     public int Exp { get; set; }
     public string WeaponId { get; set; }
     public List<string> DiscIds { get; set; }
-    public Float3 Pos { get; set; }
-    public Float3 Rot { get; set; }
+    public Vector3 Pos { get; set; }
+    public Vector3 Rot { get; set; }
 
     public NRole NRole => new()
     {

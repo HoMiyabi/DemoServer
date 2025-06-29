@@ -24,8 +24,8 @@ public static class RoleService
                 "",
                 ""
             ],
-            Pos = new Float3(),
-            Rot = new Float3()
+            Pos = new Vector3(),
+            Rot = new Vector3()
         };
     }
 }
