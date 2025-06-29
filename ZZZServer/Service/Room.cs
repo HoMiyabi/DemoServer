@@ -87,6 +87,11 @@ public class Room
         foreach (var syncRole in syncPlayer.Roles)
         {
             var role = player.Roles.Find(x => x.Id == syncRole.Id);
+            if (role == null)
+            {
+                Log.Warning("Role不存在 syncRole.Id: {0}", syncRole.Id);
+                return;
+            }
             role.Pos.Set(syncRole.PosRot.Pos);
             role.Rot.Set(syncRole.PosRot.Rot);
         }

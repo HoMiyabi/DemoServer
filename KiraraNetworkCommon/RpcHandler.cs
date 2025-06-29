@@ -31,7 +31,7 @@ namespace Kirara.Network
             }
             catch (Exception e)
             {
-                MyLog.Error(e.ToString());
+                MyLog.Error($"消息处理异常: \n{e}\n消息: {msg}");
             }
             finally
             {
