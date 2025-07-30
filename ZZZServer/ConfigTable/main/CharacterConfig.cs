@@ -22,8 +22,8 @@ public sealed partial class CharacterConfig : Luban.BeanBase
         JObject _obj = _buf as JObject;
         Id = (int)_obj.GetValue("id");
         Name = (string)_obj.GetValue("name");
-        MaxSegment = (int)_obj.GetValue("max_segment");
         IconLoc = (string)_obj.GetValue("icon_loc");
+        RoleSelectIconLoc = (string)_obj.GetValue("role_select_icon_loc");
         PrefabLoc = (string)_obj.GetValue("prefab_loc");
         SimPrefabLoc = (string)_obj.GetValue("sim_prefab_loc");
     }
@@ -42,13 +42,10 @@ public sealed partial class CharacterConfig : Luban.BeanBase
     /// </summary>
     public readonly string Name;
     /// <summary>
-    /// 普攻最大段数
-    /// </summary>
-    public readonly int MaxSegment;
-    /// <summary>
     /// 图标位置
     /// </summary>
     public readonly string IconLoc;
+    public readonly string RoleSelectIconLoc;
     public readonly string PrefabLoc;
     public readonly string SimPrefabLoc;
 
@@ -65,8 +62,8 @@ public sealed partial class CharacterConfig : Luban.BeanBase
         return "{ "
         + "id:" + Id + ","
         + "name:" + Name + ","
-        + "maxSegment:" + MaxSegment + ","
         + "iconLoc:" + IconLoc + ","
+        + "roleSelectIconLoc:" + RoleSelectIconLoc + ","
         + "prefabLoc:" + PrefabLoc + ","
         + "simPrefabLoc:" + SimPrefabLoc + ","
         + "}";

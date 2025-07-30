@@ -31,10 +31,10 @@ public class ReqStartQuest_Handler : RpcHandler<ReqStartQuest, RspStartQuest>
         {
             var monsterConfig = ConfigMgr.tb.TbMonsterConfig[defeatQuestConfig.MonsterCid];
 
-            NFloat3 pos;
+            NVector3 pos;
             if (req.QuestChainCid == 1)
             {
-                pos = new NFloat3()
+                pos = new NVector3()
                 {
                     X = 0,
                     Y = 0,
@@ -44,7 +44,7 @@ public class ReqStartQuest_Handler : RpcHandler<ReqStartQuest, RspStartQuest>
             else if (req.QuestChainCid == 2)
             {
                 // 任务第二章，临时先这样。
-                pos = new NFloat3()
+                pos = new NVector3()
                 {
                     X = 50,
                     Y = 0,
@@ -53,7 +53,7 @@ public class ReqStartQuest_Handler : RpcHandler<ReqStartQuest, RspStartQuest>
             }
             else
             {
-                pos = new NFloat3()
+                pos = new NVector3()
                 {
                     X = 0,
                     Y = 0,
@@ -67,7 +67,7 @@ public class ReqStartQuest_Handler : RpcHandler<ReqStartQuest, RspStartQuest>
                 player.Room.SpawnMonster(monsterConfig.Id, new  NMovement
                 {
                     Pos = pos,
-                    Rot = new NFloat3()
+                    Rot = new NVector3()
                 });
             }
         }

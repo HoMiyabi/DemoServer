@@ -1,5 +1,4 @@
 ﻿using Kirara.Network;
-using MongoDB.Bson;
 using ZZZServer.Model;
 using ZZZServer.Service;
 
@@ -12,6 +11,7 @@ public class MsgGachaDisc_Handler : MsgHandler<MsgGachaDisc>
         var player = (Player)session.Data;
 
         var disc = DiscService.GachaDisc();
+        player.Discs.Add(disc);
 
         var notifyObtain = new NotifyObtainItems();
         notifyObtain.DiscItems.Add(disc.Net);

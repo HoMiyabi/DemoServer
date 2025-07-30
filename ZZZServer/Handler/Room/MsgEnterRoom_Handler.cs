@@ -10,10 +10,10 @@ public class MsgEnterRoom_Handler : MsgHandler<MsgEnterRoom>
     {
         var player = (Player)session.Data;
 
-        int roomId = 1;
-        if (!RoomService.rooms.TryGetValue(roomId, out var room))
+        var room = RoomService.GetRoom(1);
+        if (room == null)
         {
-            room = RoomService.AddRoom(roomId);
+            room = RoomService.NewRoom();
         }
 
         room.AddPlayer(player);

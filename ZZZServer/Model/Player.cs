@@ -77,12 +77,6 @@ public class Player
         IsOnline = IsOnline
     };
 
-    public NSimPlayer NSim => new()
-    {
-        Uid = Uid,
-        Roles = {Roles.Select(x => x.NSim)}
-    };
-
     public NSyncPlayer NSync => new()
     {
         Uid = Uid,

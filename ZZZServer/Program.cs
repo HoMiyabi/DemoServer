@@ -4,6 +4,7 @@ using Google.Protobuf.Reflection;
 using Kirara.Network;
 using MongoDB.Driver;
 using Serilog;
+using ZZZServer.Animation;
 using ZZZServer.Model;
 
 namespace ZZZServer;
@@ -13,7 +14,7 @@ internal static class Program
     private static void Main()
     {
         // 配置
-        Configuration.Init();
+        Configuration.Init("Application.toml");
 
         // 日志
         Log.Logger = new LoggerConfiguration()
@@ -25,7 +26,10 @@ internal static class Program
         // 配置表
         ConfigMgr.Init();
 
-        // 数据库
+        // 动画
+        AnimMgr.Init("ConfigAnimData");
+
+        // 数据库s
         DbHelper.Init();
 
         KiraraNetwork.Init(new MsgMeta(), typeof(Program).Assembly);

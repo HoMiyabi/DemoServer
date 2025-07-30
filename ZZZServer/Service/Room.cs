@@ -2,6 +2,7 @@
 using Serilog;
 using ZZZServer.Model;
 using ZZZServer.SVEntity;
+using ZZZServer.Utils;
 
 namespace ZZZServer.Service;
 
@@ -19,28 +20,28 @@ public class Room
         this.id = id;
     }
 
-    public void Tick()
+    public void Update(float dt)
     {
+        foreach (var monster in monsters)
+        {
+            monster.Update(dt);
+        }
 
+        var notifyUpdateFromAuthority = new NotifyUpdateFromAuthority()
+        {
+            Players = {players.Select(it => it.NSync)}
+        };
+        SendAllPlayers(notifyUpdateFromAuthority);
+
+        var notifyMonsterMovement = new NotifyMonsterRepMovement()
+        {
+            Monsters = {monsters.Select(x => x.NSyncMonster)}
+        };
+        SendAllPlayers(notifyMonsterMovement);
     }
 
     public void AddPlayer(Player player)
     {
-        // 新加入的玩家添加其他玩家
-        var notifyAdd = new NotifyAddSimulatedPlayers
-        {
-            Players = {players.Select(it => it.NSim)}
-        };
-        player.Session.Send(notifyAdd);
-
-        // 其他玩家添加新加入的玩家
-        notifyAdd = new NotifyAddSimulatedPlayers
-        {
-            Players = {player.NSim}
-        };
-
-        SendAllPlayersExcept(notifyAdd, player);
-
         players.Add(player);
         player.Room = this;
 
@@ -91,16 +92,9 @@ public class Room
                 Log.Warning("Role不存在 syncRole.Id: {0}", syncRole.Id);
                 return;
             }
-            role.Pos.Set(syncRole.Movement.Pos);
-            role.Rot.Set(syncRole.Movement.Rot);
+            role.Pos = syncRole.Movement.Pos.Native();
+            role.Rot = syncRole.Movement.Rot.Native();
         }
-
-        var msg = new NotifyUpdateFromAuthority
-        {
-            Player = syncPlayer
-        };
-
-        SendAllPlayersExcept(msg, player);
     }
 
     public void SpawnMonster(int monsterCid, NMovement movement)
@@ -167,5 +161,24 @@ public class Room
                 player.Session.Send(msg);
             }
         }
+    }
+
+    public Role ClosestFrontRole(Vector3 pos, out float distance)
+    {
+        Role role = null;
+        float min = float.MaxValue;
+        foreach (var player in players)
+        {
+            var frontRole = player.Roles.Find(x => x.Id == player.FrontRoleId);
+            if (frontRole == null) continue;
+            float dist = Vector3.Distance(pos, frontRole.Pos);
+            if (dist < min)
+            {
+                min = dist;
+                role = frontRole;
+            }
+        }
+        distance = min;
+        return role;
     }
 }

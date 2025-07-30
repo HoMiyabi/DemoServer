@@ -24,26 +24,20 @@ public class Role
         Exp = Exp,
         WeaponId = WeaponId,
         DiscIds = {DiscIds},
-        Pos = Pos.Net,
-        Rot = Rot.Net
-    };
-
-    public NSimRole NSim => new()
-    {
-        Id = Id,
-        Movement = NMovement,
-        Cid = Cid
+        Pos = Pos.Net(),
+        Rot = Rot.Net()
     };
 
     public NSyncRole NSyncRole => new()
     {
         Id = Id,
+        Cid = Cid,
         Movement = NMovement,
     };
 
     public NMovement NMovement => new()
     {
-        Pos = Pos.Net,
-        Rot = Rot.Net
+        Pos = Pos.Net(),
+        Rot = Rot.Net()
     };
 }

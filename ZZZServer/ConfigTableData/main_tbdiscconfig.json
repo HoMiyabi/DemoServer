@@ -4,48 +4,10 @@
     "name": "震星迪斯科",
     "rank": "S",
     "icon_loc": "Leather Boot",
-    "set_abilities_2": [
-      {
-        "name": "震星迪斯科2 能力1",
-        "trigger_on_add": true,
-        "event_names": [],
-        "trigger_interval": 0,
-        "effect": {
-          "name": "震星迪斯科2 效果1",
-          "duration_policy": 1,
-          "duration": 0,
-          "stack_limit": 1,
-          "modifiers": [
-            {
-              "attr_type": 402,
-              "delta_value": 0.06
-            }
-          ]
-        }
-      }
-    ],
-    "set_abilities_4": [
-      {
-        "name": "震星迪斯科4 能力1",
-        "trigger_on_add": true,
-        "event_names": [],
-        "trigger_interval": 0,
-        "effect": {
-          "name": "震星迪斯科4 效果1",
-          "duration_policy": 1,
-          "duration": 0,
-          "stack_limit": 1,
-          "modifiers": [
-            {
-              "attr_type": 1400,
-              "delta_value": 0.2
-            }
-          ]
-        }
-      }
-    ],
-    "set_effect_2_desc": "冲击力提升6%。",
-    "set_effect_4_desc": "[普通攻击]、[冲刺攻击]、[闪避反击]对主要攻击目标造成的失衡值提升20%。",
+    "set_ability_2_name": "ZhenXingDiSiKe_2",
+    "set_ability_4_name": "ZhenXingDiSiKe_4",
+    "set_ability_2_desc": "冲击力提升6%。",
+    "set_ability_4_desc": "[普通攻击]、[冲刺攻击]、[闪避反击]对主要攻击目标造成的失衡值提升20%。",
     "desc": "专门在与音擎的兼容性上做了算法优化的驱动盘，能够更好地发挥辅助功能。"
   },
   {
@@ -53,51 +15,10 @@
     "name": "摇摆爵士",
     "rank": "S",
     "icon_loc": "Leather Armor",
-    "set_abilities_2": [
-      {
-        "name": "摇摆爵士2 能力1",
-        "trigger_on_add": true,
-        "event_names": [],
-        "trigger_interval": 0,
-        "effect": {
-          "name": "摇摆爵士2 效果1",
-          "duration_policy": 1,
-          "duration": 0,
-          "stack_limit": 1,
-          "modifiers": [
-            {
-              "attr_type": 702,
-              "delta_value": 0.2
-            }
-          ]
-        }
-      }
-    ],
-    "set_abilities_4": [
-      {
-        "name": "揺摆爵士4 能力1",
-        "trigger_on_add": false,
-        "event_names": [
-          "发动连携技",
-          "发动终结技"
-        ],
-        "trigger_interval": 0,
-        "effect": {
-          "name": "摇摆爵士4 效果1",
-          "duration_policy": 2,
-          "duration": 12,
-          "stack_limit": 1,
-          "modifiers": [
-            {
-              "attr_type": 1200,
-              "delta_value": 0.15
-            }
-          ]
-        }
-      }
-    ],
-    "set_effect_2_desc": "能量自动回复提升20%。",
-    "set_effect_4_desc": "发动[连携技]或[终结技]时，全队造成的伤害提升15%，持续12秒，同名被动效果之间不可叠加。",
+    "set_ability_2_name": "YaoBaiJueShi_2",
+    "set_ability_4_name": "YaoBaiJueShi_4",
+    "set_ability_2_desc": "能量自动回复提升20%。",
+    "set_ability_4_desc": "发动[连携技]或[终结技]时，全队造成的伤害提升15%，持续12秒，同名被动效果之间不可叠加。",
     "desc": "注重高兼容性和提升协调辅助的驱动盘，是战斗方式灵活多变的调查员所喜爱的装备。"
   },
   {
@@ -105,50 +26,10 @@
     "name": "炎狱重金属",
     "rank": "S",
     "icon_loc": "Iron Helmet",
-    "set_abilities_2": [
-      {
-        "name": "炎狱重金属2 能力1",
-        "trigger_on_add": true,
-        "event_names": [],
-        "trigger_interval": 0,
-        "effect": {
-          "name": "炎狱重金属2 效果1",
-          "duration_policy": 1,
-          "duration": 0,
-          "stack_limit": 1,
-          "modifiers": [
-            {
-              "attr_type": 1200,
-              "delta_value": 0.1
-            }
-          ]
-        }
-      }
-    ],
-    "set_abilities_4": [
-      {
-        "name": "炎狱重金属4 能力1",
-        "trigger_on_add": false,
-        "event_names": [
-          "普通攻击命中"
-        ],
-        "trigger_interval": 0,
-        "effect": {
-          "name": "炎狱重金属4 效果1",
-          "duration_policy": 2,
-          "duration": 8,
-          "stack_limit": 1,
-          "modifiers": [
-            {
-              "attr_type": 800,
-              "delta_value": 0.28
-            }
-          ]
-        }
-      }
-    ],
-    "set_effect_2_desc": "火属性伤害提升10%。",
-    "set_effect_4_desc": "攻击命中处于[灼烧]状态下的敌人时，装备者的暴击率提升28%，持续8秒。",
+    "set_ability_2_name": "YanYuZhongJinShu_2",
+    "set_ability_4_name": "YanYuZhongJinShu_4",
+    "set_ability_2_desc": "火属性伤害提升10%。",
+    "set_ability_4_desc": "攻击命中处于[灼烧]状态下的敌人时，装备者的暴击率提升28%，持续8秒。",
     "desc": "使用特定以太技术刻录出的驱动盘，能够针对性地为装备者提供属性增幅。"
   },
   {
@@ -156,68 +37,10 @@
     "name": "河豚电音",
     "rank": "S",
     "icon_loc": "Bag",
-    "set_abilities_2": [
-      {
-        "name": "河豚电音2 能力1",
-        "trigger_on_add": true,
-        "event_names": [],
-        "trigger_interval": 0,
-        "effect": {
-          "name": "河豚电音2 效果1",
-          "duration_policy": 1,
-          "duration": 0,
-          "stack_limit": 1,
-          "modifiers": [
-            {
-              "attr_type": 1000,
-              "delta_value": 0.08
-            }
-          ]
-        }
-      }
-    ],
-    "set_abilities_4": [
-      {
-        "name": "河豚电音4 能力1",
-        "trigger_on_add": true,
-        "event_names": [],
-        "trigger_interval": 0,
-        "effect": {
-          "name": "河豚电音4 效果1",
-          "duration_policy": 1,
-          "duration": 0,
-          "stack_limit": 1,
-          "modifiers": [
-            {
-              "attr_type": 1200,
-              "delta_value": 0.2
-            }
-          ]
-        }
-      },
-      {
-        "name": "河豚电音4 能力2",
-        "trigger_on_add": false,
-        "event_names": [
-          "发动终结技"
-        ],
-        "trigger_interval": 0,
-        "effect": {
-          "name": "河豚电音4 效果2",
-          "duration_policy": 2,
-          "duration": 12,
-          "stack_limit": 1,
-          "modifiers": [
-            {
-              "attr_type": 102,
-              "delta_value": 0.15
-            }
-          ]
-        }
-      }
-    ],
-    "set_effect_2_desc": "穿透率提升8%。",
-    "set_effect_4_desc": "[终结技]造成的伤害提升20%；发动[终结技]时，装备者的攻击力提升15%，持续12秒。",
+    "set_ability_2_name": "HeTunDianYin_2",
+    "set_ability_4_name": "HeTunDianYin_4",
+    "set_ability_2_desc": "穿透率提升8%。",
+    "set_ability_4_desc": "[终结技]造成的伤害提升20%；发动[终结技]时，装备者的攻击力提升15%，持续12秒。",
     "desc": "表现中规中矩的驱动盘系列，是许多追求稳定发挥的空洞探索者的首选，不过可千万不要小瞧这个系列驱动盘的功效，毕竟河豚可是有毒的。"
   }
 ]

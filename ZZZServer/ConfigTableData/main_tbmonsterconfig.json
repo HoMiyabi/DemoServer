@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "「小小哥布林」",
-    "location": "SmallGoblin",
+    "location": "Monster1",
     "hp": 10000000,
     "atk": 50,
     "def": 100,
@@ -13,7 +13,7 @@
   {
     "id": 2,
     "name": "「反正很厉害的哥布林」",
-    "location": "BigGoblin",
+    "location": "Monster1",
     "hp": 10000000,
     "atk": 100,
     "def": 200,
