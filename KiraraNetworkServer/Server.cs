@@ -41,6 +41,11 @@ namespace Kirara.Network
             }
         }
 
+        public void AddMsgProcessorUpdate(string key, Action<float> update)
+        {
+            msgProcessor.AddUpdate(key, update);
+        }
+
         private void OnCancelKeyPress(object sender, EventArgs e)
         {
             MyLog.Debug("Bye~");

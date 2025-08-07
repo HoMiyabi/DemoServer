@@ -6,6 +6,7 @@ using MongoDB.Driver;
 using Serilog;
 using ZZZServer.Animation;
 using ZZZServer.Model;
+using ZZZServer.Service;
 
 namespace ZZZServer;
 
@@ -29,12 +30,13 @@ internal static class Program
         // 动画
         AnimMgr.Init("ConfigAnimData");
 
-        // 数据库s
+        // 数据库
         DbHelper.Init();
 
         KiraraNetwork.Init(new MsgMeta(), typeof(Program).Assembly);
 
         var server = new Server();
+        server.AddMsgProcessorUpdate("RoomService", RoomService.Update);
         server.Run(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 23434));
     }
 }

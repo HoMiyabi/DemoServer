@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+﻿using Mathd;
 using Vector3 = ZZZServer.Utils.Vector3;
 
 namespace ZZZServer.Animation;
@@ -24,12 +24,12 @@ public class AnimRootMotion
         return new Vector3(tx[frameIndex], ty[frameIndex], tz[frameIndex]);
     }
 
-    public Quaternion EvalQ(float time)
+    public Quaterniond EvalQ(float time)
     {
         const float frameRate = 60f;
         float frame = time * frameRate;
         frame = Math.Clamp(frame, 0, qx.Count - 1);
         int frameIndex = (int)frame;
-        return new Quaternion(qx[frameIndex], qy[frameIndex], qz[frameIndex], qw[frameIndex]);
+        return new Quaterniond(qx[frameIndex], qy[frameIndex], qz[frameIndex], qw[frameIndex]);
     }
 }

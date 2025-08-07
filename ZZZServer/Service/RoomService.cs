@@ -17,4 +17,12 @@ public static class RoomService
     {
         return rooms.GetValueOrDefault(id);
     }
+
+    public static void Update(float dt)
+    {
+        foreach (var room in rooms.Values)
+        {
+            room.Update(dt);
+        }
+    }
 }

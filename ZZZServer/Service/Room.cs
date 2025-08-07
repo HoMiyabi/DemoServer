@@ -9,7 +9,7 @@ namespace ZZZServer.Service;
 public class Room
 {
     public int id;
-    private readonly List<Player> players = [];
+    public readonly List<Player> players = [];
     private readonly List<Monster> monsters = [];
 
     private int _monsterId = 0;
@@ -61,6 +61,7 @@ public class Room
             return;
         }
         Log.Debug($"房间{id}数量：{players.Count}");
+        player.Room = null;
 
         var msg = new NotifyRemoveSimulatedPlayers
         {
@@ -99,6 +100,7 @@ public class Room
 
     public void SpawnMonster(int monsterCid, NMovement movement)
     {
+        Log.Debug("SpawnMonster, monsterCid: {0}", monsterCid);
         var config = ConfigMgr.tb.TbMonsterConfig[monsterCid];
         var monster = new Monster(this, NextMonsterId, config.Hp);
         monsters.Add(monster);

@@ -9,6 +9,14 @@ namespace Kirara.Network
     {
         private readonly ConcurrentQueue<(Session session, uint cmdId, uint rpcSeq, IMessage msg)> queue = new();
         private bool isWorking;
+        private int interval = 20;
+        private long prevTime = 0;
+        private readonly ConcurrentDictionary<string, Action<float>> updates = new();
+
+        public bool AddUpdate(string key, Action<float> update)
+        {
+            return updates.TryAdd(key, update);
+        }
 
         public void Start()
         {
@@ -42,7 +50,7 @@ namespace Kirara.Network
 
         private void Update()
         {
-            if (queue.TryDequeue(out var item))
+            while (queue.TryDequeue(out var item))
             {
                 try
                 {
@@ -53,6 +61,32 @@ namespace Kirara.Network
                     MyLog.Error("处理消息异常 " + e);
                 }
             }
+
+            // Tick驱动
+            long currTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            if (prevTime == 0)
+            {
+                prevTime = currTime;
+            }
+            else
+            {
+                while (currTime - prevTime >= interval)
+                {
+                    foreach (var update in updates)
+                    {
+                        try
+                        {
+                            update.Value(interval / 1000f);
+                        }
+                        catch (Exception e)
+                        {
+                            MyLog.Error("Tick更新异常: " + e);
+                        }
+                    }
+                    prevTime += interval;
+                }
+            }
+
         }
 
         private void ProcessMsg(Session session, uint cmdId, uint rpcSeq, IMessage msg)

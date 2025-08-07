@@ -1,4 +1,6 @@
-﻿namespace ZZZServer.Utils;
+﻿using Mathd;
+
+namespace ZZZServer.Utils;
 
 public static class Extensions
 {
@@ -17,36 +19,34 @@ public static class Extensions
         return new Vector3(v.X, v.Y, v.Z);
     }
 
-    public static NQuaternion Net(this System.Numerics.Quaternion q)
+    public static NVector3 Net(this Vector3d v)
     {
-        return new NQuaternion
+        return new NVector3
         {
-            X = q.X,
-            Y = q.Y,
-            Z = q.Z,
-            W = q.W
+            X = (float)v.x,
+            Y = (float)v.y,
+            Z = (float)v.z
         };
     }
 
-    public static Vector3 Mul(this System.Numerics.Quaternion rotation, Vector3 point)
+    public static NQuaternion Net(this Quaterniond q)
     {
-        float x = rotation.X * 2F;
-        float y = rotation.Y * 2F;
-        float z = rotation.Z * 2F;
-        float xx = rotation.X * x;
-        float yy = rotation.Y * y;
-        float zz = rotation.Z * z;
-        float xy = rotation.X * y;
-        float xz = rotation.X * z;
-        float yz = rotation.Y * z;
-        float wx = rotation.W * x;
-        float wy = rotation.W * y;
-        float wz = rotation.W * z;
+        return new NQuaternion
+        {
+            X = (float)q.x,
+            Y = (float)q.y,
+            Z = (float)q.z,
+            W = (float)q.w
+        };
+    }
 
-        Vector3 res;
-        res.x = (1F - (yy + zz)) * point.x + (xy - wz) * point.y + (xz + wy) * point.z;
-        res.y = (xy + wz) * point.x + (1F - (xx + zz)) * point.y + (yz - wx) * point.z;
-        res.z = (xz - wy) * point.x + (yz + wx) * point.y + (1F - (xx + yy)) * point.z;
-        return res;
+    public static Vector3d ToDouble(this Vector3 v)
+    {
+        return new Vector3d(v.x, v.y, v.z);
+    }
+
+    public static Vector3 ToSingle(this Vector3d v)
+    {
+        return new Vector3((float)v.x, (float)v.y, (float)v.z);
     }
 }

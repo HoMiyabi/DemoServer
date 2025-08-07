@@ -1,7 +1,8 @@
-﻿using ZZZServer.Animation;
+﻿using Mathd;
+using Serilog;
+using ZZZServer.Animation;
 using ZZZServer.Service;
 using ZZZServer.Utils;
-using Quaternion = System.Numerics.Quaternion;
 using Vector3 = ZZZServer.Utils.Vector3;
 
 namespace ZZZServer.SVEntity;
@@ -11,8 +12,8 @@ public class Monster
     public Room room;
     public int monsterId;
     public float hp;
-    public Vector3 pos;
-    public Quaternion rot;
+    public Vector3d pos;
+    public Quaterniond rot;
 
     public Monster(Room room, int monsterId, float hp)
     {
@@ -61,13 +62,44 @@ public class Monster
         AnimMgr.AnimRootMotions["Skill_C"],
     ];
 
-    public float attackDistance;
-    public float chaseDistance;
+    public float attackDistance = 5f;
+    public float chaseDistance = 10f;
 
     public void Update(float dt)
     {
         UpdateAnimPlayer(dt);
         UpdateState(dt);
+        // Log.Debug("RoomId: {0} MonsterId: {1} State: {2} pos: {3}, rot: {4}",
+        //     room.id, monsterId, _state, pos, rot);
+        UpdateGravity(dt);
+        UpdateCollisionDetect();
+    }
+
+    private void UpdateGravity(float dt)
+    {
+        pos.y -= 9.8 * dt;
+        if (pos.y < 0)
+        {
+            pos.y = 0;
+        }
+    }
+
+    private void UpdateCollisionDetect()
+    {
+        float radius1 = 0.5f;
+        float radius2 = 0.5f;
+        foreach (var player in room.players)
+        {
+            var frontRole = player.Roles.Find(x => x.Id == player.FrontRoleId);
+            if (frontRole == null) continue;
+            double dist = Vector3d.Distance(frontRole.Pos.ToDouble(), pos);
+            if (dist < radius1 + radius2)
+            {
+                var v = pos - frontRole.Pos.ToDouble();
+                v.y = 0f;
+                pos += v.normalized * (radius1 + radius2 - dist);
+            }
+        }
     }
 
     private void UpdateState(float dt)
@@ -78,8 +110,8 @@ public class Monster
             {
                 idleColdTime += dt;
                 if (idleColdTime < maxIdleColdTime) return;
-
-                var role = room.ClosestFrontRole(pos, out float dis);
+                idleColdTime = 0f;
+                var role = room.ClosestFrontRole(pos.ToSingle(), out float dis);
                 if (dis < attackDistance)
                 {
                     EnterState(State.Attack);
@@ -92,14 +124,16 @@ public class Monster
             }
             case State.Chase:
             {
-                var role = room.ClosestFrontRole(pos, out float dis);
+                var role = room.ClosestFrontRole(pos.ToSingle(), out float dis);
                 if (role == null)
                 {
                     EnterState(State.Idle);
                 }
                 else
                 {
-                    LookAt(role.Pos);
+                    var v = role.Pos.ToDouble() - pos;
+                    v.y = 0f;
+                    rot.SetLookRotation(v);
                     if (dis < attackDistance)
                     {
                         EnterState(State.Attack);
@@ -117,6 +151,8 @@ public class Monster
     public void EnterState(State state, object arg = null)
     {
         _state = state;
+        Log.Debug("RoomId: {0} MonsterId: {1} EnterState: {2} pos: {3}, rot: {4}",
+            room.id, monsterId, state, pos, rot);
         switch (state)
         {
             case State.Idle:
@@ -127,15 +163,17 @@ public class Monster
             }
             case State.Chase:
             {
-                Play(Run);
+                Play(Run, () => EnterState(State.Chase));
                 break;
             }
             case State.Attack:
             {
-                var role = room.ClosestFrontRole(pos, out float dis);
+                var role = room.ClosestFrontRole(pos.ToSingle(), out float dis);
                 if (role != null)
                 {
-                    LookAt(role.Pos);
+                    var v = role.Pos.ToDouble() - pos;
+                    v.y = 0;
+                    rot.SetLookRotation(v);
                     int i = Random.Shared.Next(0, AttackAnims.Length);
                     Play(AttackAnims[i], () =>
                     {
@@ -184,16 +222,6 @@ public class Monster
         return result;
     }
 
-    private void LookAt(Vector3 target)
-    {
-        var dir = target - pos;
-        dir.y = 0;
-        dir = dir.normalized;
-        float theta = (float)Math.Atan2(dir.x, dir.z);
-        var q = Quaternion.CreateFromAxisAngle(new System.Numerics.Vector3(0, 1, 0), theta);
-        rot = q;
-    }
-
     #region AnimPlayer
 
     private AnimRootMotion _currMotion;
@@ -201,6 +229,8 @@ public class Monster
     private Action _onFinish;
     private void Play(AnimRootMotion motion, Action onFinish = null)
     {
+        Log.Debug("RoomId: {0}, MonsterId: {1}, Play: {2}, pos: {3}, rot: {4}",
+            room.id, monsterId, motion.name, pos, rot);
         var notify = new NotifyMonsterPlayAction
         {
             MonsterId = monsterId,
@@ -223,23 +253,25 @@ public class Monster
         var pos2 = _currMotion.EvalT(_currTime);
         var rot2 = _currMotion.EvalQ(_currTime);
 
-        var deltaPosition = pos2 - pos1;
-        deltaPosition = rot.Mul(deltaPosition);
-        var deltaRotation = rot2 * Quaternion.Inverse(rot1);
+        var deltaPosition = (pos2 - pos1).ToDouble();
+        deltaPosition = rot * deltaPosition;
+        var deltaRotation = rot2 * Quaterniond.Inverse(rot1);
 
         OnAnimPlayerMove(deltaPosition, deltaRotation);
         if (_currTime >= _currMotion.length)
         {
+            Log.Debug("RoomId: {0}, MonsterId: {1}, Finish: {2}, Length: {3}",
+                room.id, monsterId, _currMotion.name, _currMotion.length);
             _currMotion = null;
             _currTime = 0;
             _onFinish?.Invoke();
         }
     }
 
-    private void OnAnimPlayerMove(Vector3 deltaPosition, Quaternion deltaRotation)
+    private void OnAnimPlayerMove(Vector3d deltaPosition, Quaterniond deltaRotation)
     {
         pos += deltaPosition;
-        rot *= deltaRotation;
+        // rot *= deltaRotation;
     }
 
     #endregion
