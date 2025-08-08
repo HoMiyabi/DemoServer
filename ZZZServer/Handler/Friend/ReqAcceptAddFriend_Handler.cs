@@ -18,10 +18,24 @@ public class ReqAcceptAddFriend_Handler : RpcHandler<ReqAcceptAddFriend, RspAcce
             rsp.Result = new Result { Code = 1, Msg = "好友请求不存在" };
             return;
         }
+        player.Session.Send(new NotifyFriendRequestsRemove
+        {
+            Uid = senderUid
+        });
 
         // 双向添加
-        player.FriendUids.Add(senderUid);
         var sender = PlayerService.GetPlayerByUid(senderUid);
+
+        player.FriendUids.Add(senderUid);
+        player.Session.Send(new NotifyFriendsAdd
+        {
+            Player = sender.NSocial
+        });
+
         sender.FriendUids.Add(player.Uid);
+        sender.Session?.Send(new NotifyFriendsAdd
+        {
+            Player = player.NSocial
+        });
     }
 }

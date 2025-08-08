@@ -13,7 +13,8 @@ namespace Kirara.Network
         private readonly NetMsgProcessor msgProcessor = new();
         private bool _isRunning;
 
-        public List<Session> sessions = new();
+        private readonly List<Session> sessions = [];
+        public event Action OnBeforeClose;
 
         public void Run(IPEndPoint endPoint)
         {
@@ -31,13 +32,20 @@ namespace Kirara.Network
 
             _ = AcceptAsync();
 
-            MyLog.Debug($"服务器启动 监听在{endPoint}");
-            AppDomain.CurrentDomain.ProcessExit += OnCancelKeyPress;
-            Console.CancelKeyPress += OnCancelKeyPress;
-            while (_isRunning)
+            Task.Run(LoopCheckSessionTimeout);
+            MyLog.Debug($"服务器启动, 监听在{endPoint}, 按C退出");
+
+            while (true)
             {
-                Thread.Sleep(1);
-                CheckSessionTimeout();
+                var key = Console.ReadKey();
+                if (key.Key == ConsoleKey.C)
+                {
+                    OnBeforeClose?.Invoke();
+                    Close();
+                    _isRunning = false;
+                    MyLog.Debug("服务器已停止");
+                    break;
+                }
             }
         }
 
@@ -46,14 +54,7 @@ namespace Kirara.Network
             msgProcessor.AddUpdate(key, update);
         }
 
-        private void OnCancelKeyPress(object sender, EventArgs e)
-        {
-            MyLog.Debug("Bye~");
-            Stop();
-            _isRunning = false;
-        }
-
-        private void Stop()
+        private void Close()
         {
             msgProcessor.Stop();
             socket.Close();
@@ -67,27 +68,42 @@ namespace Kirara.Network
                 MyLog.Debug($"客户端{client.RemoteEndPoint}连接");
                 var session = new Session(client, msgProcessor);
                 _ = session.ReceiveAsync();
-                sessions.Add(session);
+                lock (session)
+                {
+                    sessions.Add(session);
+                }
+            }
+        }
+
+        private void LoopCheckSessionTimeout()
+        {
+            while (_isRunning)
+            {
+                Thread.Sleep(1000);
+                CheckSessionTimeout();
             }
         }
 
         private void CheckSessionTimeout()
         {
-            for (int i = 0; i < sessions.Count;)
+            lock (sessions)
             {
-                if (sessions[i].isClosed)
+                for (int i = 0; i < sessions.Count;)
                 {
-                    sessions.RemoveAt(i);
-                }
-                else if (sessions[i].CheckTimeout())
-                {
-                    MyLog.Debug($"会话超时: {sessions[i]._socket.RemoteEndPoint}");
-                    sessions[i].Close();
-                    sessions.RemoveAt(i);
-                }
-                else
-                {
-                    i++;
+                    if (sessions[i].isClosed)
+                    {
+                        sessions.RemoveAt(i);
+                    }
+                    else if (sessions[i].CheckTimeout())
+                    {
+                        MyLog.Debug($"会话超时: {sessions[i]._socket.RemoteEndPoint}");
+                        sessions[i].Close();
+                        sessions.RemoveAt(i);
+                    }
+                    else
+                    {
+                        i++;
+                    }
                 }
             }
         }

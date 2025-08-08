@@ -41,9 +41,13 @@ public class ReqSendAddFriend_Handler : RpcHandler<ReqSendAddFriend, RspSendAddF
             return;
         }
 
-        if (!target.FriendUids.Contains(player.Uid))
+        if (!target.FriendRequestUids.Contains(player.Uid))
         {
-            target.FriendUids.Add(player.Uid);
+            target.FriendRequestUids.Add(player.Uid);
+            target.Session?.Send(new NotifyFriendRequestsAdd
+            {
+                Player = player.NSocial
+            });
         }
     }
 }

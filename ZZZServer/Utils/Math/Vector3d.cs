@@ -10,7 +10,6 @@
 /// Email: darkziyu@126.com
 
 using System.ComponentModel;
-using FbxSharp;
 
 namespace Mathd
 {

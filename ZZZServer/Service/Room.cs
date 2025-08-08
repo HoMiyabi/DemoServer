@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf;
+using Kirara.Network;
 using Serilog;
 using ZZZServer.Model;
 using ZZZServer.SVEntity;
@@ -49,7 +50,7 @@ public class Room
 
         player.Session.OnDisconnected += () =>
         {
-            RemovePlayer(player);
+            NetMsgProcessor.Instance.EnqueueTask(() => RemovePlayer(player));
         };
     }
 
@@ -68,7 +69,7 @@ public class Room
             Uids = {player.Uid}
         };
 
-        SendAllPlayersExcept(msg, player);
+        SendAllPlayers(msg);
     }
 
     public void PlayerRolePlayAction(Player player, string roleId, string actionName)

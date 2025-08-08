@@ -37,6 +37,7 @@ internal static class Program
 
         var server = new Server();
         server.AddMsgProcessorUpdate("RoomService", RoomService.Update);
+        server.OnBeforeClose += PlayerService.SaveAllPlayers;
         server.Run(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 23434));
     }
 }

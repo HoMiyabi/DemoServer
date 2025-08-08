@@ -1,12 +1,13 @@
 ﻿using System.Collections.Concurrent;
 using MongoDB.Driver;
+using Serilog;
 using ZZZServer.Model;
 
 namespace ZZZServer.Service;
 
 public static class PlayerService
 {
-    public static ConcurrentDictionary<string, Player> UidToPlayer { get; private set; } = new();
+    private static ConcurrentDictionary<string, Player> UidToPlayer { get; } = new();
 
     public static Player CreatePlayer(string username, string password)
     {
@@ -37,8 +38,17 @@ public static class PlayerService
         return p;
     }
 
+    public static void SaveAllPlayers()
+    {
+        foreach (var player in UidToPlayer.Values)
+        {
+            SavePlayer(player);
+        }
+    }
+
     public static void SavePlayer(Player player)
     {
+        Log.Debug("保存玩家 UId: {PlayerUid}", player.Uid);
         var db = DbHelper.Database;
         var players = db.GetCollection<Player>("player");
         players.ReplaceOne(

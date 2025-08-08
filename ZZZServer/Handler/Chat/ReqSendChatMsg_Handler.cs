@@ -45,15 +45,13 @@ public class ReqSendChatMsg_Handler : RpcHandler<ReqSendChatMsg, RspSendChatMsg>
         long unixTimeMs = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         msg.UnixTimeMs = unixTimeMs;
 
-        if (PlayerService.UidToPlayer.TryGetValue(receiverUid, out var receiver))
+        var receiver = PlayerService.GetPlayerByUid(receiverUid);
+        if (receiver.IsOnline)
         {
-            if (receiver.IsOnline)
+            receiver.Session.Send(new NotifyReceiveChatMsg
             {
-                receiver.Session.Send(new NotifyReceiveChatMsg
-                {
-                    ChatMsg = msg
-                });
-            }
+                ChatMsg = msg
+            });
         }
 
         DbHelper.ChatMsgs.InsertOne(new ChatMsg

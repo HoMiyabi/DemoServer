@@ -22,7 +22,7 @@ public class ReqSearchPlayer_Handler : RpcHandler<ReqSearchPlayer, RspSearchPlay
             return;
         }
 
-        rsp.SocialPlayers = new NSocialPlayer
+        rsp.SocialPlayer = new NSocialPlayer
         {
             Uid = target.Uid,
             Username = target.Username,

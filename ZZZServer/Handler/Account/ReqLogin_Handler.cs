@@ -28,13 +28,14 @@ public class ReqLogin_Handler : RpcHandler<ReqLogin, RspLogin>
 
         session.OnDisconnected += () =>
         {
-            session.Data = null;
-            player.Session = null;
-            player.IsOnline = false;
+            NetMsgProcessor.Instance.EnqueueTask(() =>
+            {
+                session.Data = null;
+                player.Session = null;
+                player.IsOnline = false;
 
-            PlayerService.UidToPlayer.TryRemove(player.Uid, out _);
-            Log.Debug($"玩家离开保存 UId: {player.Uid}");
-            PlayerService.SavePlayer(player);
+                PlayerService.SavePlayer(player);
+            });
         };
     }
 }

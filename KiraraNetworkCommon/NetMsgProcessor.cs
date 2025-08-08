@@ -12,6 +12,8 @@ namespace Kirara.Network
         private int interval = 20;
         private long prevTime = 0;
         private readonly ConcurrentDictionary<string, Action<float>> updates = new();
+        private readonly ConcurrentQueue<Action> taskQueue = new();
+        public static NetMsgProcessor Instance { get; private set; }
 
         public bool AddUpdate(string key, Action<float> update)
         {
@@ -21,6 +23,7 @@ namespace Kirara.Network
         public void Start()
         {
             if (isWorking) return;
+            Instance = this;
 
             isWorking = true;
             var thread = new Thread(Work)
@@ -48,6 +51,12 @@ namespace Kirara.Network
             queue.Enqueue((session, cmdId, rpcSeq, msg));
         }
 
+        public void EnqueueTask(Action task)
+        {
+            if (task == null) return;
+            taskQueue.Enqueue(task);
+        }
+
         private void Update()
         {
             while (queue.TryDequeue(out var item))
@@ -59,6 +68,18 @@ namespace Kirara.Network
                 catch (Exception e)
                 {
                     MyLog.Error("处理消息异常 " + e);
+                }
+            }
+
+            while (taskQueue.TryDequeue(out var task))
+            {
+                try
+                {
+                    task();
+                }
+                catch (Exception e)
+                {
+                    MyLog.Error("处理任务异常 " + e);
                 }
             }
 
