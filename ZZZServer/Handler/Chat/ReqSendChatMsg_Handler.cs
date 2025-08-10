@@ -24,7 +24,7 @@ public class ReqSendChatMsg_Handler : RpcHandler<ReqSendChatMsg, RspSendChatMsg>
         else if (msg.MsgType == 1)
         {
             // 为贴纸消息
-            msg.Text = null;
+            msg.Text = "";
         }
         else
         {
