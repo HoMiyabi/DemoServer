@@ -93,8 +93,8 @@ public class Monster
 
     private void UpdateCollisionDetect()
     {
-        float radius1 = 0.5f;
-        float radius2 = 0.5f;
+        float radius1 = 0.3f;
+        float radius2 = 0.55f;
         foreach (var player in room.players)
         {
             var frontRole = player.Roles.Find(x => x.Id == player.FrontRoleId);
