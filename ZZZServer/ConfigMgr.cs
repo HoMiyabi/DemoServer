@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using Serilog;
 
 namespace ZZZServer;
 
@@ -8,6 +9,7 @@ public static class ConfigMgr
 
     public static void Init()
     {
+        Log.Debug("加载配置表");
         tb = new cfg.Tables(LoadJson);
     }
 

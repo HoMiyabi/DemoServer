@@ -1,4 +1,5 @@
-﻿using Mathd;
+﻿using cfg.main;
+using Mathd;
 using Serilog;
 using ZZZServer.Animation;
 using ZZZServer.Service;
@@ -9,24 +10,30 @@ namespace ZZZServer.SVEntity;
 
 public class Monster
 {
-    public Room room;
-    public int monsterId;
+    private readonly MonsterConfig config;
+    private Room room;
+    public readonly int monsterId;
     public float hp;
-    public Vector3d pos;
-    public Quaterniond rot;
+    private Vector3d pos;
+    private Quaterniond rot;
 
-    public Monster(Room room, int monsterId, float hp)
+    public Monster(int cid, Room room, int monsterId)
     {
+        config = ConfigMgr.tb.TbMonsterConfig[cid];
         this.room = room;
         this.monsterId = monsterId;
-        this.hp = hp;
+        hp = config.Hp;
+        Play(Idle, () => EnterState(State.Idle));
     }
 
     public NSyncMonster NSyncMonster => new()
     {
+        MonsterCid = config.Id,
         MonsterId = monsterId,
         Pos = pos.Net(),
         Rot = rot.Net(),
+        Hp = hp,
+        ActionName = _currMotion?.name ?? "",
     };
 
     public enum State
@@ -43,9 +50,9 @@ public class Monster
     public float maxIdleColdTime = 2f;
     public float idleColdTime;
 
-    private AnimRootMotion Idle = AnimMgr.AnimRootMotions["Idle"];
-    private AnimRootMotion Run = AnimMgr.AnimRootMotions["Run"];
-    private AnimRootMotion Die = AnimMgr.AnimRootMotions["Die"];
+    public AnimRootMotion Idle = AnimMgr.AnimRootMotions["Idle"];
+    public AnimRootMotion Run = AnimMgr.AnimRootMotions["Run"];
+    public AnimRootMotion Die = AnimMgr.AnimRootMotions["Die"];
 
     private List<(Vector3 hitFrom, AnimRootMotion anim)> HitAnims =
     [
@@ -127,7 +134,7 @@ public class Monster
                 var role = room.ClosestFrontRole(pos.ToSingle(), out float dis);
                 if (role == null)
                 {
-                    EnterState(State.Idle);
+                    EnterState(State.Idle, () => Play(Idle));
                 }
                 else
                 {
@@ -140,7 +147,7 @@ public class Monster
                     }
                     else if (dis > chaseDistance)
                     {
-                        EnterState(State.Idle);
+                        EnterState(State.Idle, () => Play(Idle));
                     }
                 }
                 break;
@@ -158,12 +165,12 @@ public class Monster
             case State.Idle:
             {
                 idleColdTime = 0f;
-                Play(Idle);
+                Play(Idle, () => Play(Idle));
                 break;
             }
             case State.Chase:
             {
-                Play(Run, () => EnterState(State.Chase));
+                Play(Run, () => Play(Run));
                 break;
             }
             case State.Attack:
@@ -227,7 +234,7 @@ public class Monster
     private AnimRootMotion _currMotion;
     private float _currTime;
     private Action _onFinish;
-    private void Play(AnimRootMotion motion, Action onFinish = null)
+    public void Play(AnimRootMotion motion, Action onFinish = null)
     {
         Log.Debug("RoomId: {0}, MonsterId: {1}, Play: {2}, pos: {3}, rot: {4}",
             room.id, monsterId, motion.name, pos, rot);

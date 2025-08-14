@@ -34,11 +34,11 @@ public class Room
         };
         SendAllPlayers(notifyUpdateFromAuthority);
 
-        var notifyMonsterMovement = new NotifyMonsterRepMovement()
+        var notifySyncMonster = new NotifyUpdateMonster()
         {
             Monsters = {monsters.Select(x => x.NSyncMonster)}
         };
-        SendAllPlayers(notifyMonsterMovement);
+        SendAllPlayers(notifySyncMonster);
     }
 
     public void AddPlayer(Player player)
@@ -102,16 +102,8 @@ public class Room
     public void SpawnMonster(int monsterCid, NMovement movement)
     {
         Log.Debug("SpawnMonster, monsterCid: {0}", monsterCid);
-        var config = ConfigMgr.tb.TbMonsterConfig[monsterCid];
-        var monster = new Monster(this, NextMonsterId, config.Hp);
+        var monster = new Monster(monsterCid, this, NextMonsterId);
         monsters.Add(monster);
-        var msg = new NotifySpawnMonster
-        {
-            MonsterCid = monsterCid,
-            MonsterId = monster.monsterId,
-            Movement = movement
-        };
-        SendAllPlayers(msg);
     }
 
     public void MonsterTakeDamage(Player player, int monsterId, float damage)
@@ -129,7 +121,7 @@ public class Room
             MonsterId = monsterId,
             Damage = damage,
         };
-        SendAllPlayersExcept(msg, player);
+        SendAllPlayers(msg);
 
         if (monster.hp <= 0f)
         {
