@@ -3,7 +3,7 @@ using ZZZServer.Model;
 
 namespace ZZZServer.Handler.Monster;
 
-public class ReqTakeDamage_Handler : MsgHandler<MsgMonsterTakeDamage>
+public class MsgMonsterTakeDamage_Handler : MsgHandler<MsgMonsterTakeDamage>
 {
     protected override void Run(Session session, MsgMonsterTakeDamage msg)
     {

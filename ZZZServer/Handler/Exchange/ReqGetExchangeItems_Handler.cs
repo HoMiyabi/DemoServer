@@ -2,7 +2,7 @@
 
 namespace ZZZServer.Handler;
 
-public class ReqGetExchangeItemsHandler : RpcHandler<ReqGetExchangeItems, RspGetExchangeItems>
+public class ReqGetExchangeItems_Handler : RpcHandler<ReqGetExchangeItems, RspGetExchangeItems>
 {
     protected override void Run(Session session, ReqGetExchangeItems req, RspGetExchangeItems rsp, Action reply)
     {

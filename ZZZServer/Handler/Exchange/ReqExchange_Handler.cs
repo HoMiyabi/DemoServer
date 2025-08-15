@@ -5,7 +5,7 @@ using ZZZServer.Model;
 
 namespace ZZZServer.Handler;
 
-public class ReqExchangeHandler : RpcHandler<ReqExchange, RspExchange>
+public class ReqExchange_Handler : RpcHandler<ReqExchange, RspExchange>
 {
     protected override void Run(Session session, ReqExchange req, RspExchange rsp, Action reply)
     {

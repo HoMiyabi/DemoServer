@@ -115,28 +115,30 @@ public static partial class MessageReflection {
           "dWx0IjkKElJlcVJvbGVFcXVpcFdlYXBvbhIOCgZSb2xlSWQYASABKAkSEwoL",
           "TmV3V2VhcG9uSWQYAiABKAkiLQoSUnNwUm9sZUVxdWlwV2VhcG9uEhcKBlJl",
           "c3VsdBgBIAEoCzIHLlJlc3VsdCIlChBOb3RpZnlNb25zdGVyRGllEhEKCU1v",
-          "bnN0ZXJJZBgBIAEoBSI5ChRNc2dNb25zdGVyVGFrZURhbWFnZRIRCglNb25z",
-          "dGVySWQYASABKAUSDgoGRGFtYWdlGAIgASgCIjwKF05vdGlmeU1vbnN0ZXJU",
-          "YWtlRGFtYWdlEhEKCU1vbnN0ZXJJZBgBIAEoBRIOCgZEYW1hZ2UYAiABKAIi",
-          "OQoLTlF1YXRlcm5pb24SCQoBWBgBIAEoAhIJCgFZGAIgASgCEgkKAVoYAyAB",
-          "KAISCQoBVxgEIAEoAiKIAQoMTlN5bmNNb25zdGVyEhIKCk1vbnN0ZXJDaWQY",
-          "ASABKAUSEQoJTW9uc3RlcklkGAIgASgFEhYKA1BvcxgDIAEoCzIJLk5WZWN0",
-          "b3IzEhkKA1JvdBgEIAEoCzIMLk5RdWF0ZXJuaW9uEgoKAkhwGAUgASgCEhIK",
-          "CkFjdGlvbk5hbWUYBiABKAkiNgoTTm90aWZ5VXBkYXRlTW9uc3RlchIfCghN",
-          "b25zdGVycxgBIAMoCzINLk5TeW5jTW9uc3RlciJAChdOb3RpZnlNb25zdGVy",
-          "UGxheUFjdGlvbhIRCglNb25zdGVySWQYASABKAUSEgoKQWN0aW9uTmFtZRgC",
-          "IAEoCSI4Cg1SZXFTdGFydFF1ZXN0EhUKDVF1ZXN0Q2hhaW5DaWQYASABKAUS",
-          "EAoIUXVlc3RDaWQYAiABKAUiKAoNUnNwU3RhcnRRdWVzdBIXCgZSZXN1bHQY",
-          "ASABKAsyBy5SZXN1bHQiRAoOUmVxVXBncmFkZURpc2MSDgoGRGlzY0lkGAEg",
-          "ASgJEhMKC01hdGVyaWFsQ2lkGAIgASgFEg0KBUNvdW50GAMgASgFIkcKDlJz",
-          "cFVwZ3JhZGVEaXNjEhcKBlJlc3VsdBgBIAEoCzIHLlJlc3VsdBIcCghTdWJB",
-          "dHRycxgCIAMoCzIKLk5EaXNjQXR0ciI3ChFNc2dHYXRoZXJNYXRlcmlhbBIT",
-          "CgtNYXRlcmlhbENpZBgBIAEoBRINCgVDb3VudBgCIAEoBSIuChVNc2dDb21w",
-          "bGV0ZVF1ZXN0Q2hhaW4SFQoNUXVlc3RDaGFpbkNpZBgBIAEoBSKZAQoRTm90",
-          "aWZ5T2J0YWluSXRlbXMSIAoIQ3VySXRlbXMYASADKAsyDi5OQ3VycmVuY3lJ",
-          "dGVtEiAKCE1hdEl0ZW1zGAIgAygLMg4uTk1hdGVyaWFsSXRlbRIdCglEaXNj",
-          "SXRlbXMYAyADKAsyCi5ORGlzY0l0ZW0SIQoLV2VhcG9uSXRlbXMYBCADKAsy",
-          "DC5OV2VhcG9uSXRlbWIGcHJvdG8z"));
+          "bnN0ZXJJZBgBIAEoBSJ8ChRNc2dNb25zdGVyVGFrZURhbWFnZRIRCglNb25z",
+          "dGVySWQYASABKAUSDgoGRGFtYWdlGAIgASgCEgwKBERhemUYAyABKAISFQoN",
+          "aGl0R2F0aGVyRGlzdBgEIAEoAhIcCglDZW50ZXJQb3MYBSABKAsyCS5OVmVj",
+          "dG9yMyJMChdOb3RpZnlNb25zdGVyVGFrZURhbWFnZRIRCglNb25zdGVySWQY",
+          "ASABKAUSDgoGRGFtYWdlGAIgASgCEg4KBkN1cnJIcBgDIAEoAiI5CgtOUXVh",
+          "dGVybmlvbhIJCgFYGAEgASgCEgkKAVkYAiABKAISCQoBWhgDIAEoAhIJCgFX",
+          "GAQgASgCIogBCgxOU3luY01vbnN0ZXISEgoKTW9uc3RlckNpZBgBIAEoBRIR",
+          "CglNb25zdGVySWQYAiABKAUSFgoDUG9zGAMgASgLMgkuTlZlY3RvcjMSGQoD",
+          "Um90GAQgASgLMgwuTlF1YXRlcm5pb24SCgoCSHAYBSABKAISEgoKQWN0aW9u",
+          "TmFtZRgGIAEoCSI2ChNOb3RpZnlVcGRhdGVNb25zdGVyEh8KCE1vbnN0ZXJz",
+          "GAEgAygLMg0uTlN5bmNNb25zdGVyIkAKF05vdGlmeU1vbnN0ZXJQbGF5QWN0",
+          "aW9uEhEKCU1vbnN0ZXJJZBgBIAEoBRISCgpBY3Rpb25OYW1lGAIgASgJIjgK",
+          "DVJlcVN0YXJ0UXVlc3QSFQoNUXVlc3RDaGFpbkNpZBgBIAEoBRIQCghRdWVz",
+          "dENpZBgCIAEoBSIoCg1Sc3BTdGFydFF1ZXN0EhcKBlJlc3VsdBgBIAEoCzIH",
+          "LlJlc3VsdCJECg5SZXFVcGdyYWRlRGlzYxIOCgZEaXNjSWQYASABKAkSEwoL",
+          "TWF0ZXJpYWxDaWQYAiABKAUSDQoFQ291bnQYAyABKAUiRwoOUnNwVXBncmFk",
+          "ZURpc2MSFwoGUmVzdWx0GAEgASgLMgcuUmVzdWx0EhwKCFN1YkF0dHJzGAIg",
+          "AygLMgouTkRpc2NBdHRyIjcKEU1zZ0dhdGhlck1hdGVyaWFsEhMKC01hdGVy",
+          "aWFsQ2lkGAEgASgFEg0KBUNvdW50GAIgASgFIi4KFU1zZ0NvbXBsZXRlUXVl",
+          "c3RDaGFpbhIVCg1RdWVzdENoYWluQ2lkGAEgASgFIpkBChFOb3RpZnlPYnRh",
+          "aW5JdGVtcxIgCghDdXJJdGVtcxgBIAMoCzIOLk5DdXJyZW5jeUl0ZW0SIAoI",
+          "TWF0SXRlbXMYAiADKAsyDi5OTWF0ZXJpYWxJdGVtEh0KCURpc2NJdGVtcxgD",
+          "IAMoCzIKLk5EaXNjSXRlbRIhCgtXZWFwb25JdGVtcxgEIAMoCzIMLk5XZWFw",
+          "b25JdGVtYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -209,8 +211,8 @@ public static partial class MessageReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::ReqRoleEquipWeapon), global::ReqRoleEquipWeapon.Parser, new[]{ "RoleId", "NewWeaponId" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RspRoleEquipWeapon), global::RspRoleEquipWeapon.Parser, new[]{ "Result" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::NotifyMonsterDie), global::NotifyMonsterDie.Parser, new[]{ "MonsterId" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::MsgMonsterTakeDamage), global::MsgMonsterTakeDamage.Parser, new[]{ "MonsterId", "Damage" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::NotifyMonsterTakeDamage), global::NotifyMonsterTakeDamage.Parser, new[]{ "MonsterId", "Damage" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::MsgMonsterTakeDamage), global::MsgMonsterTakeDamage.Parser, new[]{ "MonsterId", "Damage", "Daze", "HitGatherDist", "CenterPos" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::NotifyMonsterTakeDamage), global::NotifyMonsterTakeDamage.Parser, new[]{ "MonsterId", "Damage", "CurrHp" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::NQuaternion), global::NQuaternion.Parser, new[]{ "X", "Y", "Z", "W" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::NSyncMonster), global::NSyncMonster.Parser, new[]{ "MonsterCid", "MonsterId", "Pos", "Rot", "Hp", "ActionName" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::NotifyUpdateMonster), global::NotifyUpdateMonster.Parser, new[]{ "Monsters" }, null, null, null, null),
@@ -16847,6 +16849,9 @@ public sealed partial class MsgMonsterTakeDamage : pb::IMessage<MsgMonsterTakeDa
   public MsgMonsterTakeDamage(MsgMonsterTakeDamage other) : this() {
     monsterId_ = other.monsterId_;
     damage_ = other.damage_;
+    daze_ = other.daze_;
+    hitGatherDist_ = other.hitGatherDist_;
+    centerPos_ = other.centerPos_ != null ? other.centerPos_.Clone() : null;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -16880,6 +16885,42 @@ public sealed partial class MsgMonsterTakeDamage : pb::IMessage<MsgMonsterTakeDa
     }
   }
 
+  /// <summary>Field number for the "Daze" field.</summary>
+  public const int DazeFieldNumber = 3;
+  private float daze_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public float Daze {
+    get { return daze_; }
+    set {
+      daze_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "hitGatherDist" field.</summary>
+  public const int HitGatherDistFieldNumber = 4;
+  private float hitGatherDist_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public float HitGatherDist {
+    get { return hitGatherDist_; }
+    set {
+      hitGatherDist_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "CenterPos" field.</summary>
+  public const int CenterPosFieldNumber = 5;
+  private global::NVector3 centerPos_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::NVector3 CenterPos {
+    get { return centerPos_; }
+    set {
+      centerPos_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -16897,6 +16938,9 @@ public sealed partial class MsgMonsterTakeDamage : pb::IMessage<MsgMonsterTakeDa
     }
     if (MonsterId != other.MonsterId) return false;
     if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Damage, other.Damage)) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Daze, other.Daze)) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(HitGatherDist, other.HitGatherDist)) return false;
+    if (!object.Equals(CenterPos, other.CenterPos)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -16906,6 +16950,9 @@ public sealed partial class MsgMonsterTakeDamage : pb::IMessage<MsgMonsterTakeDa
     int hash = 1;
     if (MonsterId != 0) hash ^= MonsterId.GetHashCode();
     if (Damage != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Damage);
+    if (Daze != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Daze);
+    if (HitGatherDist != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(HitGatherDist);
+    if (centerPos_ != null) hash ^= CenterPos.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -16932,6 +16979,18 @@ public sealed partial class MsgMonsterTakeDamage : pb::IMessage<MsgMonsterTakeDa
       output.WriteRawTag(21);
       output.WriteFloat(Damage);
     }
+    if (Daze != 0F) {
+      output.WriteRawTag(29);
+      output.WriteFloat(Daze);
+    }
+    if (HitGatherDist != 0F) {
+      output.WriteRawTag(37);
+      output.WriteFloat(HitGatherDist);
+    }
+    if (centerPos_ != null) {
+      output.WriteRawTag(42);
+      output.WriteMessage(CenterPos);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -16950,6 +17009,18 @@ public sealed partial class MsgMonsterTakeDamage : pb::IMessage<MsgMonsterTakeDa
       output.WriteRawTag(21);
       output.WriteFloat(Damage);
     }
+    if (Daze != 0F) {
+      output.WriteRawTag(29);
+      output.WriteFloat(Daze);
+    }
+    if (HitGatherDist != 0F) {
+      output.WriteRawTag(37);
+      output.WriteFloat(HitGatherDist);
+    }
+    if (centerPos_ != null) {
+      output.WriteRawTag(42);
+      output.WriteMessage(CenterPos);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -16965,6 +17036,15 @@ public sealed partial class MsgMonsterTakeDamage : pb::IMessage<MsgMonsterTakeDa
     }
     if (Damage != 0F) {
       size += 1 + 4;
+    }
+    if (Daze != 0F) {
+      size += 1 + 4;
+    }
+    if (HitGatherDist != 0F) {
+      size += 1 + 4;
+    }
+    if (centerPos_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(CenterPos);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -16983,6 +17063,18 @@ public sealed partial class MsgMonsterTakeDamage : pb::IMessage<MsgMonsterTakeDa
     }
     if (other.Damage != 0F) {
       Damage = other.Damage;
+    }
+    if (other.Daze != 0F) {
+      Daze = other.Daze;
+    }
+    if (other.HitGatherDist != 0F) {
+      HitGatherDist = other.HitGatherDist;
+    }
+    if (other.centerPos_ != null) {
+      if (centerPos_ == null) {
+        CenterPos = new global::NVector3();
+      }
+      CenterPos.MergeFrom(other.CenterPos);
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -17011,6 +17103,21 @@ public sealed partial class MsgMonsterTakeDamage : pb::IMessage<MsgMonsterTakeDa
           Damage = input.ReadFloat();
           break;
         }
+        case 29: {
+          Daze = input.ReadFloat();
+          break;
+        }
+        case 37: {
+          HitGatherDist = input.ReadFloat();
+          break;
+        }
+        case 42: {
+          if (centerPos_ == null) {
+            CenterPos = new global::NVector3();
+          }
+          input.ReadMessage(CenterPos);
+          break;
+        }
       }
     }
   #endif
@@ -17036,6 +17143,21 @@ public sealed partial class MsgMonsterTakeDamage : pb::IMessage<MsgMonsterTakeDa
         }
         case 21: {
           Damage = input.ReadFloat();
+          break;
+        }
+        case 29: {
+          Daze = input.ReadFloat();
+          break;
+        }
+        case 37: {
+          HitGatherDist = input.ReadFloat();
+          break;
+        }
+        case 42: {
+          if (centerPos_ == null) {
+            CenterPos = new global::NVector3();
+          }
+          input.ReadMessage(CenterPos);
           break;
         }
       }
@@ -17085,6 +17207,7 @@ public sealed partial class NotifyMonsterTakeDamage : pb::IMessage<NotifyMonster
   public NotifyMonsterTakeDamage(NotifyMonsterTakeDamage other) : this() {
     monsterId_ = other.monsterId_;
     damage_ = other.damage_;
+    currHp_ = other.currHp_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -17118,6 +17241,18 @@ public sealed partial class NotifyMonsterTakeDamage : pb::IMessage<NotifyMonster
     }
   }
 
+  /// <summary>Field number for the "CurrHp" field.</summary>
+  public const int CurrHpFieldNumber = 3;
+  private float currHp_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public float CurrHp {
+    get { return currHp_; }
+    set {
+      currHp_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -17135,6 +17270,7 @@ public sealed partial class NotifyMonsterTakeDamage : pb::IMessage<NotifyMonster
     }
     if (MonsterId != other.MonsterId) return false;
     if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Damage, other.Damage)) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(CurrHp, other.CurrHp)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -17144,6 +17280,7 @@ public sealed partial class NotifyMonsterTakeDamage : pb::IMessage<NotifyMonster
     int hash = 1;
     if (MonsterId != 0) hash ^= MonsterId.GetHashCode();
     if (Damage != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Damage);
+    if (CurrHp != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(CurrHp);
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -17170,6 +17307,10 @@ public sealed partial class NotifyMonsterTakeDamage : pb::IMessage<NotifyMonster
       output.WriteRawTag(21);
       output.WriteFloat(Damage);
     }
+    if (CurrHp != 0F) {
+      output.WriteRawTag(29);
+      output.WriteFloat(CurrHp);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -17188,6 +17329,10 @@ public sealed partial class NotifyMonsterTakeDamage : pb::IMessage<NotifyMonster
       output.WriteRawTag(21);
       output.WriteFloat(Damage);
     }
+    if (CurrHp != 0F) {
+      output.WriteRawTag(29);
+      output.WriteFloat(CurrHp);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -17202,6 +17347,9 @@ public sealed partial class NotifyMonsterTakeDamage : pb::IMessage<NotifyMonster
       size += 1 + pb::CodedOutputStream.ComputeInt32Size(MonsterId);
     }
     if (Damage != 0F) {
+      size += 1 + 4;
+    }
+    if (CurrHp != 0F) {
       size += 1 + 4;
     }
     if (_unknownFields != null) {
@@ -17221,6 +17369,9 @@ public sealed partial class NotifyMonsterTakeDamage : pb::IMessage<NotifyMonster
     }
     if (other.Damage != 0F) {
       Damage = other.Damage;
+    }
+    if (other.CurrHp != 0F) {
+      CurrHp = other.CurrHp;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -17249,6 +17400,10 @@ public sealed partial class NotifyMonsterTakeDamage : pb::IMessage<NotifyMonster
           Damage = input.ReadFloat();
           break;
         }
+        case 29: {
+          CurrHp = input.ReadFloat();
+          break;
+        }
       }
     }
   #endif
@@ -17274,6 +17429,10 @@ public sealed partial class NotifyMonsterTakeDamage : pb::IMessage<NotifyMonster
         }
         case 21: {
           Damage = input.ReadFloat();
+          break;
+        }
+        case 29: {
+          CurrHp = input.ReadFloat();
           break;
         }
       }

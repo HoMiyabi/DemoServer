@@ -23,6 +23,7 @@ public class Monster
         this.room = room;
         this.monsterId = monsterId;
         hp = config.Hp;
+        Log.Debug("Monster, id: {0}, hp: {1}", monsterId, hp);
         Play(Idle, () => EnterState(State.Idle));
     }
 
@@ -158,8 +159,8 @@ public class Monster
     public void EnterState(State state, object arg = null)
     {
         _state = state;
-        Log.Debug("RoomId: {0} MonsterId: {1} EnterState: {2} pos: {3}, rot: {4}",
-            room.id, monsterId, state, pos, rot);
+        Log.Debug("RoomId: {0} MonsterId: {1} EnterState: {2}",
+            room.id, monsterId, state);
         switch (state)
         {
             case State.Idle:
@@ -236,8 +237,8 @@ public class Monster
     private Action _onFinish;
     public void Play(AnimRootMotion motion, Action onFinish = null)
     {
-        Log.Debug("RoomId: {0}, MonsterId: {1}, Play: {2}, pos: {3}, rot: {4}",
-            room.id, monsterId, motion.name, pos, rot);
+        Log.Debug("RoomId: {0}, MonsterId: {1}, Play: {2}",
+            room.id, monsterId, motion.name);
         var notify = new NotifyMonsterPlayAction
         {
             MonsterId = monsterId,
