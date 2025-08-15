@@ -106,31 +106,47 @@ public class Room
         monsters.Add(monster);
     }
 
-    public void MonsterTakeDamage(Player player, int monsterId, float damage)
+    public void MonsterTakeDamage(Player player, MsgMonsterTakeDamage msg)
     {
-        var monster = monsters.Find(it => it.monsterId == monsterId);
+        var monster = monsters.Find(it => it.monsterId == msg.MonsterId);
         if (monster == null)
         {
-            Log.Debug("找不到Monster, MonsterId: {0}", monsterId);
+            Log.Debug("找不到Monster, MonsterId: {0}", msg.MonsterId);
             return;
         }
 
-        monster.hp -= damage;
-        var msg = new NotifyMonsterTakeDamage
+        monster.hp = Math.Max(0f, monster.hp - msg.Damage);
+        var notify = new NotifyMonsterTakeDamage
         {
-            MonsterId = monsterId,
-            Damage = damage,
+            MonsterId = msg.MonsterId,
+            Damage = msg.Damage,
+            IsCrit = msg.IsCrit,
+            CurrHp = monster.hp
         };
-        SendAllPlayers(msg);
+        SendAllPlayers(notify);
+
+        // 聚怪效果
+        if (msg.HitGatherDist != 0f)
+        {
+            var worldCenter = msg.CenterPos.ToDouble();
+
+            // 移动向量的水平投影，最长不能超过v
+            var v = (worldCenter - monster.pos);
+            v.y = 0f;
+
+            double dist = Math.Min(msg.HitGatherDist, v.magnitude); // 不能越过中心
+            var dir = v.normalized; // 方向
+            monster.pos += dir * dist;
+        }
 
         if (monster.hp <= 0f)
         {
             monsters.Remove(monster);
-            var dieMsg = new NotifyMonsterDie
+            var notifyMonsterDie = new NotifyMonsterDie
             {
-                MonsterId = monsterId
+                MonsterId = msg.MonsterId
             };
-            SendAllPlayers(dieMsg);
+            SendAllPlayers(notifyMonsterDie);
         }
     }
 

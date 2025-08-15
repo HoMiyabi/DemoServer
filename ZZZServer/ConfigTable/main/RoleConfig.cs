@@ -15,9 +15,9 @@ using Newtonsoft.Json.Linq;
 namespace cfg.main
 {
 
-public sealed partial class CharacterConfig : Luban.BeanBase
+public sealed partial class RoleConfig : Luban.BeanBase
 {
-    public CharacterConfig(JToken _buf) 
+    public RoleConfig(JToken _buf) 
     {
         JObject _obj = _buf as JObject;
         Id = (int)_obj.GetValue("id");
@@ -26,11 +26,12 @@ public sealed partial class CharacterConfig : Luban.BeanBase
         RoleSelectIconLoc = (string)_obj.GetValue("role_select_icon_loc");
         PrefabLoc = (string)_obj.GetValue("prefab_loc");
         SimPrefabLoc = (string)_obj.GetValue("sim_prefab_loc");
+        IconRoleGeneralLoc = (string)_obj.GetValue("icon_role_general_loc");
     }
 
-    public static CharacterConfig DeserializeCharacterConfig(JToken _buf)
+    public static RoleConfig DeserializeRoleConfig(JToken _buf)
     {
-        return new main.CharacterConfig(_buf);
+        return new main.RoleConfig(_buf);
     }
 
     /// <summary>
@@ -48,9 +49,10 @@ public sealed partial class CharacterConfig : Luban.BeanBase
     public readonly string RoleSelectIconLoc;
     public readonly string PrefabLoc;
     public readonly string SimPrefabLoc;
+    public readonly string IconRoleGeneralLoc;
 
 
-    public const int __ID__ = -2032504458;
+    public const int __ID__ = 1850447565;
     public override int GetTypeId() => __ID__;
 
     public  void ResolveRef(Tables tables)
@@ -66,6 +68,7 @@ public sealed partial class CharacterConfig : Luban.BeanBase
         + "roleSelectIconLoc:" + RoleSelectIconLoc + ","
         + "prefabLoc:" + PrefabLoc + ","
         + "simPrefabLoc:" + SimPrefabLoc + ","
+        + "iconRoleGeneralLoc:" + IconRoleGeneralLoc + ","
         + "}";
     }
 }

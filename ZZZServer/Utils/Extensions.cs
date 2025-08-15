@@ -29,6 +29,11 @@ public static class Extensions
         };
     }
 
+    public static Vector3d ToDouble(this NVector3 v)
+    {
+        return new Vector3d(v.X, v.Y, v.Z);
+    }
+
     public static NQuaternion Net(this Quaterniond q)
     {
         return new NQuaternion

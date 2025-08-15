@@ -48,7 +48,7 @@ public static class PlayerService
 
     public static void SavePlayer(Player player)
     {
-        Log.Debug("保存玩家 UId: {PlayerUid}", player.Uid);
+        Log.Debug("保存玩家 Uid: {PlayerUid}", player.Uid);
         var db = DbHelper.Database;
         var players = db.GetCollection<Player>("player");
         players.ReplaceOne(

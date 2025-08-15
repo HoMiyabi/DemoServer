@@ -11,11 +11,11 @@ namespace ZZZServer.SVEntity;
 public class Monster
 {
     private readonly MonsterConfig config;
-    private Room room;
+    public Room room;
     public readonly int monsterId;
     public float hp;
-    private Vector3d pos;
-    private Quaterniond rot;
+    public Vector3d pos;
+    public Quaterniond rot;
 
     public Monster(int cid, Room room, int monsterId)
     {
