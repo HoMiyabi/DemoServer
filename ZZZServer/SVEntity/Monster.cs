@@ -13,7 +13,7 @@ public class Monster
     private readonly MonsterConfig config;
     public Room room;
     public readonly int monsterId;
-    public float hp;
+    public double hp;
     public Vector3d pos;
     public Quaterniond rot;
 
@@ -55,12 +55,12 @@ public class Monster
     public AnimRootMotion Run = AnimMgr.AnimRootMotions["Run"];
     public AnimRootMotion Die = AnimMgr.AnimRootMotions["Die"];
 
-    private List<(Vector3 hitFrom, AnimRootMotion anim)> HitAnims =
+    private List<(Vector3d hitFrom, AnimRootMotion anim)> HitAnims =
     [
-        (new Vector3(0, 0, 1), AnimMgr.AnimRootMotions["Damage_Front"]),
-        (new Vector3(0, 0, -1), AnimMgr.AnimRootMotions["Damage_Back"]),
-        (new Vector3(1, 0, 0), AnimMgr.AnimRootMotions["Damage_Right"]),
-        (new Vector3(-1, 0, 0), AnimMgr.AnimRootMotions["Damage_Left"])
+        (new Vector3d(0, 0, 1), AnimMgr.AnimRootMotions["Damage_Front"]),
+        (new Vector3d(0, 0, -1), AnimMgr.AnimRootMotions["Damage_Back"]),
+        (new Vector3d(1, 0, 0), AnimMgr.AnimRootMotions["Damage_Right"]),
+        (new Vector3d(-1, 0, 0), AnimMgr.AnimRootMotions["Damage_Left"])
     ];
 
     private AnimRootMotion[] AttackAnims =
@@ -192,7 +192,7 @@ public class Monster
             }
             case State.Hit:
             {
-                var hitFrom = (Vector3)arg;
+                var hitFrom = (Vector3d)arg;
                 var hitAction = ChooseHitAction(hitFrom);
                 Play(hitAction, () =>
                 {
@@ -213,14 +213,14 @@ public class Monster
         }
     }
 
-    private AnimRootMotion ChooseHitAction(Vector3 hitFrom)
+    private AnimRootMotion ChooseHitAction(Vector3d hitFrom)
     {
         hitFrom = hitFrom.normalized;
         AnimRootMotion result = null;
-        float min = float.MaxValue;
+        double min = double.MaxValue;
         foreach (var item in HitAnims)
         {
-            float dot = Vector3.Dot(item.hitFrom, hitFrom);
+            double dot = Vector3d.Dot(item.hitFrom, hitFrom);
             if (dot < min)
             {
                 min = dot;
@@ -244,7 +244,7 @@ public class Monster
             MonsterId = monsterId,
             ActionName = motion.name
         };
-        room.SendAllPlayers(notify);
+        room.Broadcast(notify);
 
         _currMotion = motion;
         _currTime = 0f;

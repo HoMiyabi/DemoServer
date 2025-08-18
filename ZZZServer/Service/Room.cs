@@ -1,5 +1,6 @@
 ﻿using Google.Protobuf;
 using Kirara.Network;
+using Mathd;
 using Serilog;
 using ZZZServer.Model;
 using ZZZServer.SVEntity;
@@ -14,7 +15,7 @@ public class Room
     private readonly List<Monster> monsters = [];
 
     private int _monsterId = 0;
-    public int NextMonsterId => Interlocked.Increment(ref _monsterId);
+    private int NextMonsterId => Interlocked.Increment(ref _monsterId);
 
     public Room(int id)
     {
@@ -32,13 +33,13 @@ public class Room
         {
             Players = {players.Select(it => it.NSync)}
         };
-        SendAllPlayers(notifyUpdateFromAuthority);
+        Broadcast(notifyUpdateFromAuthority);
 
         var notifySyncMonster = new NotifyUpdateMonster()
         {
             Monsters = {monsters.Select(x => x.NSyncMonster)}
         };
-        SendAllPlayers(notifySyncMonster);
+        Broadcast(notifySyncMonster);
     }
 
     public void AddPlayer(Player player)
@@ -69,7 +70,7 @@ public class Room
             Uids = {player.Uid}
         };
 
-        SendAllPlayers(msg);
+        Broadcast(msg);
     }
 
     public void PlayerRolePlayAction(Player player, string roleId, string actionName)
@@ -81,7 +82,7 @@ public class Room
             ActionName = actionName
         };
 
-        SendAllPlayersExcept(msg, player);
+        BroadcastExcept(msg, player);
     }
 
     public void UpdateFromAutonomous(Player player, NSyncPlayer syncPlayer)
@@ -115,7 +116,18 @@ public class Room
             return;
         }
 
-        monster.hp = Math.Max(0f, monster.hp - msg.Damage);
+        Vector3d hitFrom;
+        if (msg.HitGatherDist != 0f)
+        {
+            hitFrom = monster.pos - msg.CenterPos.ToDouble();
+        }
+        else
+        {
+            hitFrom = msg.RolePos.ToDouble() - monster.pos;
+        }
+        monster.EnterState(Monster.State.Hit, hitFrom);
+
+        monster.hp = Math.Max(0, monster.hp - msg.Damage);
         var notify = new NotifyMonsterTakeDamage
         {
             MonsterId = msg.MonsterId,
@@ -123,7 +135,7 @@ public class Room
             IsCrit = msg.IsCrit,
             CurrHp = monster.hp
         };
-        SendAllPlayers(notify);
+        Broadcast(notify);
 
         // 聚怪效果
         if (msg.HitGatherDist != 0f)
@@ -139,14 +151,14 @@ public class Room
             monster.pos += dir * dist;
         }
 
-        if (monster.hp <= 0f)
+        if (monster.hp <= 0)
         {
             monsters.Remove(monster);
             var notifyMonsterDie = new NotifyMonsterDie
             {
                 MonsterId = msg.MonsterId
             };
-            SendAllPlayers(notifyMonsterDie);
+            Broadcast(notifyMonsterDie);
         }
     }
 
@@ -155,7 +167,7 @@ public class Room
         player.FrontRoleId = frontRoleId;
     }
 
-    public void SendAllPlayers(IMessage msg)
+    public void Broadcast(IMessage msg)
     {
         foreach (var player in players)
         {
@@ -163,7 +175,7 @@ public class Room
         }
     }
 
-    public void SendAllPlayersExcept(IMessage msg, Player except)
+    public void BroadcastExcept(IMessage msg, Player except)
     {
         foreach (var player in players)
         {
