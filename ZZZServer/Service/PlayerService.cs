@@ -53,7 +53,7 @@ public static class PlayerService
         var players = db.GetCollection<Player>("player");
         players.ReplaceOne(
             Builders<Player>.Filter.Eq(x => x.Uid, player.Uid),
-            player, new ReplaceOptions() { IsUpsert = true});
+            player, new ReplaceOptions() {IsUpsert = true}); // Update Insert
     }
 
     public static Player GetPlayerByUsername(string username)
@@ -63,18 +63,24 @@ public static class PlayerService
 
         if (player == null) return null;
 
-        return UidToPlayer.GetOrAdd(player.Uid, player);
+        return UidToPlayer.GetOrAdd(player.Uid, key =>
+        {
+            Log.Debug("加载玩家 Uid: {PlayerUid}", player.Uid);
+            return player;
+        });
     }
 
     public static Player GetPlayerByUid(string uid)
     {
-        if (UidToPlayer.TryGetValue(uid, out var player)) return player;
-
-        var players = DbHelper.Players;
-        player = players.Find(Builders<Player>.Filter.Eq(x => x.Uid, uid)).FirstOrDefault();
-
-        if (player == null) return null;
-
-        return UidToPlayer.GetOrAdd(uid, player);
+        return UidToPlayer.GetOrAdd(uid, key =>
+        {
+            var players = DbHelper.Players;
+            var player = players.Find(Builders<Player>.Filter.Eq(x => x.Uid, key)).FirstOrDefault();
+            if (player != null)
+            {
+                Log.Debug("加载玩家 Uid: {PlayerUid}", player.Uid);
+            }
+            return player;
+        });
     }
 }
