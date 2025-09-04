@@ -16,6 +16,8 @@ public class Role
     public Vector3 Pos { get; set; }
     public Vector3 Rot { get; set; }
 
+    [BsonIgnore] public bool Parrying { get; set; } = false;
+
     public NRole NRole => new()
     {
         Id = Id,

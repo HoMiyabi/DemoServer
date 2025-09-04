@@ -9,6 +9,6 @@ public class MsgRolePlayAction_Handler : MsgHandler<MsgRolePlayAction>
     protected override void Run(Session session, MsgRolePlayAction msg)
     {
         var player = (Player)session.Data;
-        player.Room?.PlayerRolePlayAction(player, msg.RoleId, msg.ActionName);
+        player.RolePlayAction(msg.RoleId, msg.ActionName);
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Kirara.Network;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Serilog;
 using ZZZServer.Service;
+using ZZZServer.Utils;
 
 namespace ZZZServer.Model;
 
@@ -82,4 +84,36 @@ public class Player
         Uid = Uid,
         Roles = {Roles.Select(x => x.NSyncRole)},
     };
+
+    public void UpdateFromAutonomous(NSyncPlayer syncPlayer)
+    {
+        foreach (var syncRole in syncPlayer.Roles)
+        {
+            var role = Roles.Find(x => x.Id == syncRole.Id);
+            if (role == null)
+            {
+                Log.Warning("Role不存在 syncRole.Id: {0}", syncRole.Id);
+                return;
+            }
+            role.Pos = syncRole.Movement.Pos.Native();
+            role.Rot = syncRole.Movement.Rot.Native();
+        }
+    }
+
+    public void SwitchRole(string frontRoleId)
+    {
+        FrontRoleId = frontRoleId;
+    }
+    public void RolePlayAction(string roleId, string actionName)
+    {
+        var role = Roles.Find(x => x.Id == roleId);
+        var msg = new NotifyOtherRolePlayAction()
+        {
+            Uid = Uid,
+            RoleId = roleId,
+            ActionName = actionName
+        };
+
+        Room.BroadcastExcept(msg, this);
+    }
 }

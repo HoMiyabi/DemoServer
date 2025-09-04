@@ -12,7 +12,7 @@ public class Room
 {
     public int id;
     public readonly List<Player> players = [];
-    private readonly List<Monster> monsters = [];
+    public readonly List<Monster> monsters = [];
 
     private int _monsterId = 0;
     private int NextMonsterId => Interlocked.Increment(ref _monsterId);
@@ -73,98 +73,11 @@ public class Room
         Broadcast(msg);
     }
 
-    public void PlayerRolePlayAction(Player player, string roleId, string actionName)
-    {
-        var msg = new NotifyOtherRolePlayAction()
-        {
-            Uid = player.Uid,
-            RoleId = roleId,
-            ActionName = actionName
-        };
-
-        BroadcastExcept(msg, player);
-    }
-
-    public void UpdateFromAutonomous(Player player, NSyncPlayer syncPlayer)
-    {
-        foreach (var syncRole in syncPlayer.Roles)
-        {
-            var role = player.Roles.Find(x => x.Id == syncRole.Id);
-            if (role == null)
-            {
-                Log.Warning("Role不存在 syncRole.Id: {0}", syncRole.Id);
-                return;
-            }
-            role.Pos = syncRole.Movement.Pos.Native();
-            role.Rot = syncRole.Movement.Rot.Native();
-        }
-    }
-
     public void SpawnMonster(int monsterCid, NMovement movement)
     {
         Log.Debug("SpawnMonster, monsterCid: {0}", monsterCid);
         var monster = new Monster(monsterCid, this, NextMonsterId);
         monsters.Add(monster);
-    }
-
-    public void MonsterTakeDamage(Player player, MsgMonsterTakeDamage msg)
-    {
-        var monster = monsters.Find(it => it.monsterId == msg.MonsterId);
-        if (monster == null)
-        {
-            Log.Debug("找不到Monster, MonsterId: {0}", msg.MonsterId);
-            return;
-        }
-
-        Vector3d hitFrom;
-        if (msg.HitGatherDist != 0f)
-        {
-            hitFrom = monster.position - msg.CenterPos.ToDouble();
-        }
-        else
-        {
-            hitFrom = msg.RolePos.ToDouble() - monster.position;
-        }
-        monster.EnterState(Monster.State.Hit, hitFrom);
-
-        monster.hp = Math.Max(0, monster.hp - msg.Damage);
-        var notify = new NotifyMonsterTakeDamage
-        {
-            MonsterId = msg.MonsterId,
-            Damage = msg.Damage,
-            IsCrit = msg.IsCrit,
-            CurrHp = monster.hp
-        };
-        Broadcast(notify);
-
-        // 聚怪效果
-        if (msg.HitGatherDist != 0f)
-        {
-            var worldCenter = msg.CenterPos.ToDouble();
-
-            // 移动向量的水平投影，最长不能超过v
-            var v = (worldCenter - monster.position);
-            v.y = 0f;
-
-            double dist = Math.Min(msg.HitGatherDist, v.magnitude); // 不能越过中心
-            var dir = v.normalized; // 方向
-            monster.position += dir * dist;
-        }
-
-        if (monster.hp <= 0)
-        {
-            monsters.Remove(monster);
-            var notifyMonsterDie = new NotifyMonsterDie
-            {
-                MonsterId = msg.MonsterId
-            };
-            Broadcast(notifyMonsterDie);
-        }
-    }
-
-    public void PlayerSwitchRole(Player player, string frontRoleId)
-    {
-        player.FrontRoleId = frontRoleId;
     }
 
     public void Broadcast(IMessage msg)

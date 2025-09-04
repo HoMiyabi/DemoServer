@@ -8,6 +8,6 @@ public class MsgSwitchRole_Handler : MsgHandler<MsgSwitchRole>
     protected override void Run(Session session, MsgSwitchRole msg)
     {
         var player = (Player)session.Data;
-        player.Room?.PlayerSwitchRole(player, msg.FrontRoleId);
+        player.SwitchRole(msg.FrontRoleId);
     }
 }

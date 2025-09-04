@@ -288,20 +288,79 @@ public class Monster : Node
                 pos = rotation * pos + position;
                 var roles = DetectCollisionRoles(pos, box.radius);
                 Log.Debug("Detect roles.Count: {0}", roles.Count);
-                var notify = new NotifyRoleTakeDamage()
+                if (roles.Count > 0)
                 {
-                    Damage = 100
-                };
-                foreach (var role in roles)
-                {
-                    notify.RoleId = role.Id;
-                    room.Broadcast(notify);
+                    bool parried = roles.Any(x => x.Parrying);
+                    if (parried)
+                    {
+                        Log.Debug("parried");
+                    }
+                    else
+                    {
+                        var notify = new NotifyRoleTakeDamage()
+                        {
+                            Damage = 100
+                        };
+                        foreach (var role in roles)
+                        {
+                            notify.RoleId = role.Id;
+                            room.Broadcast(notify);
+                        }
+                    }
                 }
             }
             else
             {
                 Log.Warning("BoxShape: {0} 不支持", box.boxShape);
             }
+        }
+    }
+
+    public void TakeDamage(Player player, MsgMonsterTakeDamage msg)
+    {
+        Vector3d hitFrom;
+        if (msg.HitGatherDist != 0f)
+        {
+            hitFrom = position - msg.CenterPos.ToDouble();
+        }
+        else
+        {
+            hitFrom = msg.RolePos.ToDouble() - position;
+        }
+        EnterState(Monster.State.Hit, hitFrom);
+
+        hp = Math.Max(0, hp - msg.Damage);
+        var notify = new NotifyMonsterTakeDamage
+        {
+            MonsterId = msg.MonsterId,
+            Damage = msg.Damage,
+            IsCrit = msg.IsCrit,
+            CurrHp = hp
+        };
+        room.Broadcast(notify);
+
+        // 聚怪效果
+        if (msg.HitGatherDist != 0f)
+        {
+            var worldCenter = msg.CenterPos.ToDouble();
+
+            // 移动向量的水平投影，最长不能超过v
+            var v = (worldCenter - position);
+            v.y = 0f;
+
+            double dist = Math.Min(msg.HitGatherDist, v.magnitude); // 不能越过中心
+            var dir = v.normalized; // 方向
+            position += dir * dist;
+        }
+
+        if (hp <= 0)
+        {
+            room.monsters.Remove(this);
+            var notifyMonsterDie = new NotifyMonsterDie
+            {
+                MonsterId = msg.MonsterId
+            };
+            room.Broadcast(notifyMonsterDie);
         }
     }
 }
