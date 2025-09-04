@@ -2,7 +2,7 @@
 
 public class Component
 {
-    public Node node;
+    public readonly Node node;
 
     public Component(Node node)
     {

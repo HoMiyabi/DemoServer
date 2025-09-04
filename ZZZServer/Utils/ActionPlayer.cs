@@ -21,12 +21,14 @@ public class ActionPlayer : Component
     public float Time { get; private set; }
 
     private Action _onFinish;
+    private int _notifyStatesFront = 0;
 
     public void Play(Anim.Action motion, Action onFinish = null)
     {
         _action = motion;
         Time = 0f;
         _onFinish = onFinish;
+        _notifyStatesFront = 0;
     }
 
     public override void Update(float dt)
@@ -44,19 +46,34 @@ public class ActionPlayer : Component
         deltaPosition = node.rotation * deltaPosition;
         var deltaRotation = rot2 * Quaterniond.Inverse(rot1);
 
+        ProcessNotifies();
+
         OnActionPlayerMove?.Invoke(deltaPosition, deltaRotation);
         if (Time >= motion.length)
         {
             if (_action.isLoop)
             {
                 Time = 0;
+                _notifyStatesFront = 0;
             }
             else
             {
                 _action = null;
                 Time = 0;
                 _onFinish?.Invoke();
+                _onFinish = null;
+                _notifyStatesFront = 0;
             }
+        }
+    }
+
+    private void ProcessNotifies()
+    {
+        while (_notifyStatesFront < _action.boxes.Count && _action.boxes[_notifyStatesFront].start <= Time)
+        {
+            var state = _action.boxes[_notifyStatesFront];
+            state.NotifyBegin(this);
+            _notifyStatesFront++;
         }
     }
 }

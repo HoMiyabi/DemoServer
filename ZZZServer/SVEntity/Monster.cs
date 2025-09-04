@@ -1,7 +1,9 @@
-﻿using cfg.main;
+﻿using System.Diagnostics;
+using cfg.main;
 using Mathd;
 using Serilog;
 using ZZZServer.Anim;
+using ZZZServer.Model;
 using ZZZServer.Service;
 using ZZZServer.Utils;
 using Action = System.Action;
@@ -16,11 +18,14 @@ public class Monster : Node
     public double hp;
 
     private readonly ActionPlayer actionPlayer;
+    private readonly GravityComponent gravityComponent;
 
     public Monster(int cid, Room room, int monsterId)
     {
         actionPlayer = new ActionPlayer(this);
         actionPlayer.OnActionPlayerMove += OnActionPlayerMove;
+
+        gravityComponent = new GravityComponent(this);
 
         config = ConfigMgr.tb.TbMonsterConfig[cid];
         this.room = room;
@@ -79,6 +84,11 @@ public class Monster : Node
 
     private void OnActionPlayerMove(Vector3d deltaPosition, Quaterniond deltaRotation)
     {
+        Move(deltaPosition);
+    }
+
+    private void Move(Vector3d deltaPosition)
+    {
         position += deltaPosition;
     }
 
@@ -88,20 +98,37 @@ public class Monster : Node
         UpdateState(dt);
         // Log.Debug("RoomId: {0} MonsterId: {1} State: {2} pos: {3}, rot: {4}",
         //     room.id, monsterId, _state, pos, rot);
-        UpdateGravity(dt);
-        UpdateCollisionDetect();
+        gravityComponent.Update(dt);
+        UpdateCollisionDetection();
     }
 
-    private void UpdateGravity(float dt)
+    private bool DetectCollision(Vector3d pos1, double radius1, Vector3d pos2, double radius2, out double dist)
     {
-        position.y -= 9.8 * dt;
-        if (position.y < 0)
-        {
-            position.y = 0;
-        }
+        pos1.y = 0;
+        pos2.y = 0;
+        dist = Vector3d.Distance(pos1, pos2);
+        return dist < radius1 + radius2;
     }
 
-    private void UpdateCollisionDetect()
+    private List<Role> DetectCollisionRoles(Vector3d pos, double radius)
+    {
+        var roles = new List<Role>();
+        float radius1 = 0.3f;
+        foreach (var player in room.players)
+        {
+            var frontRole = player.Roles.Find(x => x.Id == player.FrontRoleId);
+            if (frontRole == null) continue;
+            var pos1 = frontRole.Pos.ToDouble();
+            // Log.Debug("pos1: {0}, radius1: {1}, pos: {2}, radius: {3}", pos1, radius1, pos, radius);
+            if (DetectCollision(pos1, radius1, pos, radius, out double dist))
+            {
+                roles.Add(frontRole);
+            }
+        }
+        return roles;
+    }
+
+    private void UpdateCollisionDetection()
     {
         float radius1 = 0.3f;
         float radius2 = 0.55f;
@@ -109,8 +136,7 @@ public class Monster : Node
         {
             var frontRole = player.Roles.Find(x => x.Id == player.FrontRoleId);
             if (frontRole == null) continue;
-            double dist = Vector3d.Distance(frontRole.Pos.ToDouble(), position);
-            if (dist < radius1 + radius2)
+            if (DetectCollision(frontRole.Pos.ToDouble(), radius1, position, radius2, out double dist))
             {
                 var v = position - frontRole.Pos.ToDouble();
                 v.y = 0f;
@@ -250,5 +276,32 @@ public class Monster : Node
             }
         }
         return result;
+    }
+
+    public void BoxBegin(BoxNotifyState box)
+    {
+        if (box.boxType == EBoxType.HitBox)
+        {
+            if (box.boxShape == EBoxShape.Sphere)
+            {
+                var pos = box.center;
+                pos = rotation * pos + position;
+                var roles = DetectCollisionRoles(pos, box.radius);
+                Log.Debug("Detect roles.Count: {0}", roles.Count);
+                var notify = new NotifyRoleTakeDamage()
+                {
+                    Damage = 100
+                };
+                foreach (var role in roles)
+                {
+                    notify.RoleId = role.Id;
+                    room.Broadcast(notify);
+                }
+            }
+            else
+            {
+                Log.Warning("BoxShape: {0} 不支持", box.boxShape);
+            }
+        }
     }
 }
