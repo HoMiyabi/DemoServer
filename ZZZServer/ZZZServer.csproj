@@ -30,7 +30,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ConfigAnimData\" />
       <Folder Include="ConfigTableData\" />
       <Folder Include="ConfigTable\" />
     </ItemGroup>

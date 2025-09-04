@@ -4,7 +4,7 @@ using Google.Protobuf.Reflection;
 using Kirara.Network;
 using MongoDB.Driver;
 using Serilog;
-using ZZZServer.Animation;
+using ZZZServer.Anim;
 using ZZZServer.Model;
 using ZZZServer.Service;
 
@@ -28,7 +28,7 @@ internal static class Program
         ConfigMgr.Init();
 
         // 动画
-        AnimMgr.Init("ConfigAnimData");
+        ActionMgr.Init(Configuration.Config["ActionDataPath"] as string);
 
         // 数据库
         DbHelper.Init();

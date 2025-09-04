@@ -1,19 +1,19 @@
 ﻿using Mathd;
 using Vector3 = ZZZServer.Utils.Vector3;
 
-namespace ZZZServer.Animation;
+namespace ZZZServer.Anim;
 
 public class AnimRootMotion
 {
     public float length;
-    public string name;
-    public List<float> tx = new();
-    public List<float> ty = new();
-    public List<float> tz = new();
-    public List<float> qx = new();
-    public List<float> qy = new();
-    public List<float> qz = new();
-    public List<float> qw = new();
+    public int frameRate;
+    public List<float> tx;
+    public List<float> ty;
+    public List<float> tz;
+    public List<float> qx;
+    public List<float> qy;
+    public List<float> qz;
+    public List<float> qw;
 
     public Vector3 EvalT(float time)
     {

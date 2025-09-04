@@ -119,11 +119,11 @@ public class Room
         Vector3d hitFrom;
         if (msg.HitGatherDist != 0f)
         {
-            hitFrom = monster.pos - msg.CenterPos.ToDouble();
+            hitFrom = monster.position - msg.CenterPos.ToDouble();
         }
         else
         {
-            hitFrom = msg.RolePos.ToDouble() - monster.pos;
+            hitFrom = msg.RolePos.ToDouble() - monster.position;
         }
         monster.EnterState(Monster.State.Hit, hitFrom);
 
@@ -143,12 +143,12 @@ public class Room
             var worldCenter = msg.CenterPos.ToDouble();
 
             // 移动向量的水平投影，最长不能超过v
-            var v = (worldCenter - monster.pos);
+            var v = (worldCenter - monster.position);
             v.y = 0f;
 
             double dist = Math.Min(msg.HitGatherDist, v.magnitude); // 不能越过中心
             var dir = v.normalized; // 方向
-            monster.pos += dir * dist;
+            monster.position += dir * dist;
         }
 
         if (monster.hp <= 0)
