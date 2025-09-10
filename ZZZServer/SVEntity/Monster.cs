@@ -20,12 +20,16 @@ public class Monster : Node
     private readonly ActionPlayer actionPlayer;
     private readonly GravityComponent gravityComponent;
 
-    public Monster(int cid, Room room, int monsterId)
+    public Monster(int cid, Room room, int monsterId, Vector3d position, Quaterniond rotation)
     {
+        this.position = position;
+        this.rotation = rotation;
+
         actionPlayer = new ActionPlayer(this);
         actionPlayer.OnActionPlayerMove += OnActionPlayerMove;
 
         gravityComponent = new GravityComponent(this);
+        gravityComponent.PlaneY = -1.65;
 
         config = ConfigMgr.tb.TbMonsterConfig[cid];
         this.room = room;

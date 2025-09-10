@@ -1,9 +1,9 @@
 ﻿using cfg.main;
 
 using Kirara.Network;
+using Mathd;
 using Serilog;
 using ZZZServer.Model;
-using ZZZServer.Service;
 
 namespace ZZZServer.Handler.Quest;
 
@@ -31,44 +31,27 @@ public class ReqStartQuest_Handler : RpcHandler<ReqStartQuest, RspStartQuest>
         {
             var monsterConfig = ConfigMgr.tb.TbMonsterConfig[defeatQuestConfig.MonsterCid];
 
-            NVector3 pos;
+            Vector3d position = new Vector3d();
             if (req.QuestChainCid == 1)
             {
-                pos = new NVector3()
-                {
-                    X = 0,
-                    Y = 0,
-                    Z = 0,
-                };
+                position = new Vector3d(13.5, -1.65, 19.65);
             }
             else if (req.QuestChainCid == 2)
             {
                 // 任务第二章，临时先这样。
-                pos = new NVector3()
-                {
-                    X = 50,
-                    Y = 0,
-                    Z = 0,
-                };
+                position = new Vector3d(13.5, -1.65, 19.65);
             }
             else
             {
-                pos = new NVector3()
-                {
-                    X = 0,
-                    Y = 0,
-                    Z = 0,
-                };
                 Log.Warning($"错误的任务cid {defeatQuestConfig.QuestCid}");
             }
 
             for (int i = 0; i < defeatQuestConfig.Count; i++)
             {
-                player.Room.SpawnMonster(monsterConfig.Id, new  NMovement
-                {
-                    Pos = pos,
-                    Rot = new NVector3()
-                });
+                var room = player.Room;
+                var monster = new ZZZServer.SVEntity.Monster(monsterConfig.Id, room, room.NextMonsterId,
+                    position, Quaterniond.identity);
+                room.monsters.Add(monster);
             }
         }
     }

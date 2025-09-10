@@ -2,6 +2,8 @@
 
 public class GravityComponent : Component
 {
+    public double PlaneY { get; set; }
+
     public GravityComponent(Node node) : base(node)
     {
     }
@@ -9,9 +11,9 @@ public class GravityComponent : Component
     public override void Update(float dt)
     {
         node.position.y -= 9.8 * dt;
-        if (node.position.y < 0)
+        if (node.position.y < PlaneY)
         {
-            node.position.y = 0;
+            node.position.y = PlaneY;
         }
     }
 }

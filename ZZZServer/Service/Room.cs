@@ -15,7 +15,7 @@ public class Room
     public readonly List<Monster> monsters = [];
 
     private int _monsterId = 0;
-    private int NextMonsterId => Interlocked.Increment(ref _monsterId);
+    public int NextMonsterId => Interlocked.Increment(ref _monsterId);
 
     public Room(int id)
     {
@@ -71,13 +71,6 @@ public class Room
         };
 
         Broadcast(msg);
-    }
-
-    public void SpawnMonster(int monsterCid, NMovement movement)
-    {
-        Log.Debug("SpawnMonster, monsterCid: {0}", monsterCid);
-        var monster = new Monster(monsterCid, this, NextMonsterId);
-        monsters.Add(monster);
     }
 
     public void Broadcast(IMessage msg)
