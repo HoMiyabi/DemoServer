@@ -15,6 +15,9 @@ public class Room
     private int _monsterId = 0;
     public int NextMonsterId => Interlocked.Increment(ref _monsterId);
 
+    private readonly NotifyUpdateFromAuthority notifyUpdateFromAuthority = new();
+    private readonly NotifyUpdateMonster notifyUpdateMonster = new();
+
     public Room(int id)
     {
         this.id = id;
@@ -27,17 +30,13 @@ public class Room
             monster.Update(dt);
         }
 
-        var notifyUpdateFromAuthority = new NotifyUpdateFromAuthority()
-        {
-            Players = {Players.Select(it => it.NSync)}
-        };
+        notifyUpdateFromAuthority.Players.Clear();
+        notifyUpdateFromAuthority.Players.AddRange(Players.Select(it => it.NSync));
         Broadcast(notifyUpdateFromAuthority);
 
-        var notifySyncMonster = new NotifyUpdateMonster()
-        {
-            Monsters = {Monsters.Select(x => x.NSyncMonster)}
-        };
-        Broadcast(notifySyncMonster);
+        notifyUpdateMonster.Monsters.Clear();
+        notifyUpdateMonster.Monsters.AddRange(Monsters.Select(x => x.NSyncMonster));
+        Broadcast(notifyUpdateMonster);
     }
 
     public void AddPlayer(Player player)

@@ -104,16 +104,20 @@ public class Player
     {
         FrontRoleId = frontRoleId;
     }
+    
     public void RolePlayAction(string roleId, string actionName)
     {
         var role = Roles.Find(x => x.Id == roleId);
-        var msg = new NotifyOtherRolePlayAction()
+        if (role != null)
         {
-            Uid = Uid,
-            RoleId = roleId,
-            ActionName = actionName
-        };
+            var msg = new NotifyOtherRolePlayAction()
+            {
+                Uid = Uid,
+                RoleId = roleId,
+                ActionName = actionName
+            };
 
-        Room.BroadcastExcept(msg, this);
+            Room.BroadcastExcept(msg, this);
+        }
     }
 }
