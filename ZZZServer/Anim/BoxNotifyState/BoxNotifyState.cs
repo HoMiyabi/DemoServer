@@ -15,7 +15,7 @@ public class BoxNotifyState : ActionNotifyState
     public Vector3d size;
     public EHitStrength hitStrength;
     public int hitId;
-    public bool setRot;
+    public bool setParticleRot;
     public float rotValue;
     public float rotMaxValue;
     public float hitGatherDist;
