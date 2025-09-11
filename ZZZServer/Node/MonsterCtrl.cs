@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using cfg.main;
+﻿using cfg.main;
 using Mathd;
 using Serilog;
 using ZZZServer.Anim;
@@ -10,7 +9,7 @@ using Action = System.Action;
 
 namespace ZZZServer;
 
-public class Monster : Node
+public class MonsterCtrl : Node
 {
     private readonly MonsterConfig config;
     public Room room;
@@ -20,7 +19,9 @@ public class Monster : Node
     private readonly ActionPlayer actionPlayer;
     private readonly GravityComponent gravityComponent;
 
-    public Monster(int cid, Room room, int monsterId, Vector3d position, Quaterniond rotation)
+    private readonly List<Role> roles = [];
+
+    public MonsterCtrl(int cid, Room room, int monsterId, Vector3d position, Quaterniond rotation)
     {
         this.position = position;
         this.rotation = rotation;
@@ -106,45 +107,24 @@ public class Monster : Node
         UpdateCollisionDetection();
     }
 
-    private bool DetectCollision(Vector3d pos1, double radius1, Vector3d pos2, double radius2, out double dist)
-    {
-        pos1.y = 0;
-        pos2.y = 0;
-        dist = Vector3d.Distance(pos1, pos2);
-        return dist < radius1 + radius2;
-    }
-
-    private List<Role> DetectCollisionRoles(Vector3d pos, double radius)
-    {
-        var roles = new List<Role>();
-        float radius1 = 0.3f;
-        foreach (var player in room.players)
-        {
-            var frontRole = player.Roles.Find(x => x.Id == player.FrontRoleId);
-            if (frontRole == null) continue;
-            var pos1 = frontRole.Pos;
-            // Log.Debug("pos1: {0}, radius1: {1}, pos: {2}, radius: {3}", pos1, radius1, pos, radius);
-            if (DetectCollision(pos1, radius1, pos, radius, out double dist))
-            {
-                roles.Add(frontRole);
-            }
-        }
-        return roles;
-    }
-
     private void UpdateCollisionDetection()
     {
-        float radius1 = 0.3f;
-        float radius2 = 0.55f;
-        foreach (var player in room.players)
+        double roleRadius = 0.55;
+        double monsterRadius = 0.4;
+
+        foreach (var player in room.Players)
         {
             var frontRole = player.Roles.Find(x => x.Id == player.FrontRoleId);
             if (frontRole == null) continue;
-            if (DetectCollision(frontRole.Pos, radius1, position, radius2, out double dist))
+
+            if (Room.DetectCollision(frontRole.Pos, roleRadius, position, monsterRadius, out double dist))
             {
-                var v = position - frontRole.Pos;
-                v.y = 0f;
-                position += v.normalized * (radius1 + radius2 - dist);
+                var dir = position - frontRole.Pos;
+                dir.y = 0f;
+                dir.Normalize();
+                var delta = dir * (roleRadius + monsterRadius - dist);
+                position += delta;
+                Log.Debug("碰撞检测, delta: {0}", delta);
             }
         }
     }
@@ -288,9 +268,8 @@ public class Monster : Node
         {
             if (box.boxShape == EBoxShape.Sphere)
             {
-                var pos = box.center;
-                pos = rotation * pos + position;
-                var roles = DetectCollisionRoles(pos, box.radius);
+                var worldPos = TransformPoint(box.center);
+                room.DetectCollisionRoles(worldPos, box.radius, roles);
                 Log.Debug("Detect roles.Count: {0}", roles.Count);
                 if (roles.Count > 0)
                 {
@@ -331,7 +310,7 @@ public class Monster : Node
         {
             hitFrom = msg.RolePos.Native() - position;
         }
-        EnterState(Monster.State.Hit, hitFrom);
+        EnterState(MonsterCtrl.State.Hit, hitFrom);
 
         hp = Math.Max(0, hp - msg.Damage);
         var notify = new NotifyMonsterTakeDamage
@@ -359,7 +338,7 @@ public class Monster : Node
 
         if (hp <= 0)
         {
-            room.monsters.Remove(this);
+            room.Monsters.Remove(this);
             var notifyMonsterDie = new NotifyMonsterDie
             {
                 MonsterId = msg.MonsterId

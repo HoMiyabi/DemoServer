@@ -21,7 +21,7 @@ public class BoxNotifyState : ActionNotifyState
     public override void NotifyBegin(ActionPlayer player)
     {
         base.NotifyBegin(player);
-        if (player.node is Monster monster)
+        if (player.node is MonsterCtrl monster)
         {
             monster.BoxBegin(this);
         }

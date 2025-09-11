@@ -48,6 +48,9 @@ public class Vector3dSerializer : StructSerializerBase<Vector3d>
                 case "z":
                     z = reader.ReadDouble();
                     break;
+                default:
+                    reader.SkipValue();
+                    break;
             }
         }
         reader.ReadEndDocument();

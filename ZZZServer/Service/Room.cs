@@ -9,8 +9,8 @@ namespace ZZZServer.Service;
 public class Room
 {
     public int id;
-    public readonly List<Player> players = [];
-    public readonly List<Monster> monsters = [];
+    public List<Player> Players { get; } = [];
+    public List<MonsterCtrl> Monsters { get; } = [];
 
     private int _monsterId = 0;
     public int NextMonsterId => Interlocked.Increment(ref _monsterId);
@@ -22,30 +22,30 @@ public class Room
 
     public void Update(float dt)
     {
-        foreach (var monster in monsters)
+        foreach (var monster in Monsters)
         {
             monster.Update(dt);
         }
 
         var notifyUpdateFromAuthority = new NotifyUpdateFromAuthority()
         {
-            Players = {players.Select(it => it.NSync)}
+            Players = {Players.Select(it => it.NSync)}
         };
         Broadcast(notifyUpdateFromAuthority);
 
         var notifySyncMonster = new NotifyUpdateMonster()
         {
-            Monsters = {monsters.Select(x => x.NSyncMonster)}
+            Monsters = {Monsters.Select(x => x.NSyncMonster)}
         };
         Broadcast(notifySyncMonster);
     }
 
     public void AddPlayer(Player player)
     {
-        players.Add(player);
+        Players.Add(player);
         player.Room = this;
 
-        Log.Debug($"房间{id}数量：{players.Count}");
+        Log.Debug($"房间{id}数量：{Players.Count}");
 
         player.Session.OnDisconnected += () =>
         {
@@ -55,12 +55,12 @@ public class Room
 
     public void RemovePlayer(Player player)
     {
-        if (!players.Remove(player))
+        if (!Players.Remove(player))
         {
             Log.Warning("离开但没有player {0}", player.Uid);
             return;
         }
-        Log.Debug($"房间{id}数量：{players.Count}");
+        Log.Debug($"房间{id}数量：{Players.Count}");
         player.Room = null;
 
         var msg = new NotifyRemoveSimulatedPlayers
@@ -73,7 +73,7 @@ public class Room
 
     public void Broadcast(IMessage msg)
     {
-        foreach (var player in players)
+        foreach (var player in Players)
         {
             player.Session.Send(msg);
         }
@@ -81,7 +81,7 @@ public class Room
 
     public void BroadcastExcept(IMessage msg, Player except)
     {
-        foreach (var player in players)
+        foreach (var player in Players)
         {
             if (player.Session != except.Session)
             {
@@ -94,7 +94,7 @@ public class Room
     {
         Role role = null;
         double min = double.MaxValue;
-        foreach (var player in players)
+        foreach (var player in Players)
         {
             var frontRole = player.Roles.Find(x => x.Id == player.FrontRoleId);
             if (frontRole == null) continue;
@@ -107,5 +107,30 @@ public class Room
         }
         distance = min;
         return role;
+    }
+
+    public static bool DetectCollision(Vector3d pos1, double radius1, Vector3d pos2, double radius2, out double dist)
+    {
+        pos1.y = 0;
+        pos2.y = 0;
+        dist = Vector3d.Distance(pos1, pos2);
+        return dist < radius1 + radius2;
+    }
+
+    public void DetectCollisionRoles(Vector3d pos, double radius, List<Role> roles)
+    {
+        roles.Clear();
+        double roleRadius = 0.55;
+        foreach (var player in Players)
+        {
+            var frontRole = player.Roles.Find(x => x.Id == player.FrontRoleId);
+            if (frontRole == null) continue;
+            var rolePos = frontRole.Pos;
+            // Log.Debug("pos1: {0}, radius1: {1}, pos: {2}, radius: {3}", pos1, radius1, pos, radius);
+            if (DetectCollision(rolePos, roleRadius, pos, radius, out double dist))
+            {
+                roles.Add(frontRole);
+            }
+        }
     }
 }

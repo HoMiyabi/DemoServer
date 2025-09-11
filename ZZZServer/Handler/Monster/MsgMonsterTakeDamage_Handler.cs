@@ -9,7 +9,7 @@ public class MsgMonsterTakeDamage_Handler : MsgHandler<MsgMonsterTakeDamage>
     {
         var player = (Player)session.Data;
         var room = player.Room;
-        var monster = room.monsters.FirstOrDefault(x => x.monsterId == msg.MonsterId);
+        var monster = room.Monsters.FirstOrDefault(x => x.monsterId == msg.MonsterId);
         if (monster != null)
         {
             monster.TakeDamage(player, msg);
