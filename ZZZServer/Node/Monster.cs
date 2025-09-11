@@ -8,7 +8,7 @@ using ZZZServer.Service;
 using ZZZServer.Utils;
 using Action = System.Action;
 
-namespace ZZZServer.SVEntity;
+namespace ZZZServer;
 
 public class Monster : Node
 {
@@ -122,7 +122,7 @@ public class Monster : Node
         {
             var frontRole = player.Roles.Find(x => x.Id == player.FrontRoleId);
             if (frontRole == null) continue;
-            var pos1 = frontRole.Pos.ToDouble();
+            var pos1 = frontRole.Pos;
             // Log.Debug("pos1: {0}, radius1: {1}, pos: {2}, radius: {3}", pos1, radius1, pos, radius);
             if (DetectCollision(pos1, radius1, pos, radius, out double dist))
             {
@@ -140,9 +140,9 @@ public class Monster : Node
         {
             var frontRole = player.Roles.Find(x => x.Id == player.FrontRoleId);
             if (frontRole == null) continue;
-            if (DetectCollision(frontRole.Pos.ToDouble(), radius1, position, radius2, out double dist))
+            if (DetectCollision(frontRole.Pos, radius1, position, radius2, out double dist))
             {
-                var v = position - frontRole.Pos.ToDouble();
+                var v = position - frontRole.Pos;
                 v.y = 0f;
                 position += v.normalized * (radius1 + radius2 - dist);
             }
@@ -158,7 +158,7 @@ public class Monster : Node
                 idleColdTime += dt;
                 if (idleColdTime < maxIdleColdTime) return;
                 idleColdTime = 0f;
-                var role = room.ClosestFrontRole(position.ToSingle(), out float dis);
+                var role = room.ClosestFrontRole(position, out double dis);
                 if (dis < attackDistance)
                 {
                     EnterState(State.Attack);
@@ -171,14 +171,14 @@ public class Monster : Node
             }
             case State.Chase:
             {
-                var role = room.ClosestFrontRole(position.ToSingle(), out float dis);
+                var role = room.ClosestFrontRole(position, out double dis);
                 if (role == null)
                 {
                     EnterState(State.Idle);
                 }
                 else
                 {
-                    var v = role.Pos.ToDouble() - position;
+                    var v = role.Pos - position;
                     v.y = 0f;
                     rotation.SetLookRotation(v);
                     if (dis < attackDistance)
@@ -215,10 +215,10 @@ public class Monster : Node
             }
             case State.Attack:
             {
-                var role = room.ClosestFrontRole(position.ToSingle(), out float dis);
+                var role = room.ClosestFrontRole(position, out double dis);
                 if (role != null)
                 {
-                    var v = role.Pos.ToDouble() - position;
+                    var v = role.Pos - position;
                     v.y = 0;
                     rotation.SetLookRotation(v);
                     int i = Random.Shared.Next(0, AttackActions.Length);
@@ -325,11 +325,11 @@ public class Monster : Node
         Vector3d hitFrom;
         if (msg.HitGatherDist != 0f)
         {
-            hitFrom = position - msg.CenterPos.ToDouble();
+            hitFrom = position - msg.CenterPos.Native();
         }
         else
         {
-            hitFrom = msg.RolePos.ToDouble() - position;
+            hitFrom = msg.RolePos.Native() - position;
         }
         EnterState(Monster.State.Hit, hitFrom);
 
@@ -346,7 +346,7 @@ public class Monster : Node
         // 聚怪效果
         if (msg.HitGatherDist != 0f)
         {
-            var worldCenter = msg.CenterPos.ToDouble();
+            var worldCenter = msg.CenterPos.Native();
 
             // 移动向量的水平投影，最长不能超过v
             var v = (worldCenter - position);

@@ -1,5 +1,4 @@
 ﻿using Mathd;
-using Vector3 = ZZZServer.Utils.Vector3;
 
 namespace ZZZServer.Anim;
 
@@ -15,13 +14,13 @@ public class AnimRootMotion
     public List<float> qz;
     public List<float> qw;
 
-    public Vector3 EvalT(float time)
+    public Vector3d EvalT(float time)
     {
         const float frameRate = 60f;
         float frame = time * frameRate;
         frame = Math.Clamp(frame, 0, tx.Count - 1);
         int frameIndex = (int)frame;
-        return new Vector3(tx[frameIndex], ty[frameIndex], tz[frameIndex]);
+        return new Vector3d(tx[frameIndex], ty[frameIndex], tz[frameIndex]);
     }
 
     public Quaterniond EvalQ(float time)

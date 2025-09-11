@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using Mathd;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using ZZZServer.Utils;
 
@@ -13,8 +14,8 @@ public class Role
     public int Exp { get; set; }
     public string WeaponId { get; set; }
     public List<string> DiscIds { get; set; }
-    public Vector3 Pos { get; set; }
-    public Vector3 Rot { get; set; }
+    public Vector3d Pos { get; set; }
+    public Vector3d Rot { get; set; }
 
     [BsonIgnore] public bool Parrying { get; set; } = false;
 

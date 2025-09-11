@@ -4,19 +4,9 @@ namespace ZZZServer.Utils;
 
 public static class Extensions
 {
-    public static NVector3 Net(this Vector3 v)
+    public static Vector3d Native(this NVector3 v)
     {
-        return new NVector3
-        {
-            X = v.x,
-            Y = v.y,
-            Z = v.z
-        };
-    }
-
-    public static Vector3 Native(this NVector3 v)
-    {
-        return new Vector3(v.X, v.Y, v.Z);
+        return new Vector3d(v.X, v.Y, v.Z);
     }
 
     public static NVector3 Net(this Vector3d v)
@@ -29,9 +19,9 @@ public static class Extensions
         };
     }
 
-    public static Vector3d ToDouble(this NVector3 v)
+    public static Quaterniond Native(this NQuaternion q)
     {
-        return new Vector3d(v.X, v.Y, v.Z);
+        return new Quaterniond(q.X, q.Y, q.Z, q.W);
     }
 
     public static NQuaternion Net(this Quaterniond q)
@@ -43,15 +33,5 @@ public static class Extensions
             Z = (float)q.z,
             W = (float)q.w
         };
-    }
-
-    public static Vector3d ToDouble(this Vector3 v)
-    {
-        return new Vector3d(v.x, v.y, v.z);
-    }
-
-    public static Vector3 ToSingle(this Vector3d v)
-    {
-        return new Vector3((float)v.x, (float)v.y, (float)v.z);
     }
 }

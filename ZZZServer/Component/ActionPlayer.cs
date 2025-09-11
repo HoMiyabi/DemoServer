@@ -1,6 +1,7 @@
 ﻿using Mathd;
+using ZZZServer.Utils;
 
-namespace ZZZServer.Utils;
+namespace ZZZServer;
 
 public class ActionPlayer : Component
 {
@@ -42,7 +43,7 @@ public class ActionPlayer : Component
         var pos2 = motion.EvalT(Time);
         var rot2 = motion.EvalQ(Time);
 
-        var deltaPosition = (pos2 - pos1).ToDouble();
+        var deltaPosition = pos2 - pos1;
         deltaPosition = node.rotation * deltaPosition;
         var deltaRotation = rot2 * Quaterniond.Inverse(rot1);
 

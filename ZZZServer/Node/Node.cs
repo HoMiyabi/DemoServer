@@ -1,6 +1,6 @@
 ﻿using Mathd;
 
-namespace ZZZServer.Utils;
+namespace ZZZServer;
 
 public class Node
 {

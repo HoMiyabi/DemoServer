@@ -1,6 +1,6 @@
-﻿using MongoDB.Bson;
+﻿using Mathd;
+using MongoDB.Bson;
 using ZZZServer.Model;
-using ZZZServer.Utils;
 
 namespace ZZZServer.Service;
 
@@ -24,8 +24,8 @@ public static class RoleService
                 "",
                 ""
             ],
-            Pos = new Vector3(),
-            Rot = new Vector3()
+            Pos = new Vector3d(),
+            Rot = new Vector3d()
         };
     }
 }

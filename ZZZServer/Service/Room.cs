@@ -3,8 +3,6 @@ using Kirara.Network;
 using Mathd;
 using Serilog;
 using ZZZServer.Model;
-using ZZZServer.SVEntity;
-using ZZZServer.Utils;
 
 namespace ZZZServer.Service;
 
@@ -92,15 +90,15 @@ public class Room
         }
     }
 
-    public Role ClosestFrontRole(Vector3 pos, out float distance)
+    public Role ClosestFrontRole(Vector3d pos, out double distance)
     {
         Role role = null;
-        float min = float.MaxValue;
+        double min = double.MaxValue;
         foreach (var player in players)
         {
             var frontRole = player.Roles.Find(x => x.Id == player.FrontRoleId);
             if (frontRole == null) continue;
-            float dist = Vector3.Distance(pos, frontRole.Pos);
+            double dist = Vector3d.Distance(pos, frontRole.Pos);
             if (dist < min)
             {
                 min = dist;

@@ -49,7 +49,7 @@ public class ReqStartQuest_Handler : RpcHandler<ReqStartQuest, RspStartQuest>
             for (int i = 0; i < defeatQuestConfig.Count; i++)
             {
                 var room = player.Room;
-                var monster = new ZZZServer.SVEntity.Monster(monsterConfig.Id, room, room.NextMonsterId,
+                var monster = new ZZZServer.Monster(monsterConfig.Id, room, room.NextMonsterId,
                     position, Quaterniond.identity);
                 room.monsters.Add(monster);
             }

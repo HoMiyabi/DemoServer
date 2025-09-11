@@ -1,4 +1,4 @@
-﻿namespace ZZZServer.Utils;
+﻿namespace ZZZServer;
 
 public class Component
 {
