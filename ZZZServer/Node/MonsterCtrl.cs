@@ -112,6 +112,7 @@ public class MonsterCtrl : Node
         double roleRadius = 0.55;
         double monsterRadius = 0.4;
 
+        // 检测和角色碰撞
         foreach (var player in room.Players)
         {
             var frontRole = player.Roles.Find(x => x.Id == player.FrontRoleId);
@@ -124,9 +125,18 @@ public class MonsterCtrl : Node
                 dir.Normalize();
                 var delta = dir * (roleRadius + monsterRadius - dist);
                 position += delta;
-                Log.Debug("碰撞检测, delta: {0}", delta);
+                // Log.Debug("碰撞检测, delta: {0}", delta);
             }
         }
+
+        // 检测墙壁碰撞
+        double xMin = 10.5;
+        double zMin = -40.35;
+
+        double xMax = 28.5;
+        double zMax = -25.35;
+        position.x = Math.Clamp(position.x, xMin + monsterRadius, xMax - monsterRadius);
+        position.z = Math.Clamp(position.z, zMin + monsterRadius, zMax - monsterRadius);
     }
 
     private void UpdateState(float dt)
