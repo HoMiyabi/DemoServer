@@ -33,7 +33,8 @@ internal static class Program
         // 数据库
         DbHelper.Init();
 
-        KiraraNetwork.Init(new MsgMeta(), typeof(Program).Assembly);
+        // 注册消息
+        KiraraNetwork.Init(new MsgMeta().Init(), typeof(Program).Assembly);
 
         var server = new Server();
         server.AddMsgProcessorUpdate("RoomService", RoomService.Update);

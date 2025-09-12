@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="MagicPhysX" Version="1.0.0" />
       <PackageReference Include="MongoDB.Driver" Version="3.4.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="Serilog" Version="4.3.0" />
@@ -32,6 +33,7 @@
     <ItemGroup>
       <Folder Include="ConfigTableData\" />
       <Folder Include="ConfigTable\" />
+      <Folder Include="MsgMeta\" />
     </ItemGroup>
 
     <ItemGroup>
