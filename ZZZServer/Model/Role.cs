@@ -18,6 +18,7 @@ public class Role
     public Vector3d Rot { get; set; }
 
     [BsonIgnore] public bool Parrying { get; set; } = false;
+    [BsonIgnore] public bool Dodging { get; set; } = false;
 
     public NRole NRole => new()
     {

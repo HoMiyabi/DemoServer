@@ -2,7 +2,7 @@
 
 namespace ZZZServer.Utils;
 
-public static class Extensions
+public static class ProtoExtensions
 {
     public static Vector3d Native(this NVector3 v)
     {

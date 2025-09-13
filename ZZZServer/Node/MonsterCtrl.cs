@@ -283,10 +283,10 @@ public class MonsterCtrl : Node
                 Log.Debug("Detect roles.Count: {0}", roles.Count);
                 if (roles.Count > 0)
                 {
-                    bool parried = roles.Any(x => x.Parrying);
-                    if (parried)
+                    var parryingRole = roles.FirstOrDefault(x => x.Parrying);
+                    if (parryingRole != null)
                     {
-                        Log.Debug("parried");
+                        Log.Debug("Role {0} parrying", parryingRole.Id);
                     }
                     else
                     {
@@ -296,8 +296,15 @@ public class MonsterCtrl : Node
                         };
                         foreach (var role in roles)
                         {
-                            notify.RoleId = role.Id;
-                            room.Broadcast(notify);
+                            if (role.Dodging)
+                            {
+                                Log.Debug("Role {0} dodging", role.Id);
+                            }
+                            else
+                            {
+                                notify.RoleId = role.Id;
+                                room.Broadcast(notify);
+                            }
                         }
                     }
                 }

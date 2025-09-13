@@ -4,8 +4,8 @@ namespace ZZZServer;
 
 public class Node
 {
-    public Vector3d position;
-    public Quaterniond rotation;
+    public Vector3d position = Vector3d.zero;
+    public Quaterniond rotation = Quaterniond.identity;
 
     public Vector3d TransformPoint(Vector3d point)
     {

@@ -85,4 +85,5 @@ public static class MsgCmdId
     public const uint NotifyObtainItems = 4200006441;
     public const uint NotifyRoleTakeDamage = 3190900487;
     public const uint MsgRoleSetParry = 2144593015;
+    public const uint MsgRoleSetDodge = 858623716;
 }

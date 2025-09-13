@@ -34,12 +34,12 @@ public class ReqStartQuest_Handler : RpcHandler<ReqStartQuest, RspStartQuest>
             Vector3d position = new Vector3d();
             if (req.QuestChainCid == 1)
             {
-                position = new Vector3d(13.5, -1.65, 19.65);
+                position = new Vector3d(18.105, -1.65, -36.255);
             }
             else if (req.QuestChainCid == 2)
             {
                 // 任务第二章，临时先这样。
-                position = new Vector3d(13.5, -1.65, 19.65);
+                position = new Vector3d(18.105, -1.65, -36.255);
             }
             else
             {
@@ -49,7 +49,7 @@ public class ReqStartQuest_Handler : RpcHandler<ReqStartQuest, RspStartQuest>
             for (int i = 0; i < defeatQuestConfig.Count; i++)
             {
                 var room = player.Room;
-                var monster = new ZZZServer.MonsterCtrl(monsterConfig.Id, room, room.NextMonsterId,
+                var monster = new MonsterCtrl(monsterConfig.Id, room, room.NextMonsterId,
                     position, Quaterniond.identity);
                 room.Monsters.Add(monster);
             }
