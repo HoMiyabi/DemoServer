@@ -1,12 +1,11 @@
 ﻿using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
-using Tomlyn.Model;
 using ZZZServer.Model;
 using ZZZServer.Utils;
 
 namespace ZZZServer;
 
-public static class DbHelper
+public static class DbMgr
 {
     public static MongoClient Client { get; private set; }
     public static IMongoDatabase Database { get; private set; }
@@ -15,8 +14,8 @@ public static class DbHelper
 
     public static void Init()
     {
-        string connectionString = ((TomlTable)Configuration.Config["Database"])["ConnectionString"] as string;
-        string databaseName = ((TomlTable)Configuration.Config["Database"])["DatabaseName"] as string;
+        string connectionString = AppConfigMgr.Config.Database.ConnectionString;
+        string databaseName = AppConfigMgr.Config.Database.DatabaseName;
 
         BsonSerializer.RegisterSerializer(new Vector3dSerializer());
 

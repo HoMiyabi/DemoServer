@@ -49,7 +49,7 @@ public static class PlayerService
     public static void SavePlayer(Player player)
     {
         Log.Debug("保存玩家 Uid: {PlayerUid}", player.Uid);
-        var db = DbHelper.Database;
+        var db = DbMgr.Database;
         var players = db.GetCollection<Player>("player");
         players.ReplaceOne(
             Builders<Player>.Filter.Eq(x => x.Uid, player.Uid),
@@ -58,7 +58,7 @@ public static class PlayerService
 
     public static Player GetPlayerByUsername(string username)
     {
-        var players = DbHelper.Players;
+        var players = DbMgr.Players;
         var player = players.Find(Builders<Player>.Filter.Eq(x => x.Username, username)).FirstOrDefault();
 
         if (player == null) return null;
@@ -74,7 +74,7 @@ public static class PlayerService
     {
         return UidToPlayer.GetOrAdd(uid, key =>
         {
-            var players = DbHelper.Players;
+            var players = DbMgr.Players;
             var player = players.Find(Builders<Player>.Filter.Eq(x => x.Uid, key)).FirstOrDefault();
             if (player != null)
             {

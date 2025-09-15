@@ -7,9 +7,10 @@ public static class ActionMgr
 {
     public static Dictionary<string, Action> Actions { get; private set; }
 
-    public static void Init(string dataPath)
+    public static void Init()
     {
-        Log.Debug("AnimMgr 初始化路径: {0}", dataPath);
+        string dataPath = AppConfigMgr.Config.ActionDataPath;
+        Log.Debug("ActionMgr 初始化路径: {0}", dataPath);
         Actions = new Dictionary<string, Action>();
 
         string[] paths = Directory.GetFiles(dataPath, "*.json", SearchOption.AllDirectories);

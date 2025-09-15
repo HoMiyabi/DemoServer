@@ -24,7 +24,7 @@ public class ReqRegister_Handler : RpcHandler<ReqRegister, RspRegister>
             return;
         }
 
-        var db = DbHelper.Database;
+        var db = DbMgr.Database;
         var players = db.GetCollection<Player>("player");
         bool exist = players.Find(x => x.Username == username).Any();
         if (exist)

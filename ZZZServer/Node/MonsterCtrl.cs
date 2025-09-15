@@ -3,6 +3,7 @@ using Mathd;
 using Serilog;
 using ZZZServer.Anim;
 using ZZZServer.Model;
+using ZZZServer.Navigation;
 using ZZZServer.Service;
 using ZZZServer.Utils;
 using Action = System.Action;
@@ -53,9 +54,9 @@ public class MonsterCtrl : Node
 
     public enum State
     {
-        Idle,
+        Idle, // 待机
         Chase, // 追击
-        Attack,
+        Attack, // 攻击
         Hit, // 受击
         Stun, // 硬直
     }
@@ -85,7 +86,7 @@ public class MonsterCtrl : Node
     ];
 
     public float attackDistance = 5f;
-    public float chaseDistance = 10f;
+    public float chaseDistance = 15f;
 
     private void OnActionPlayerMove(Vector3d deltaPosition, Quaterniond deltaRotation)
     {
@@ -134,7 +135,7 @@ public class MonsterCtrl : Node
         double zMin = -40.35;
 
         double xMax = 28.5;
-        double zMax = -25.35;
+        double zMax = -2;
         position.x = Math.Clamp(position.x, xMin + monsterRadius, xMax - monsterRadius);
         position.z = Math.Clamp(position.z, zMin + monsterRadius, zMax - monsterRadius);
     }
@@ -168,9 +169,25 @@ public class MonsterCtrl : Node
                 }
                 else
                 {
-                    var v = role.Pos - position;
-                    v.y = 0f;
-                    rotation.SetLookRotation(v);
+                    timeToUpdatePath -= dt;
+                    if (timeToUpdatePath < 0f)
+                    {
+                        timeToUpdatePath = pathUpdateInterval;
+                        path.Clear();
+                        NavigationMgr.Instance.SearchPath(1, position, role.Pos, path);
+                        Log.Debug("导航路径. start: {0}, end: {1}, path: {2}",
+                            position, role.Pos, string.Join(", ", path));
+                    }
+                    if (path.Count > 0)
+                    {
+                        var v = path[0] - position;
+                        v.y = 0f;
+                        rotation = Quaterniond.Lerp(rotation, Quaterniond.LookRotation(v, Vector3d.up), dt * 20f);
+                        if (Vector3d.Distance(path[0], position) < 0.4f)
+                        {
+                            path.RemoveAt(0);
+                        }
+                    }
                     if (dis < attackDistance)
                     {
                         EnterState(State.Attack);
@@ -184,6 +201,10 @@ public class MonsterCtrl : Node
             }
         }
     }
+
+    private List<Vector3d> path = [];
+    private float pathUpdateInterval = 1f;
+    private float timeToUpdatePath;
 
     public void EnterState(State state, object arg = null)
     {
@@ -200,6 +221,15 @@ public class MonsterCtrl : Node
             }
             case State.Chase:
             {
+                var role = room.ClosestFrontRole(position, out double dis);
+                if (role != null)
+                {
+                    timeToUpdatePath = pathUpdateInterval;
+                    path.Clear();
+                    NavigationMgr.Instance.SearchPath(1, position, role.Pos, path);
+                    Log.Debug("导航路径. start: {0}, end: {1}, path: {2}",
+                        position, role.Pos, string.Join(", ", path));
+                }
                 PlayAction(Run);
                 break;
             }

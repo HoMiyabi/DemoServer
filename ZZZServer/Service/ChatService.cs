@@ -15,7 +15,7 @@ public static class ChatService
 
         var f = f1 | f2;
 
-        var msgs = DbHelper.ChatMsgs
+        var msgs = DbMgr.ChatMsgs
             .Find(f)
             .SortBy(x => x.UnixTimeMs)
             .ToList();

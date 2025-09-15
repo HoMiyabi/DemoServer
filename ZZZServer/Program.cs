@@ -2,6 +2,7 @@
 using Kirara.Network;
 using Serilog;
 using ZZZServer.Anim;
+using ZZZServer.Navigation;
 using ZZZServer.Service;
 
 namespace ZZZServer;
@@ -10,8 +11,8 @@ internal static class Program
 {
     private static void Main()
     {
-        // 配置
-        Configuration.Init("Application.toml");
+        // 程序配置
+        AppConfigMgr.Init("Data/App.toml");
 
         // 日志
         Log.Logger = new LoggerConfiguration()
@@ -24,10 +25,13 @@ internal static class Program
         ConfigMgr.Init();
 
         // 动画
-        ActionMgr.Init(Configuration.Config["ActionDataPath"] as string);
+        ActionMgr.Init();
+
+        // 导航
+        NavigationMgr.Instance.Init();
 
         // 数据库
-        DbHelper.Init();
+        DbMgr.Init();
 
         // 注册消息
         KiraraNetwork.Init(new MsgMeta().Init(), typeof(Program).Assembly);

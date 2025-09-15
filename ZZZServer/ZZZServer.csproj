@@ -33,6 +33,7 @@
     <ItemGroup>
       <Folder Include="ConfigTableData\" />
       <Folder Include="ConfigTable\" />
+      <Folder Include="DLL\" />
       <Folder Include="MsgMeta\" />
     </ItemGroup>
 
@@ -41,7 +42,26 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Handler\**" />
+      <None Include="Data\**\*">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </None>
+      <None Include="ConfigTableData\**\*">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </None>
+      <None Include="DLL\**\*">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </None>
+      <None Include="RecastNavDLL.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </None>
+        <None Include="RecastNavDLL.pdb">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

@@ -10,12 +10,13 @@ public static class ConfigMgr
     public static void Init()
     {
         Log.Debug("加载配置表");
-        tb = new cfg.Tables(LoadJson);
+        tb = new cfg.Tables(JsonLoader);
     }
 
-    private static JArray LoadJson(string fileName)
+    private static JArray JsonLoader(string fileName)
     {
-        string json = File.ReadAllText(Path.Join("ConfigTableData", fileName) + ".json");
+        string path = AppConfigMgr.Config.ConfigTableDataPath;
+        string json = File.ReadAllText(Path.Join(path, fileName) + ".json");
         return JArray.Parse(json);
     }
 }

@@ -54,7 +54,7 @@ public class ReqSendChatMsg_Handler : RpcHandler<ReqSendChatMsg, RspSendChatMsg>
             });
         }
 
-        DbHelper.ChatMsgs.InsertOne(new ChatMsg
+        DbMgr.ChatMsgs.InsertOne(new ChatMsg
         {
             SenderUid = senderUid,
             ReceiverUid = receiverUid,
