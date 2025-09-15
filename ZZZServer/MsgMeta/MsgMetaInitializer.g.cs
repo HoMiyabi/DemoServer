@@ -89,7 +89,7 @@ public static class MsgMetaInitializer
             new MsgMetaItem(MsgCmdId.MsgGatherMaterial, MsgGatherMaterial.Parser, false),
             new MsgMetaItem(MsgCmdId.MsgCompleteQuestChain, MsgCompleteQuestChain.Parser, false),
             new MsgMetaItem(MsgCmdId.NotifyObtainItems, NotifyObtainItems.Parser, false),
-            new MsgMetaItem(MsgCmdId.NotifyRoleTakeDamage, NotifyRoleTakeDamage.Parser, false),
+            new MsgMetaItem(MsgCmdId.NotifyMonsterAttackRole, NotifyMonsterAttackRole.Parser, false),
             new MsgMetaItem(MsgCmdId.MsgRoleSetParry, MsgRoleSetParry.Parser, false),
             new MsgMetaItem(MsgCmdId.MsgRoleSetDodge, MsgRoleSetDodge.Parser, false),
         };
@@ -178,7 +178,7 @@ public static class MsgMetaInitializer
             {MsgCmdId.MsgGatherMaterial, meta.items[79]},
             {MsgCmdId.MsgCompleteQuestChain, meta.items[80]},
             {MsgCmdId.NotifyObtainItems, meta.items[81]},
-            {MsgCmdId.NotifyRoleTakeDamage, meta.items[82]},
+            {MsgCmdId.NotifyMonsterAttackRole, meta.items[82]},
             {MsgCmdId.MsgRoleSetParry, meta.items[83]},
             {MsgCmdId.MsgRoleSetDodge, meta.items[84]},
         };
@@ -267,7 +267,7 @@ public static class MsgMetaInitializer
             {typeof(MsgGatherMaterial), meta.items[79]},
             {typeof(MsgCompleteQuestChain), meta.items[80]},
             {typeof(NotifyObtainItems), meta.items[81]},
-            {typeof(NotifyRoleTakeDamage), meta.items[82]},
+            {typeof(NotifyMonsterAttackRole), meta.items[82]},
             {typeof(MsgRoleSetParry), meta.items[83]},
             {typeof(MsgRoleSetDodge), meta.items[84]},
         };

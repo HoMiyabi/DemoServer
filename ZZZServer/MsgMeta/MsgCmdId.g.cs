@@ -83,7 +83,7 @@ public static class MsgCmdId
     public const uint MsgGatherMaterial = 3669715435;
     public const uint MsgCompleteQuestChain = 1673094375;
     public const uint NotifyObtainItems = 4200006441;
-    public const uint NotifyRoleTakeDamage = 3190900487;
+    public const uint NotifyMonsterAttackRole = 1972805091;
     public const uint MsgRoleSetParry = 2144593015;
     public const uint MsgRoleSetDodge = 858623716;
 }

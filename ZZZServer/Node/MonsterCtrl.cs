@@ -287,12 +287,20 @@ public class MonsterCtrl : Node
                     if (parryingRole != null)
                     {
                         Log.Debug("Role {0} parrying", parryingRole.Id);
+                        var notify = new NotifyMonsterAttackRole()
+                        {
+                            RoleId = parryingRole.Id,
+                            Damage = 0,
+                            Parried = true
+                        };
+                        room.Broadcast(notify);
                     }
                     else
                     {
-                        var notify = new NotifyRoleTakeDamage()
+                        var notify = new NotifyMonsterAttackRole()
                         {
-                            Damage = 100
+                            Damage = 100,
+                            Parried = false
                         };
                         foreach (var role in roles)
                         {
