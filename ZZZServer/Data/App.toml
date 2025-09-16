@@ -1,0 +1,7 @@
+ActionDataPath = "Data/ActionData"
+NavigationDataPath = "Data/NavigationData"
+ConfigTableDataPath = "ConfigTableData"
+
+[Database]
+ConnectionString = "mongodb://localhost:27017"
+DatabaseName = "game"

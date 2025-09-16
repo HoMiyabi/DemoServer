@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "name": "Anby",
+    "icon_loc": "IconSticker0003",
+    "role_select_icon_loc": "IconRoleSelect01",
+    "prefab_loc": "Anby",
+    "sim_prefab_loc": "Sim_Anby",
+    "icon_role_general_loc": "IconRoleGeneral01"
+  },
+  {
+    "id": 2,
+    "name": "Soldier11",
+    "icon_loc": "IconSticker0001",
+    "role_select_icon_loc": "IconRoleSelect05",
+    "prefab_loc": "Soldier11",
+    "sim_prefab_loc": "Sim_Soldier11",
+    "icon_role_general_loc": "IconRoleGeneral05"
+  },
+  {
+    "id": 3,
+    "name": "Ellen",
+    "icon_loc": "IconSticker0002",
+    "role_select_icon_loc": "IconRoleSelect21",
+    "prefab_loc": "Ellen",
+    "sim_prefab_loc": "Sim_Ellen",
+    "icon_role_general_loc": "IconRoleGeneral21"
+  },
+  {
+    "id": 4,
+    "name": "",
+    "icon_loc": "",
+    "role_select_icon_loc": "IconRoleSelect09",
+    "prefab_loc": "",
+    "sim_prefab_loc": "",
+    "icon_role_general_loc": "IconRoleGeneral09"
+  },
+  {
+    "id": 5,
+    "name": "",
+    "icon_loc": "",
+    "role_select_icon_loc": "IconRoleSelect10",
+    "prefab_loc": "",
+    "sim_prefab_loc": "",
+    "icon_role_general_loc": "IconRoleGeneral10"
+  },
+  {
+    "id": 6,
+    "name": "",
+    "icon_loc": "",
+    "role_select_icon_loc": "IconRoleSelect11",
+    "prefab_loc": "",
+    "sim_prefab_loc": "",
+    "icon_role_general_loc": "IconRoleGeneral11"
+  },
+  {
+    "id": 7,
+    "name": "",
+    "icon_loc": "",
+    "role_select_icon_loc": "IconRoleSelect12",
+    "prefab_loc": "",
+    "sim_prefab_loc": "",
+    "icon_role_general_loc": "IconRoleGeneral12"
+  },
+  {
+    "id": 8,
+    "name": "",
+    "icon_loc": "",
+    "role_select_icon_loc": "IconRoleSelect14",
+    "prefab_loc": "",
+    "sim_prefab_loc": "",
+    "icon_role_general_loc": "IconRoleGeneral14"
+  },
+  {
+    "id": 9,
+    "name": "",
+    "icon_loc": "",
+    "role_select_icon_loc": "IconRoleSelect15",
+    "prefab_loc": "",
+    "sim_prefab_loc": "",
+    "icon_role_general_loc": "IconRoleGeneral15"
+  },
+  {
+    "id": 10,
+    "name": "",
+    "icon_loc": "",
+    "role_select_icon_loc": "IconRoleSelect16",
+    "prefab_loc": "",
+    "sim_prefab_loc": "",
+    "icon_role_general_loc": "IconRoleGeneral16"
+  },
+  {
+    "id": 11,
+    "name": "",
+    "icon_loc": "",
+    "role_select_icon_loc": "IconRoleSelect17",
+    "prefab_loc": "",
+    "sim_prefab_loc": "",
+    "icon_role_general_loc": "IconRoleGeneral17"
+  },
+  {
+    "id": 12,
+    "name": "",
+    "icon_loc": "",
+    "role_select_icon_loc": "IconRoleSelect18",
+    "prefab_loc": "",
+    "sim_prefab_loc": "",
+    "icon_role_general_loc": "IconRoleGeneral18"
+  },
+  {
+    "id": 13,
+    "name": "",
+    "icon_loc": "",
+    "role_select_icon_loc": "IconRoleSelect20",
+    "prefab_loc": "",
+    "sim_prefab_loc": "",
+    "icon_role_general_loc": "IconRoleGeneral20"
+  },
+  {
+    "id": 14,
+    "name": "",
+    "icon_loc": "",
+    "role_select_icon_loc": "IconRoleSelect22",
+    "prefab_loc": "",
+    "sim_prefab_loc": "",
+    "icon_role_general_loc": "IconRoleGeneral22"
+  },
+  {
+    "id": 15,
+    "name": "",
+    "icon_loc": "",
+    "role_select_icon_loc": "IconRoleSelect23",
+    "prefab_loc": "",
+    "sim_prefab_loc": "",
+    "icon_role_general_loc": "IconRoleGeneral23"
+  },
+  {
+    "id": 16,
+    "name": "",
+    "icon_loc": "",
+    "role_select_icon_loc": "IconRoleSelect24",
+    "prefab_loc": "",
+    "sim_prefab_loc": "",
+    "icon_role_general_loc": "IconRoleGeneral24"
+  },
+  {
+    "id": 17,
+    "name": "",
+    "icon_loc": "",
+    "role_select_icon_loc": "IconRoleSelect27",
+    "prefab_loc": "",
+    "sim_prefab_loc": "",
+    "icon_role_general_loc": "IconRoleGeneral27"
+  },
+  {
+    "id": 18,
+    "name": "",
+    "icon_loc": "",
+    "role_select_icon_loc": "IconRoleSelect28",
+    "prefab_loc": "",
+    "sim_prefab_loc": "",
+    "icon_role_general_loc": "IconRoleGeneral28"
+  },
+  {
+    "id": 19,
+    "name": "",
+    "icon_loc": "",
+    "role_select_icon_loc": "IconRoleSelect29",
+    "prefab_loc": "",
+    "sim_prefab_loc": "",
+    "icon_role_general_loc": "IconRoleGeneral29"
+  },
+  {
+    "id": 20,
+    "name": "",
+    "icon_loc": "",
+    "role_select_icon_loc": "IconRoleSelect30",
+    "prefab_loc": "",
+    "sim_prefab_loc": "",
+    "icon_role_general_loc": "IconRoleGeneral30"
+  }
+]
