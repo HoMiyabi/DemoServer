@@ -1,6 +1,6 @@
 ActionDataPath = "Data/ActionData"
 NavigationDataPath = "Data/NavigationData"
-ConfigTableDataPath = "ConfigTableData"
+ConfigTableDataPath = "Data/ConfigTableData"
 
 [Database]
 ConnectionString = "mongodb://localhost:27017"
