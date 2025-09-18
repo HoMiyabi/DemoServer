@@ -110,6 +110,7 @@ public class Player
         var role = Roles.Find(x => x.Id == roleId);
         if (role != null)
         {
+            role.ActionName = actionName;
             var msg = new NotifyOtherRolePlayAction()
             {
                 Uid = Uid,

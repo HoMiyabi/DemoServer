@@ -17,6 +17,7 @@ public class Role
     public Vector3d Pos { get; set; }
     public Vector3d Rot { get; set; }
 
+    [BsonIgnore] public string ActionName { get; set; } = "";
     [BsonIgnore] public bool Parrying { get; set; } = false;
     [BsonIgnore] public bool Dodging { get; set; } = false;
 
@@ -37,6 +38,7 @@ public class Role
         Id = Id,
         Cid = Cid,
         Movement = NMovement,
+        ActionName = ActionName,
     };
 
     public NMovement NMovement => new()
