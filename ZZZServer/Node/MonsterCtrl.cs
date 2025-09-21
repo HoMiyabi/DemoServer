@@ -319,11 +319,15 @@ public class MonsterCtrl : Node
                         Log.Debug("Role {0} parrying", parryingRole.Id);
                         var notify = new NotifyMonsterAttackRole()
                         {
+                            MonsterId = monsterId,
                             RoleId = parryingRole.Id,
                             Damage = 0,
                             Parried = true
                         };
                         room.Broadcast(notify);
+
+                        // 进入被格挡状态，动作暂停0.5秒
+                        actionPlayer.PauseDuration += 0.5f;
                     }
                     else
                     {
@@ -340,8 +344,17 @@ public class MonsterCtrl : Node
                             }
                             else
                             {
-                                notify.RoleId = role.Id;
-                                room.Broadcast(notify);
+                                if (role.ActionName.EndsWith("Attack_Ex_Special"))
+                                {
+                                    // 强化特殊技有霸体和无敌，理应做到技能里面，但现在只能特判一下，唉
+                                    // 除非把角色的技能属性也放到服务器跑
+                                    Log.Debug("Role {0} Attack_Ex_Special", role.Id);
+                                }
+                                else
+                                {
+                                    notify.RoleId = role.Id;
+                                    room.Broadcast(notify);
+                                }
                             }
                         }
                     }

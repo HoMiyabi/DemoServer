@@ -20,6 +20,7 @@ public class ActionPlayer : Component
         get => _action;
     }
     public float Time { get; private set; }
+    public float PauseDuration { get; set; } = 0f;
 
     private Action _onFinish;
     private int _notifyStatesFront = 0;
@@ -35,6 +36,11 @@ public class ActionPlayer : Component
     public override void Update(float dt)
     {
         if (_action == null) return;
+        if (PauseDuration > 0f)
+        {
+            PauseDuration = Math.Max(0f, PauseDuration - dt);
+        }
+        if (PauseDuration > 0f) return;
 
         var motion = _action.rootMotion;
         var pos1 = motion.EvalT(Time);
