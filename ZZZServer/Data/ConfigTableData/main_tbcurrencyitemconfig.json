@@ -2,13 +2,13 @@
   {
     "id": 1,
     "name": "金币",
-    "icon_loc": "Golden Coin",
+    "icon_loc": "Item_Denny",
     "desc": "黄黄的硬币"
   },
   {
     "id": 2,
     "name": "银币",
-    "icon_loc": "Silver Coin",
+    "icon_loc": "Item_Gear_Coin",
     "desc": "亮亮的银币"
   }
 ]

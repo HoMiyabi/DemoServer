@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "驱动盘经验",
-    "icon_loc": "Ham",
+    "icon_loc": "Item_Ether_Plating_Agent",
     "exp": 2000
   }
 ]
