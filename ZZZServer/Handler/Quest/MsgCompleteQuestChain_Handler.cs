@@ -1,4 +1,5 @@
 ﻿using Kirara.Network;
+using Serilog;
 using ZZZServer.Model;
 using ZZZServer.Service;
 
@@ -21,5 +22,6 @@ public class MsgCompleteQuestChain_Handler : MsgHandler<MsgCompleteQuestChain>
             Cid = it.CurrencyCid,
             Count = it.Count
         }));
+        session.Send(notifyObtain);
     }
 }

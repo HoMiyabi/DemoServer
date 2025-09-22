@@ -309,8 +309,7 @@ public class MonsterCtrl : Node
     private void PlayAction(Anim.Action action, Action onFinish = null)
     {
         actionPlayer.Play(action, onFinish);
-        // Log.Debug("RoomId: {0}, MonsterId: {1}, Play: {2}",
-        //     room.id, monsterId, action.name);
+        Log.Debug("PlayAction {0}", action.name);
         var notify = new NotifyMonsterPlayAction
         {
             MonsterId = monsterId,
