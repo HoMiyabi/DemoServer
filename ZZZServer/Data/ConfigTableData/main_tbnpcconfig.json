@@ -1,12 +1,12 @@
 [
   {
     "npc_id": 1,
-    "name": "大大守村人",
+    "name": "普普通通垃圾桶",
     "dialogue_config_id": 8
   },
   {
     "npc_id": 2,
-    "name": "普普通通村长",
+    "name": "有点特别的垃圾桶",
     "dialogue_config_id": 9
   },
   {

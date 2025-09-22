@@ -1,4 +1,5 @@
 ﻿using Kirara.Network;
+using Serilog;
 using ZZZServer.Model;
 
 namespace ZZZServer.Handler.Role;
@@ -12,6 +13,7 @@ public class MsgRoleSetParry_Handler : MsgHandler<MsgRoleSetParry>
         if (role != null)
         {
             role.Parrying = msg.Parrying;
+            Log.Debug("[Attack] Set Parrying: {0}, Role: {1}", msg.Parrying, role.Id);
         }
     }
 }

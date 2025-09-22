@@ -22,6 +22,10 @@ public class MonsterCtrl : Node
 
     private readonly List<Role> roles = [];
 
+    // 添加一个受击次数记录，没达到之前受击就会进入Hit受击状态，达到之后不受影响照样发动攻击，发动攻击后应该清0。
+    private int getHitCount = 0;
+    private int maxCanEnterHitGetHitCount = 20;
+
     public MonsterCtrl(int cid, Room room, int monsterId, Vector3d position, Quaterniond rotation)
     {
         this.position = position;
@@ -63,7 +67,7 @@ public class MonsterCtrl : Node
 
     public State _state;
 
-    public float maxIdleColdTime = 3f;
+    public float maxIdleColdTime = 2f;
     public float idleColdTime;
 
     public ZZZServer.Anim.Action Idle = ActionMgr.Actions["Monster1_Idle"];
@@ -225,8 +229,8 @@ public class MonsterCtrl : Node
     public void EnterState(State state, object arg = null)
     {
         _state = state;
-        Log.Debug("RoomId: {0} MonsterId: {1} EnterState: {2}",
-            room.id, monsterId, state);
+        // Log.Debug("RoomId: {0} MonsterId: {1} EnterState: {2}",
+        //     room.id, monsterId, state);
         switch (state)
         {
             case State.Idle:
@@ -251,6 +255,7 @@ public class MonsterCtrl : Node
             }
             case State.Attack:
             {
+                getHitCount = 0;
                 var role = room.ClosestFrontRole(position, out double dis);
                 if (role != null)
                 {
@@ -304,8 +309,8 @@ public class MonsterCtrl : Node
     private void PlayAction(Anim.Action action, Action onFinish = null)
     {
         actionPlayer.Play(action, onFinish);
-        Log.Debug("RoomId: {0}, MonsterId: {1}, Play: {2}",
-            room.id, monsterId, action.name);
+        // Log.Debug("RoomId: {0}, MonsterId: {1}, Play: {2}",
+        //     room.id, monsterId, action.name);
         var notify = new NotifyMonsterPlayAction
         {
             MonsterId = monsterId,
@@ -339,13 +344,12 @@ public class MonsterCtrl : Node
             {
                 var worldPos = TransformPoint(box.center);
                 room.DetectCollisionRoles(worldPos, box.radius, roles);
-                Log.Debug("Detect roles.Count: {0}", roles.Count);
+                Role parryingRole = null;
                 if (roles.Count > 0)
                 {
-                    var parryingRole = roles.FirstOrDefault(x => x.Parrying);
+                    parryingRole = roles.FirstOrDefault(x => x.Parrying);
                     if (parryingRole != null)
                     {
-                        Log.Debug("Role {0} parrying", parryingRole.Id);
                         var notify = new NotifyMonsterAttackRole()
                         {
                             MonsterId = monsterId,
@@ -369,7 +373,7 @@ public class MonsterCtrl : Node
                         {
                             if (role.Dodging)
                             {
-                                Log.Debug("Role {0} dodging", role.Id);
+                                Log.Debug("Attack, Dodging Role {0}", role.Id);
                             }
                             else
                             {
@@ -381,6 +385,7 @@ public class MonsterCtrl : Node
                                 }
                                 else
                                 {
+                                    Log.Debug("[Attack], Hit Role {0}", role.Id);
                                     notify.RoleId = role.Id;
                                     room.Broadcast(notify);
                                 }
@@ -388,6 +393,7 @@ public class MonsterCtrl : Node
                         }
                     }
                 }
+                Log.Debug("[Attack], Count: {0}, Parrying role: {1}", roles.Count, parryingRole?.Id);
             }
             else
             {
@@ -407,9 +413,11 @@ public class MonsterCtrl : Node
         {
             hitFrom = msg.RolePos.Native() - position;
         }
+        getHitCount++;
 
         // 放技能不能打断，这里特判一下
-        if (actionPlayer.Action.name != "Monster1_Skill_A" &&
+        if (getHitCount <= maxCanEnterHitGetHitCount &&
+            actionPlayer.Action.name != "Monster1_Skill_A" &&
             actionPlayer.Action.name != "Monster1_Skill_B" &&
             actionPlayer.Action.name != "Monster1_Skill_C")
         {

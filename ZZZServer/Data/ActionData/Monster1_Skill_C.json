@@ -457,7 +457,7 @@
         "y": 1.0,
         "z": 1.5
       },
-      "radius": 5.0,
+      "radius": 6.0,
       "size": {
         "x": 2.0,
         "y": 2.0,
@@ -471,8 +471,8 @@
       "hitGatherDist": 0.0
     },
     {
-      "start": 0.25,
-      "length": 0.333333343,
+      "start": 0.0,
+      "length": 0.5833333,
       "boxType": 1,
       "boxShape": 0,
       "center": {
@@ -480,7 +480,7 @@
         "y": 1.0,
         "z": 1.5
       },
-      "radius": 5.0,
+      "radius": 6.0,
       "size": {
         "x": 2.0,
         "y": 2.0,
