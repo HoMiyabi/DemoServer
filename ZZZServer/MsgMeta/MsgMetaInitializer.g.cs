@@ -92,6 +92,7 @@ public static class MsgMetaInitializer
             new MsgMetaItem(MsgCmdId.NotifyMonsterAttackRole, NotifyMonsterAttackRole.Parser, false),
             new MsgMetaItem(MsgCmdId.MsgRoleSetParry, MsgRoleSetParry.Parser, false),
             new MsgMetaItem(MsgCmdId.MsgRoleSetDodge, MsgRoleSetDodge.Parser, false),
+            new MsgMetaItem(MsgCmdId.NotifyMonsterPath, NotifyMonsterPath.Parser, false),
         };
     
         meta.cmdIdToItem = new Dictionary<uint, MsgMetaItem>
@@ -181,6 +182,7 @@ public static class MsgMetaInitializer
             {MsgCmdId.NotifyMonsterAttackRole, meta.items[82]},
             {MsgCmdId.MsgRoleSetParry, meta.items[83]},
             {MsgCmdId.MsgRoleSetDodge, meta.items[84]},
+            {MsgCmdId.NotifyMonsterPath, meta.items[85]},
         };
 
         meta.typeToItem = new Dictionary<Type, MsgMetaItem>
@@ -270,6 +272,7 @@ public static class MsgMetaInitializer
             {typeof(NotifyMonsterAttackRole), meta.items[82]},
             {typeof(MsgRoleSetParry), meta.items[83]},
             {typeof(MsgRoleSetDodge), meta.items[84]},
+            {typeof(NotifyMonsterPath), meta.items[85]},
         };
         
         return meta;

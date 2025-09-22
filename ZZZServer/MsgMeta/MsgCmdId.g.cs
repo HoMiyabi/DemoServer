@@ -86,4 +86,5 @@ public static class MsgCmdId
     public const uint NotifyMonsterAttackRole = 1972805091;
     public const uint MsgRoleSetParry = 2144593015;
     public const uint MsgRoleSetDodge = 858623716;
+    public const uint NotifyMonsterPath = 953835641;
 }

@@ -63,7 +63,7 @@ public class MonsterCtrl : Node
 
     public State _state;
 
-    public float maxIdleColdTime = 2f;
+    public float maxIdleColdTime = 3f;
     public float idleColdTime;
 
     public ZZZServer.Anim.Action Idle = ActionMgr.Actions["Monster1_Idle"];
@@ -173,27 +173,34 @@ public class MonsterCtrl : Node
                     if (timeToUpdatePath < 0f)
                     {
                         timeToUpdatePath = pathUpdateInterval;
-                        path.Clear();
-                        NavigationMgr.Instance.SearchPath(1, position, role.Pos, path);
+                        Path.Clear();
+                        NavigationMgr.Instance.SearchPath(1, position, role.Pos, Path);
                         Log.Debug("导航路径. start: {0}, end: {1}, path: {2}",
-                            position, role.Pos, string.Join(", ", path));
+                            position, role.Pos, string.Join(", ", Path));
+
+                        BroadcastPath();
                     }
-                    if (path.Count > 0)
+                    if (Path.Count > 0)
                     {
-                        var v = path[0] - position;
+                        var v = Path[0] - position;
                         v.y = 0f;
                         rotation = Quaterniond.Lerp(rotation, Quaterniond.LookRotation(v, Vector3d.up), dt * 20f);
-                        if (Vector3d.Distance(path[0], position) < 0.4f)
+                        if (Vector3d.Distance(Path[0], position) < 0.4f)
                         {
-                            path.RemoveAt(0);
+                            Path.RemoveAt(0);
+                            BroadcastPath();
                         }
                     }
                     if (dis < attackDistance)
                     {
+                        Path.Clear();
+                        BroadcastPath();
                         EnterState(State.Attack);
                     }
                     else if (dis > chaseDistance)
                     {
+                        Path.Clear();
+                        BroadcastPath();
                         EnterState(State.Idle);
                     }
                 }
@@ -202,7 +209,16 @@ public class MonsterCtrl : Node
         }
     }
 
-    private List<Vector3d> path = [];
+    private void BroadcastPath()
+    {
+        room.Broadcast(new NotifyMonsterPath
+        {
+            MonsterId = monsterId,
+            Path = {Path.Select(x => x.Net())}
+        });
+    }
+
+    private List<Vector3d> Path { get; } = [];
     private float pathUpdateInterval = 1f;
     private float timeToUpdatePath;
 
@@ -225,10 +241,10 @@ public class MonsterCtrl : Node
                 if (role != null)
                 {
                     timeToUpdatePath = pathUpdateInterval;
-                    path.Clear();
-                    NavigationMgr.Instance.SearchPath(1, position, role.Pos, path);
+                    Path.Clear();
+                    NavigationMgr.Instance.SearchPath(1, position, role.Pos, Path);
                     Log.Debug("导航路径. start: {0}, end: {1}, path: {2}",
-                        position, role.Pos, string.Join(", ", path));
+                        position, role.Pos, string.Join(", ", Path));
                 }
                 PlayAction(Run);
                 break;
@@ -242,10 +258,23 @@ public class MonsterCtrl : Node
                     v.y = 0;
                     rotation.SetLookRotation(v);
                     int i = Random.Shared.Next(0, AttackActions.Length);
-                    PlayAction(AttackActions[i], () =>
+                    if (i == 2)
                     {
-                        EnterState(State.Idle);
-                    });
+                        PlayAction(AttackActions[2], () =>
+                        {
+                            PlayAction(AttackActions[1], () =>
+                            {
+                                EnterState(State.Idle);
+                            });
+                        });
+                    }
+                    else
+                    {
+                        PlayAction(AttackActions[i], () =>
+                        {
+                            EnterState(State.Idle);
+                        });
+                    }
                 }
                 break;
             }
@@ -378,7 +407,14 @@ public class MonsterCtrl : Node
         {
             hitFrom = msg.RolePos.Native() - position;
         }
-        EnterState(MonsterCtrl.State.Hit, hitFrom);
+
+        // 放技能不能打断，这里特判一下
+        if (actionPlayer.Action.name != "Monster1_Skill_A" &&
+            actionPlayer.Action.name != "Monster1_Skill_B" &&
+            actionPlayer.Action.name != "Monster1_Skill_C")
+        {
+            EnterState(MonsterCtrl.State.Hit, hitFrom);
+        }
 
         hp = Math.Max(0, hp - msg.Damage);
         var notify = new NotifyMonsterTakeDamage

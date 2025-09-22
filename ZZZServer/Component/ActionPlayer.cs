@@ -24,9 +24,11 @@ public class ActionPlayer : Component
 
     private Action _onFinish;
     private int _notifyStatesFront = 0;
+    private bool _playCalled;
 
     public void Play(Anim.Action motion, Action onFinish = null)
     {
+        _playCalled = true;
         _action = motion;
         Time = 0f;
         _onFinish = onFinish;
@@ -67,7 +69,12 @@ public class ActionPlayer : Component
             {
                 _action = null;
                 Time = 0;
+                _playCalled = false;
                 _onFinish?.Invoke();
+                if (_playCalled)
+                {
+                    return;
+                }
                 _onFinish = null;
                 _notifyStatesFront = 0;
             }
