@@ -95,6 +95,12 @@ public class Room
         double min = double.MaxValue;
         foreach (var player in Players)
         {
+            // 为了演示，忽略admin2
+            if (player.Username != "admin1")
+            {
+                continue;
+            }
+
             var frontRole = player.Roles.Find(x => x.Id == player.FrontRoleId);
             if (frontRole == null) continue;
             double dist = Vector3d.Distance(pos, frontRole.Pos);

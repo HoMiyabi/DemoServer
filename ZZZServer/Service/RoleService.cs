@@ -24,7 +24,7 @@ public static class RoleService
                 "",
                 ""
             ],
-            Pos = new Vector3d(),
+            Pos = new Vector3d(16.183698654174805, -1.6450014114379883, -21.747297286987305),
             Rot = new Vector3d()
         };
     }
